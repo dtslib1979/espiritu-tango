@@ -308,6 +308,11 @@ body.con-reproductor {
   animation: respirar var(--breath) ease-in-out infinite;
 }
 
+/* ─── Magenta (La luz que no existe) ─── */
+.magenta {
+  color: var(--tango-magenta);
+}
+
 /* ─── Reveal (Scroll) ─── */
 .revelar {
   opacity: 0;

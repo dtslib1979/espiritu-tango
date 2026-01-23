@@ -13,18 +13,22 @@
   const HALF_BEAT = 428;
   const BREATH = 2571;
 
-  // Academy data
+  // Academy data (1F — 현실 수익 엔진)
   const ACADEMIA = {
-    name: 'Tango Magenta',
+    name: '탱고 마젠타',
     coupon: 'Red Wine 1 Glass',
     classes: [
       { name: '생애 첫 탱고 입문 정규 클래스', price: '₩80,000' },
       { name: '원데이 클래스', price: '₩10,000' }
     ],
-    address: '서울특별시 강남구',
-    phone: '02-XXX-XXXX',
-    hours: '평일 19:00–22:00 / 주말 14:00–18:00',
-    station: '역삼역 3번 출구 도보 3분'
+    address: '서울 강남구 선릉로 709 B1',
+    phone: '0507-1402-3774',
+    hours: '수업 스케줄 — 네이버 카페 확인',
+    station: '강남구청역 3-1번 출구, 도보 1분',
+    line: '7호선 / 분당선',
+    links: {
+      cafe: 'http://cafe.naver.com/thestep2011'
+    }
   };
 
   let triggered = false;
@@ -126,10 +130,15 @@
       '',
       '  <!-- Step 4: Location -->',
       '  <div class="compromiso-step step-4" style="opacity:0; transform: translateY(20px);">',
+      '    <p class="compromiso-info-line" style="color: var(--tango-glow);">' + ACADEMIA.address + '</p>',
       '    <p class="compromiso-info-line">' + ACADEMIA.station + '</p>',
-      '    <p class="compromiso-info-line">' + ACADEMIA.hours + '</p>',
-      '    <a href="tel:' + ACADEMIA.phone.replace(/-/g, '') + '" class="compromiso-door">',
-      '      Llamar — ' + ACADEMIA.phone,
+      '    <p class="compromiso-info-line" style="font-size:0.7rem;">' + ACADEMIA.line + '</p>',
+      '    <p class="compromiso-info-line" style="margin-top:12px;">' + ACADEMIA.hours + '</p>',
+      '    <a href="tel:' + ACADEMIA.phone.replace(/-/g, '') + '" class="compromiso-door" style="margin-bottom:10px;">',
+      '      전화하기 — ' + ACADEMIA.phone,
+      '    </a>',
+      '    <a href="' + ACADEMIA.links.cafe + '" target="_blank" class="compromiso-door" style="background:transparent; border-color: rgba(255,213,79,0.3); color: var(--tango-gold);">',
+      '      네이버 카페 →',
       '    </a>',
       '  </div>',
       '',

@@ -306,41 +306,16 @@ a:active { opacity: 0.7; }
 /* ─── CAD Floor Plan (1F) ─── */
 .cad-plano {
   background: #091209;
-  border-color: rgba(0, 100, 50, 0.2);
-  padding: var(--s-md) var(--s-sm) var(--s-sm);
+  border-color: rgba(200, 225, 210, 0.08);
+  padding: var(--s-sm);
 }
 
-.cad-plano::before {
-  background: radial-gradient(ellipse at bottom right, rgba(0, 80, 40, 0.06), transparent 70%);
-  opacity: 1;
-}
+.cad-plano::before { display: none; }
 
 .cad-svg {
   width: 100%;
   height: auto;
-  margin-top: var(--s-sm);
   display: block;
-}
-
-.cad-footer {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: var(--s-sm);
-  padding-top: var(--s-xs);
-  border-top: 1px solid rgba(0, 80, 40, 0.15);
-}
-
-.cad-pin {
-  color: rgba(0, 200, 90, 0.5);
-  font-size: 0.65rem;
-}
-
-.cad-addr {
-  font-family: var(--f-whisper);
-  font-size: 0.6rem;
-  color: var(--dim);
-  letter-spacing: 0.02em;
 }
 
 /* Door (Button/Link) */

@@ -697,9 +697,8 @@ body.respirando .susurro {
   border-top: 1px solid #222;
 }
 
-.reproductor iframe {
-  display: none;
-}
+/* YouTube player is hidden via container div inline styles (1px, opacity:0) */
+/* iframe must remain rendered for playback to work */
 
 /* CNN-Style Ticker Bar */
 .ticker {

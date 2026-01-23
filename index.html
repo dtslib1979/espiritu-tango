@@ -59,6 +59,10 @@
   <link rel="preload" href="design/tango.css" as="style">
   <link rel="preload" href="design/entrada.js" as="script">
 
+  <!-- YouTube preconnect (low-latency audio) -->
+  <link rel="preconnect" href="https://www.youtube.com">
+  <link rel="preconnect" href="https://www.google.com">
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -241,7 +245,7 @@
     <p class="pie-copy">&copy; 2026 Buenos Aires / Seoul</p>
   </footer>
 
-  <!-- ═══ Audio Layer (CNN Breaking Ticker) ═══ -->
+  <!-- ═══ Audio Layer (CNN Breaking Ticker + YouTube) ═══ -->
   <div class="reproductor" id="reproductor" aria-label="Audio">
     <div class="ticker" id="ticker">
       <div class="ticker-badge">
@@ -249,58 +253,87 @@
         <span class="ticker-label">LIVE</span>
       </div>
       <div class="ticker-scroll">
-        <span class="ticker-text"><b>Por una Cabeza</b> — Carlos Gardel / Itzhak Perlman<span class="sep"></span>TANGO MAGENTA RADIO<span class="sep"></span>70 BPM<span class="sep"></span>Buenos Aires / Seoul<span class="sep"></span><b>Por una Cabeza</b> — Carlos Gardel / Itzhak Perlman<span class="sep"></span>TANGO MAGENTA RADIO<span class="sep"></span>70 BPM<span class="sep"></span>Buenos Aires / Seoul<span class="sep"></span></span>
+        <span class="ticker-text"><b>Por una Cabeza</b> — Carlos Gardel<span class="sep"></span>TANGO MAGENTA RADIO<span class="sep"></span>Buenos Aires / Seoul<span class="sep"></span><b>Por una Cabeza</b> — Carlos Gardel<span class="sep"></span>TANGO MAGENTA RADIO<span class="sep"></span>Buenos Aires / Seoul<span class="sep"></span></span>
       </div>
       <div class="ticker-play" id="ticker-play">▶</div>
     </div>
-    <iframe
-      id="spotify-frame"
-      allow="autoplay; encrypted-media"
-      style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;"
-      title="Spotify">
-    </iframe>
+    <div id="yt-player" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden;"></div>
   </div>
 
   <script>
-    // CNN Ticker Audio Controller
+    // YouTube IFrame API — Muted Autoplay + Unmute on First Touch
     (function() {
       'use strict';
-      var frame = document.getElementById('spotify-frame');
+      var VIDEO_ID = 'UcUekXtC2wY';
       var playBtn = document.getElementById('ticker-play');
-      var playing = false;
-      var src = 'https://open.spotify.com/embed/track/3mGkPsZbHEBf8ZT1ExZnww?utm_source=generator&theme=0';
+      var player;
+      var unmuted = false;
 
-      // On first interaction anywhere, load Spotify with autoplay attempt
-      function initAudio() {
-        if (frame.src) return;
-        frame.src = src + '&autoplay=1';
-        playing = true;
+      // Load YouTube IFrame API
+      var tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
+
+      window.onYouTubeIframeAPIReady = function() {
+        player = new YT.Player('yt-player', {
+          videoId: VIDEO_ID,
+          playerVars: {
+            autoplay: 1,
+            mute: 1,
+            loop: 1,
+            playlist: VIDEO_ID,
+            controls: 0,
+            disablekb: 1,
+            fs: 0,
+            modestbranding: 1,
+            playsinline: 1,
+            rel: 0
+          },
+          events: {
+            onReady: function(e) {
+              e.target.setVolume(80);
+              e.target.playVideo();
+            },
+            onStateChange: function(e) {
+              if (e.data === YT.PlayerState.PLAYING && !unmuted) {
+                playBtn.textContent = '♪';
+                playBtn.classList.add('playing');
+                playBtn.style.opacity = '0.5';
+              }
+            }
+          }
+        });
+      };
+
+      // Unmute on first user interaction
+      function unmuteAudio() {
+        if (unmuted || !player) return;
+        unmuted = true;
+        player.unMute();
+        player.setVolume(80);
         playBtn.textContent = '♪';
         playBtn.classList.add('playing');
-        // Loop: reload every 30s for continuous preview
-        setInterval(function() {
-          frame.src = '';
-          setTimeout(function() { frame.src = src + '&autoplay=1'; }, 100);
-        }, 31000);
-        // Remove listeners after first trigger
-        document.removeEventListener('click', initAudio);
-        document.removeEventListener('touchstart', initAudio);
-        document.removeEventListener('scroll', initAudio);
+        playBtn.style.opacity = '1';
+        document.removeEventListener('click', unmuteAudio);
+        document.removeEventListener('touchstart', unmuteAudio);
       }
 
-      document.addEventListener('click', initAudio, { once: true, passive: true });
-      document.addEventListener('touchstart', initAudio, { once: true, passive: true });
-      document.addEventListener('scroll', initAudio, { once: true, passive: true });
+      document.addEventListener('click', unmuteAudio, { once: true, passive: true });
+      document.addEventListener('touchstart', unmuteAudio, { once: true, passive: true });
 
-      // Manual play toggle on ticker tap
+      // Toggle mute on ticker-play tap
       playBtn.addEventListener('click', function(e) {
         e.stopPropagation();
-        if (!frame.src) {
-          initAudio();
+        if (!player) return;
+        if (player.isMuted()) {
+          player.unMute();
+          unmuted = true;
+          playBtn.textContent = '♪';
+          playBtn.style.opacity = '1';
         } else {
-          // Reload to restart
-          frame.src = '';
-          setTimeout(function() { frame.src = src + '&autoplay=1'; }, 100);
+          player.mute();
+          playBtn.textContent = '▶';
+          playBtn.style.opacity = '0.5';
         }
       });
     })();

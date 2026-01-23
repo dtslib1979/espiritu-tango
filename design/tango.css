@@ -303,6 +303,137 @@ a:active { opacity: 0.7; }
   background: linear-gradient(180deg, var(--smoke), rgba(136, 14, 79, 0.05));
 }
 
+/* ─── CAD Floor Plan (1F) ─── */
+.cad-plano {
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 23px, rgba(0, 80, 40, 0.12) 23px, rgba(0, 80, 40, 0.12) 24px),
+    repeating-linear-gradient(90deg, transparent, transparent 23px, rgba(0, 80, 40, 0.12) 23px, rgba(0, 80, 40, 0.12) 24px),
+    linear-gradient(160deg, #0a120a 0%, #0d1a0d 40%, #0a110c 100%);
+  border-color: rgba(0, 120, 60, 0.25);
+  padding-bottom: var(--s-md);
+}
+
+.cad-plano::before {
+  background: radial-gradient(ellipse at top left, rgba(0, 180, 80, 0.04), transparent 60%);
+  opacity: 1;
+}
+
+.cad-plano .tarjeta-titulo {
+  font-size: var(--t-md);
+  margin-bottom: var(--s-md);
+}
+
+.cad-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-top: var(--s-sm);
+  position: relative;
+}
+
+.cad-room {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 10px 4px 8px;
+  border: 1px solid rgba(0, 150, 70, 0.3);
+  border-radius: 4px;
+  text-decoration: none;
+  color: var(--glow);
+  background: rgba(0, 40, 20, 0.4);
+  position: relative;
+  transition: border-color 0.15s, background 0.15s, transform 0.1s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cad-room::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(0, 180, 80, 0.4);
+  transition: background 0.15s;
+}
+
+.cad-room:active {
+  border-color: var(--magenta);
+  background: rgba(233, 30, 99, 0.08);
+  transform: scale(0.96);
+}
+
+.cad-room:active::after {
+  background: var(--magenta);
+}
+
+.cad-room--main {
+  border-color: rgba(0, 180, 80, 0.5);
+  background: rgba(0, 60, 30, 0.5);
+}
+
+.cad-room--club {
+  border-style: dashed;
+}
+
+.cad-room--quick {
+  border-color: rgba(255, 213, 79, 0.25);
+}
+
+.cad-room--quick::after {
+  background: rgba(255, 213, 79, 0.5);
+}
+
+.cad-code {
+  font-family: var(--f-whisper);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  color: rgba(0, 220, 100, 0.7);
+  font-weight: 500;
+}
+
+.cad-room--quick .cad-code {
+  color: rgba(255, 213, 79, 0.7);
+}
+
+.cad-label {
+  font-size: 0.68rem;
+  font-weight: 400;
+  color: var(--glow);
+  white-space: nowrap;
+}
+
+.cad-dim {
+  font-family: var(--f-whisper);
+  font-size: 0.55rem;
+  color: var(--dim);
+  margin-top: 1px;
+}
+
+.cad-footer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--s-md);
+  padding-top: var(--s-sm);
+  border-top: 1px solid rgba(0, 80, 40, 0.2);
+}
+
+.cad-pin {
+  color: rgba(0, 200, 90, 0.6);
+  font-size: 0.7rem;
+}
+
+.cad-addr {
+  font-family: var(--f-whisper);
+  font-size: 0.6rem;
+  color: var(--dim);
+  letter-spacing: 0.02em;
+}
+
 /* Door (Button/Link) */
 .puerta {
   display: inline-block;

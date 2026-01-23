@@ -66,7 +66,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
 
   <!-- Design System -->
   <link rel="stylesheet" href="design/tango.css">
@@ -622,13 +622,33 @@
       echo2.style.strokeDashoffset = echo2Len;
     }
 
-    // Show ribbon after ritual (delay matches ritual timing)
+    // Initial draw amount (visible without scrolling)
+    var INITIAL_DRAW = 0.22;
+
+    // Show ribbon after ritual, then animate initial portion
     var showDelay = sessionStorage.getItem('tango_entered') ? 500 : 5500;
     setTimeout(function() {
       container.classList.add('visible');
+      // Smooth initial draw animation
+      mainPath.style.transition = 'stroke-dashoffset 2.5s cubic-bezier(0.16, 1, 0.3, 1)';
+      mainPath.style.strokeDashoffset = mainLen * (1 - INITIAL_DRAW);
+      if (echo1) {
+        echo1.style.transition = 'stroke-dashoffset 2.8s cubic-bezier(0.16, 1, 0.3, 1)';
+        echo1.style.strokeDashoffset = echo1Len * (1 - INITIAL_DRAW * 0.7);
+      }
+      if (echo2) {
+        echo2.style.transition = 'stroke-dashoffset 3s cubic-bezier(0.16, 1, 0.3, 1)';
+        echo2.style.strokeDashoffset = echo2Len * (1 - INITIAL_DRAW * 0.5);
+      }
+      // Reset to fast transitions after initial draw
+      setTimeout(function() {
+        mainPath.style.transition = 'stroke-dashoffset 0.08s linear';
+        if (echo1) echo1.style.transition = 'stroke-dashoffset 0.08s linear';
+        if (echo2) echo2.style.transition = 'stroke-dashoffset 0.08s linear';
+      }, 3200);
     }, showDelay);
 
-    // Scroll-linked reveal
+    // Scroll-linked reveal (builds on top of initial draw)
     var ticking = false;
     function onScroll() {
       if (ticking) return;
@@ -636,21 +656,23 @@
       requestAnimationFrame(function() {
         var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        var progress = Math.min(scrollTop / docHeight, 1);
+        var scrollProgress = Math.min(scrollTop / docHeight, 1);
 
-        // Main ribbon draws fully across scroll
-        var mainOffset = mainLen * (1 - progress);
-        mainPath.style.strokeDashoffset = mainOffset;
+        // Combine initial draw with scroll progress
+        var progress = Math.max(INITIAL_DRAW, INITIAL_DRAW + scrollProgress * (1 - INITIAL_DRAW));
+
+        // Main ribbon
+        mainPath.style.strokeDashoffset = mainLen * (1 - progress);
 
         // Echo ribbons lag slightly behind
-        var e1Progress = Math.max(0, (progress - 0.05) / 0.95);
+        var e1Progress = Math.max(0, (progress - 0.08) / 0.92);
         if (echo1) echo1.style.strokeDashoffset = echo1Len * (1 - e1Progress);
 
-        var e2Progress = Math.max(0, (progress - 0.12) / 0.88);
+        var e2Progress = Math.max(0, (progress - 0.15) / 0.85);
         if (echo2) echo2.style.strokeDashoffset = echo2Len * (1 - e2Progress);
 
-        // Add breathing class when scrolled past threshold
-        if (progress > 0.15) {
+        // Add breathing class when scrolled
+        if (scrollProgress > 0.05) {
           mainPath.classList.add('alive');
         } else {
           mainPath.classList.remove('alive');
@@ -661,7 +683,6 @@
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll(); // Initial state
   })();
   </script>
 

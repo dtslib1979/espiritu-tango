@@ -261,15 +261,14 @@
   </div>
 
   <script>
-    // YouTube IFrame API — Muted Autoplay + Unmute on First Touch
+    // YouTube Audio — Play on First Touch (mobile-compatible)
     (function() {
       'use strict';
       var VIDEO_ID = 'gt8-DAi9Jmg';
       var playBtn = document.getElementById('ticker-play');
       var player;
-      var unmuted = false;
+      var started = false;
 
-      // Load YouTube IFrame API
       var tag = document.createElement('script');
       tag.src = 'https://www.youtube.com/iframe_api';
       document.head.appendChild(tag);
@@ -278,8 +277,6 @@
         player = new YT.Player('yt-player', {
           videoId: VIDEO_ID,
           playerVars: {
-            autoplay: 1,
-            mute: 1,
             loop: 1,
             playlist: VIDEO_ID,
             controls: 0,
@@ -290,50 +287,41 @@
             rel: 0
           },
           events: {
-            onReady: function(e) {
-              e.target.setVolume(80);
-              e.target.playVideo();
-            },
             onStateChange: function(e) {
-              if (e.data === YT.PlayerState.PLAYING && !unmuted) {
+              if (e.data === YT.PlayerState.PLAYING) {
                 playBtn.textContent = '♪';
                 playBtn.classList.add('playing');
-                playBtn.style.opacity = '0.5';
+              } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
+                playBtn.textContent = '▶';
+                playBtn.classList.remove('playing');
               }
             }
           }
         });
       };
 
-      // Unmute on first user interaction
-      function unmuteAudio() {
-        if (unmuted || !player) return;
-        unmuted = true;
-        player.unMute();
+      function startAudio() {
+        if (started || !player) return;
+        started = true;
         player.setVolume(80);
-        playBtn.textContent = '♪';
-        playBtn.classList.add('playing');
-        playBtn.style.opacity = '1';
-        document.removeEventListener('click', unmuteAudio);
-        document.removeEventListener('touchstart', unmuteAudio);
+        player.unMute();
+        player.playVideo();
+        document.removeEventListener('click', startAudio, true);
+        document.removeEventListener('touchend', startAudio, true);
       }
 
-      document.addEventListener('click', unmuteAudio, { once: true, passive: true });
-      document.addEventListener('touchstart', unmuteAudio, { once: true, passive: true });
+      document.addEventListener('click', startAudio, { capture: true, once: true });
+      document.addEventListener('touchend', startAudio, { capture: true, once: true });
 
-      // Toggle mute on ticker-play tap
       playBtn.addEventListener('click', function(e) {
         e.stopPropagation();
         if (!player) return;
-        if (player.isMuted()) {
-          player.unMute();
-          unmuted = true;
-          playBtn.textContent = '♪';
-          playBtn.style.opacity = '1';
+        if (!started) { startAudio(); return; }
+        var state = player.getPlayerState();
+        if (state === YT.PlayerState.PLAYING) {
+          player.pauseVideo();
         } else {
-          player.mute();
-          playBtn.textContent = '▶';
-          playBtn.style.opacity = '0.5';
+          player.playVideo();
         }
       });
     })();

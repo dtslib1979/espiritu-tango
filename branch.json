@@ -1,0 +1,32 @@
+{
+  "id": "tango-magenta",
+  "name": "TANGO MAGENTA",
+  "tagline": "{{TAGLINE}}",
+  "hq": "dtslib1979/dtslib-branch",
+  "version": "1.0",
+  "status": "active",
+  "visibility": "public",
+  "area": "broadcasting",
+  "tier": "standard",
+  "theme": {
+    "primary": "{{COLOR_PRIMARY}}",
+    "accent": "{{COLOR_ACCENT}}",
+    "bg": "#0a0a0a",
+    "text": "#e8e8e8"
+  },
+  "subscriptions": [
+    {
+      "feedId": "hq-notices",
+      "publisher": "hq",
+      "autoSync": true,
+      "target": null
+    },
+    {
+      "feedId": "hq-sdk",
+      "publisher": "hq",
+      "autoSync": true,
+      "target": "assets/js"
+    }
+  ],
+  "features": ["broadcasting", "cave-ui", "4-layer"]
+}

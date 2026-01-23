@@ -1,0 +1,43 @@
+# Meaning Layer System
+# 의미는 고정, 표현은 그때그때 생성
+
+philosophy: |
+  컨셉은 사람이 만든다.
+  감각은 전 세계에서 훔친다.
+
+elements:
+  cave-door:
+    meaning: "문 — 다른 공간으로 가는 입구"
+    behavior:
+      - "클릭하면 들어간다"
+      - "터치하면 열릴 것 같다"
+
+  torch-input:
+    meaning: "횃불 — 어둠을 밝히는 도구"
+    behavior:
+      - "입력하면 빛이 켜진다"
+      - "틀리면 꺼진다"
+
+  monument:
+    meaning: "기념비 — 크고 중요한 텍스트"
+    behavior:
+      - "첫 눈에 들어옴"
+      - "무겁고 중요함"
+
+  whisper:
+    meaning: "속삭임 — 힌트, 부가 정보"
+    behavior:
+      - "거의 안 보임"
+      - "찾는 자만 봄"
+
+  cave-section:
+    meaning: "방 — 동굴 안의 독립된 공간"
+    behavior:
+      - "스크롤하면 다음 방으로"
+      - "각 방은 하나의 주제"
+
+  gate:
+    meaning: "관문 — 자격을 증명하는 곳"
+    behavior:
+      - "비밀번호가 열쇠"
+      - "통과하면 더 깊은 곳으로"

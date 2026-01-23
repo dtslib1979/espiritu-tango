@@ -1,0 +1,52 @@
+# 4-Layer Showroom Architecture
+# Broadcasting Content Flow System
+
+layers:
+  - level: 0
+    name: External World
+    type: showroom_public
+    platform: "YouTube, Social Media"
+    purpose: "발견 & 첫 접촉"
+    action: "CTA → 본 사이트로 유도"
+
+  - level: 1
+    name: Public Portal
+    type: showroom_curated
+    platform: "{{DOMAIN}}"
+    purpose: "브랜드 경험 & 깊은 탐색"
+    content: "선별된 콘텐츠만 공개"
+
+  - level: 2
+    name: Inner Portal
+    type: gateway
+    platform: "{{DOMAIN}}/inner"
+    purpose: "게이트키핑 & 필터링"
+    method: "비밀번호 (월간/멤버십)"
+
+  - level: 3
+    name: Inner World
+    type: core
+    zones:
+      - id: alpha
+        layer: "개체 (Entity)"
+        state: raw
+      - id: beta
+        layer: "정체성 (Identity)"
+        state: structured
+      - id: gamma
+        layer: "회사 (Company)"
+        state: published
+    purpose: "핵심 창작 & 비즈니스"
+
+funnel: "넓은 입구 → 좁은 출구 (진지한 사람만 안으로)"
+
+touch_model:
+  view_zone: "상단 60% — 보기만 (스크롤)"
+  thumb_zone: "하단 40% — 인터랙션 집중"
+
+gestures:
+  tap: "선택 / 문 열기"
+  swipe_up: "더 깊이 / 다음 섹션"
+  swipe_lr: "Zone 전환"
+  long_press: "이스터에그 / 숨겨진 메뉴"
+  pull_down: "동굴 입구로 복귀"

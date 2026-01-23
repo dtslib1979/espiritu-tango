@@ -173,6 +173,18 @@ a:active { opacity: 0.7; }
   line-height: 1.8;
 }
 
+/* Voz in hero — refined serif italic */
+.espacio-centro .voz {
+  font-family: var(--f-monument);
+  font-style: italic;
+  font-weight: 400;
+  font-size: var(--t-lg);
+  letter-spacing: -0.01em;
+  line-height: 1.6;
+  color: var(--glow);
+  opacity: 0.8;
+}
+
 /* Korean subtitle layer */
 .ko {
   display: block;

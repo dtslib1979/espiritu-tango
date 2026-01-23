@@ -79,6 +79,53 @@
     <button class="ritual-saltar" aria-label="건너뛰기">건너뛰기</button>
   </div>
 
+  <!-- ═══ Ribbon — 인연의 실 (Thread of Fate) ═══ -->
+  <div class="ribbon-container" id="ribbonContainer" aria-hidden="true">
+    <svg class="ribbon-svg" viewBox="0 0 430 932" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="ribbon-glow">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+        <filter id="ribbon-glow-strong">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+
+      <!-- Main ribbon — sinuous tango embrace path -->
+      <path class="ribbon-path ribbon-path--main" id="ribbonMain"
+        d="M 215 -10
+           C 300 60, 130 130, 340 200
+           S 90 290, 260 370
+           C 380 430, 60 500, 215 580
+           S 360 660, 170 740
+           C 50 800, 370 860, 215 942" />
+
+      <!-- Echo ribbon 1 — partner's trace, offset -->
+      <path class="ribbon-path ribbon-path--echo1" id="ribbonEcho1"
+        d="M 190 -10
+           C 100 80, 330 160, 150 260
+           S 350 350, 190 440
+           C 60 520, 370 600, 240 700
+           S 100 800, 250 942" />
+
+      <!-- Echo ribbon 2 — scattered whisper -->
+      <path class="ribbon-path ribbon-path--echo2" id="ribbonEcho2"
+        d="M 240 -10
+           C 370 100, 60 200, 310 310
+           S 120 420, 290 530
+           C 400 620, 80 720, 260 830
+           S 170 900, 230 942" />
+    </svg>
+  </div>
+
   <!-- ═══ I. Monumento ═══ -->
   <section class="espacio-centro" aria-label="Entrada">
     <p class="susurro latido">EL PRIMER SISTEMA QUE <span class="magenta">RESPIRA</span></p>
@@ -96,6 +143,23 @@
     <a href="#pisos" class="puerta puerta--principal" aria-label="Entrar">
       Entrá.
     </a>
+  </section>
+
+  <!-- ═══ Dance Video — La Danza ═══ -->
+  <section class="danza-section revelar" id="danza" aria-label="La Danza">
+    <div class="danza-video-wrap">
+      <video class="danza-video"
+             src="1769205149738.mp4"
+             autoplay
+             muted
+             loop
+             playsinline
+             preload="metadata"
+             aria-label="Tango dance"></video>
+      <div class="danza-caption">
+        <p class="susurro">EL CUERPO HABLA</p>
+      </div>
+    </div>
   </section>
 
   <!-- ═══ II. Los 5 Pisos ═══ -->
@@ -528,6 +592,76 @@
     });
 
     resetAuto();
+  })();
+  </script>
+
+  <!-- Ribbon Animation — 인연의 실 -->
+  <script>
+  (function() {
+    'use strict';
+    var container = document.getElementById('ribbonContainer');
+    var mainPath = document.getElementById('ribbonMain');
+    var echo1 = document.getElementById('ribbonEcho1');
+    var echo2 = document.getElementById('ribbonEcho2');
+    if (!container || !mainPath) return;
+
+    // Calculate actual path lengths
+    var mainLen = mainPath.getTotalLength();
+    var echo1Len = echo1 ? echo1.getTotalLength() : 1800;
+    var echo2Len = echo2 ? echo2.getTotalLength() : 1600;
+
+    // Set dasharray to actual lengths
+    mainPath.style.strokeDasharray = mainLen;
+    mainPath.style.strokeDashoffset = mainLen;
+    if (echo1) {
+      echo1.style.strokeDasharray = echo1Len;
+      echo1.style.strokeDashoffset = echo1Len;
+    }
+    if (echo2) {
+      echo2.style.strokeDasharray = echo2Len;
+      echo2.style.strokeDashoffset = echo2Len;
+    }
+
+    // Show ribbon after ritual (delay matches ritual timing)
+    var showDelay = sessionStorage.getItem('tango_entered') ? 500 : 5500;
+    setTimeout(function() {
+      container.classList.add('visible');
+    }, showDelay);
+
+    // Scroll-linked reveal
+    var ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function() {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        var progress = Math.min(scrollTop / docHeight, 1);
+
+        // Main ribbon draws fully across scroll
+        var mainOffset = mainLen * (1 - progress);
+        mainPath.style.strokeDashoffset = mainOffset;
+
+        // Echo ribbons lag slightly behind
+        var e1Progress = Math.max(0, (progress - 0.05) / 0.95);
+        if (echo1) echo1.style.strokeDashoffset = echo1Len * (1 - e1Progress);
+
+        var e2Progress = Math.max(0, (progress - 0.12) / 0.88);
+        if (echo2) echo2.style.strokeDashoffset = echo2Len * (1 - e2Progress);
+
+        // Add breathing class when scrolled past threshold
+        if (progress > 0.15) {
+          mainPath.classList.add('alive');
+        } else {
+          mainPath.classList.remove('alive');
+        }
+
+        ticking = false;
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // Initial state
   })();
   </script>
 

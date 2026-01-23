@@ -761,6 +761,148 @@ button {
   animation: pulso-magenta var(--breath) ease-in-out infinite;
 }
 
+/* ─── VII-B. Ribbon (인연의 실 — Thread of Fate) ─── */
+
+.ribbon-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 1.8s var(--release);
+}
+
+.ribbon-container.visible {
+  opacity: 1;
+}
+
+.ribbon-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ribbon-path {
+  fill: none;
+  stroke: var(--magenta);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: url(#ribbon-glow);
+}
+
+.ribbon-path--main {
+  stroke-width: 1.5;
+  opacity: 0.25;
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  transition: stroke-dashoffset 0.05s linear;
+}
+
+.ribbon-path--echo1 {
+  stroke-width: 0.8;
+  opacity: 0.12;
+  stroke-dasharray: 1800;
+  stroke-dashoffset: 1800;
+  transition: stroke-dashoffset 0.05s linear;
+}
+
+.ribbon-path--echo2 {
+  stroke-width: 0.5;
+  opacity: 0.08;
+  stroke-dasharray: 1600;
+  stroke-dashoffset: 1600;
+  transition: stroke-dashoffset 0.05s linear;
+}
+
+/* Ribbon breathing pulse */
+@keyframes ribbon-breathe {
+  0%, 100% { opacity: 0.25; filter: url(#ribbon-glow); }
+  50% { opacity: 0.4; filter: url(#ribbon-glow-strong); }
+}
+
+.ribbon-path--main.alive {
+  animation: ribbon-breathe var(--breath) ease-in-out infinite;
+}
+
+/* ─── VII-C. Dance Video Section ─── */
+
+.danza-section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.danza-video-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 14;
+  max-height: 75vh;
+  overflow: hidden;
+}
+
+.danza-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Top/bottom gradient bleed into void */
+.danza-video-wrap::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, var(--void), transparent);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.danza-video-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(to top, var(--void), transparent);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Subtle magenta border glow */
+.danza-section::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border: 1px solid rgba(233, 30, 99, 0.1);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Caption overlay */
+.danza-caption {
+  position: absolute;
+  bottom: 28px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.danza-caption .susurro {
+  color: rgba(240, 232, 236, 0.35);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+}
+
 /* Idle state */
 body.respirando .monumento {
   animation: respirar var(--breath) ease-in-out infinite;
@@ -1068,6 +1210,8 @@ body.con-reproductor .pie {
   .ritual { display: none; }
   .revelar { opacity: 1; transform: none; }
   body::before { display: none; }
+  .ribbon-container { display: none; }
+  .ribbon-path { stroke-dashoffset: 0 !important; }
 }
 
 /* High contrast */

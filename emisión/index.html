@@ -86,41 +86,45 @@
     <p class="pie-copy">Academia — La milonga viva</p>
   </footer>
 
-  <!-- Audio Layer (Breaking News Ticker) -->
-  <div class="reproductor" id="reproductor" aria-label="Reproductor">
+  <!-- Audio Layer (CNN Ticker) -->
+  <div class="reproductor" id="reproductor" aria-label="Audio">
     <div class="ticker" id="ticker">
-      <div class="ticker-accent"></div>
-      <div class="ticker-live">
+      <div class="ticker-badge">
         <span class="ticker-dot"></span>
         <span class="ticker-label">LIVE</span>
       </div>
       <div class="ticker-scroll">
-        <span class="ticker-text">NOW PLAYING — <span>Por una Cabeza</span> — Carlos Gardel / Itzhak Perlman — TANGO MAGENTA RADIO &nbsp;&nbsp;&nbsp; ♪ &nbsp;&nbsp;&nbsp;</span>
+        <span class="ticker-text"><b>Por una Cabeza</b> — Carlos Gardel / Itzhak Perlman<span class="sep"></span>TANGO MAGENTA RADIO<span class="sep"></span>70 BPM<span class="sep"></span><b>Por una Cabeza</b> — Carlos Gardel / Itzhak Perlman<span class="sep"></span>TANGO MAGENTA RADIO<span class="sep"></span>70 BPM<span class="sep"></span></span>
       </div>
-      <span class="ticker-expand">▲</span>
+      <div class="ticker-play" id="ticker-play">▶</div>
     </div>
-    <iframe
-      id="spotify-player"
-      src="https://open.spotify.com/embed/track/3mGkPsZbHEBf8ZT1ExZnww?utm_source=generator&theme=0&autoplay=1"
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      loading="lazy" title="Por una Cabeza">
-    </iframe>
+    <iframe id="spotify-frame" allow="autoplay; encrypted-media" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;" title="Spotify"></iframe>
   </div>
 
   <script>
     (function() {
-      var reproductor = document.getElementById('reproductor');
-      var ticker = document.getElementById('ticker');
-      var player = document.getElementById('spotify-player');
-      var expanded = false;
-      ticker.addEventListener('click', function() {
-        expanded = !expanded;
-        reproductor.classList.toggle('expandido', expanded);
-        document.querySelector('.ticker-expand').textContent = expanded ? '▼' : '▲';
+      var frame = document.getElementById('spotify-frame');
+      var playBtn = document.getElementById('ticker-play');
+      var src = 'https://open.spotify.com/embed/track/3mGkPsZbHEBf8ZT1ExZnww?utm_source=generator&theme=0';
+      function initAudio() {
+        if (frame.src) return;
+        frame.src = src + '&autoplay=1';
+        playBtn.textContent = '♪';
+        playBtn.classList.add('playing');
+        setInterval(function() {
+          frame.src = '';
+          setTimeout(function() { frame.src = src + '&autoplay=1'; }, 100);
+        }, 31000);
+        document.removeEventListener('click', initAudio);
+        document.removeEventListener('touchstart', initAudio);
+      }
+      document.addEventListener('click', initAudio, { once: true, passive: true });
+      document.addEventListener('touchstart', initAudio, { once: true, passive: true });
+      playBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (!frame.src) initAudio();
+        else { frame.src = ''; setTimeout(function() { frame.src = src + '&autoplay=1'; }, 100); }
       });
-      setInterval(function() {
-        if (!expanded) { var s = player.src; player.src = ''; player.src = s; }
-      }, 30000);
     })();
   </script>
 

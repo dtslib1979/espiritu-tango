@@ -682,7 +682,7 @@ body.respirando .susurro {
 }
 
 
-/* ─── IX. Audio Layer (Breaking News Ticker) ─── */
+/* ─── IX. Audio Layer (CNN Breaking Ticker) ─── */
 .reproductor {
   position: fixed;
   bottom: 0;
@@ -691,115 +691,78 @@ body.respirando .susurro {
   width: 100%;
   max-width: var(--max-w);
   height: var(--player-h);
-  background: #050004;
+  background: #0c0c0c;
   z-index: 50;
   overflow: hidden;
-  transition: height 0.4s var(--approach);
-  border-top: 1px solid rgba(233, 30, 99, 0.15);
-}
-
-.reproductor.expandido {
-  height: 80px;
+  border-top: 1px solid #222;
 }
 
 .reproductor iframe {
-  width: 100%;
-  height: 80px;
-  border: none;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  display: none;
 }
 
-.reproductor.expandido iframe {
-  opacity: 1;
-}
-
-/* Breaking News Ticker */
+/* CNN-Style Ticker Bar */
 .ticker {
   position: absolute;
   inset: 0;
   display: flex;
-  align-items: center;
-  gap: 0;
+  align-items: stretch;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  z-index: 2;
-  transition: opacity 0.3s ease;
 }
 
-.reproductor.expandido .ticker {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.ticker-accent {
-  width: 3px;
-  height: 100%;
-  background: var(--magenta);
+/* Red "LIVE" badge — exactly like CNN */
+.ticker-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 10px;
+  background: #cc0000;
   flex-shrink: 0;
   position: relative;
 }
 
-.ticker-accent::after {
+.ticker-badge::after {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  width: 3px;
-  height: 8px;
-  background: var(--magenta);
-  box-shadow: 0 0 8px var(--magenta), 0 0 20px rgba(233, 30, 99, 0.4);
-  animation: ticker-pulse 2.571s ease-in-out infinite;
-}
-
-@keyframes ticker-pulse {
-  0%, 100% { opacity: 0.4; box-shadow: 0 0 4px var(--magenta); }
-  50% { opacity: 1; box-shadow: 0 0 12px var(--magenta), 0 0 24px rgba(233, 30, 99, 0.3); }
-}
-
-.ticker-live {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 0 8px;
-  flex-shrink: 0;
+  right: -6px;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: linear-gradient(to right, #cc0000, transparent);
 }
 
 .ticker-dot {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: var(--magenta);
-  animation: ticker-dot-pulse 1.714s ease-in-out infinite;
+  background: #fff;
+  animation: cnn-blink 1.5s step-end infinite;
 }
 
-@keyframes ticker-dot-pulse {
-  0%, 100% { opacity: 0.3; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1.2); }
+@keyframes cnn-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .ticker-label {
   font-family: var(--f-code);
-  font-size: 0.5rem;
-  letter-spacing: 0.15em;
-  color: var(--magenta);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #fff;
   text-transform: uppercase;
-  font-weight: 400;
 }
 
+/* Scrolling text area — CNN lower third */
 .ticker-scroll {
   flex: 1;
   overflow: hidden;
   position: relative;
-  height: 100%;
   display: flex;
   align-items: center;
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 88%, transparent);
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 88%, transparent);
+  background: #0c0c0c;
+  padding-left: 12px;
 }
 
 .ticker-text {
@@ -807,27 +770,53 @@ body.respirando .susurro {
   white-space: nowrap;
   font-family: var(--f-code);
   font-size: 0.6rem;
-  color: var(--dim);
-  letter-spacing: 0.05em;
-  animation: ticker-scroll 18s linear infinite;
-  padding-right: 80px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.03em;
+  animation: cnn-scroll 22s linear infinite;
+  will-change: transform;
 }
 
-.ticker-text span {
-  color: var(--glow);
+.ticker-text b {
+  color: #fff;
+  font-weight: 700;
 }
 
-@keyframes ticker-scroll {
-  from { transform: translateX(100%); }
-  to { transform: translateX(-100%); }
+.ticker-text .sep {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: #cc0000;
+  border-radius: 1px;
+  margin: 0 12px;
+  vertical-align: middle;
+  transform: rotate(45deg);
 }
 
-.ticker-expand {
-  padding: 0 8px;
+@keyframes cnn-scroll {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Play indicator */
+.ticker-play {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
   flex-shrink: 0;
-  font-size: 0.55rem;
-  color: rgba(240, 232, 236, 0.2);
-  font-family: var(--f-code);
+  background: #111;
+  border-left: 1px solid #222;
+  color: rgba(255,255,255,0.4);
+  font-size: 0.6rem;
+  transition: color 0.2s;
+}
+
+.ticker-play.playing { color: var(--magenta); }
+
+/* Hidden audio element for actual playback */
+.reproductor audio {
+  display: none;
 }
 
 body.con-reproductor {

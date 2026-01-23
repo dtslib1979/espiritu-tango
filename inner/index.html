@@ -8,18 +8,16 @@
   <meta name="description" content="Acceso restringido. Solo para los que ya saben.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../design/tango.css">
 </head>
 <body>
 
-  <!-- ═══ Puerta Secreta ═══ -->
+  <!-- ═══ Gate ═══ -->
   <div class="puerta-secreta" data-gate-code="1126" id="gate">
     <div style="text-align: center;">
-      <h1 style="font-family: var(--font-monument); font-size: 2rem; color: var(--tango-glow);">
-        Portal Interno
-      </h1>
-      <p class="susurro" style="margin-top: var(--space-md);">Ingresá la clave</p>
+      <h1 class="monumento" style="font-size: 2rem;">Portal Interno</h1>
+      <p class="susurro mt-md">Ingresá la clave</p>
 
       <div class="clave-input" role="group" aria-label="Código de acceso">
         <input type="tel" class="clave-digito" maxlength="1" inputmode="numeric" aria-label="Dígito 1">
@@ -28,73 +26,49 @@
         <input type="tel" class="clave-digito" maxlength="1" inputmode="numeric" aria-label="Dígito 4">
       </div>
 
-      <p class="susurro" style="margin-top: var(--space-lg); opacity: 0.4;">
-        Solo para personal autorizado
-      </p>
+      <p class="susurro mt-lg" style="opacity: 0.3;">Solo para personal autorizado</p>
     </div>
   </div>
 
-  <!-- ═══ Mundo Interno ═══ -->
+  <!-- ═══ Inner World ═══ -->
   <section class="espacio-centro" id="innerWorld" style="display: none;" aria-label="Mundo interno">
     <p class="susurro latido">ADENTRO</p>
-    <h1 class="monumento" style="font-size: clamp(2rem, 10vw, 4rem); margin-top: var(--space-md);">
-      Bienvenido.
-    </h1>
+    <h1 class="monumento mt-md" style="font-size: clamp(2rem, 10vw, 4rem);">Bienvenido.</h1>
+    <p class="voz mt-lg">Estás en el centro de la operación.</p>
+    <span class="ko mt-sm">작전 중심부에 도착.</span>
 
-    <p class="voz" style="margin-top: var(--space-lg);">
-      Estás en el centro de la operación.
-    </p>
-
-    <div style="margin-top: var(--space-2xl); width: 100%; max-width: 320px;">
-      <a href="../emisión/" class="puerta" style="margin-bottom: var(--space-md); display: block;">
-        Emisión — La señal
-      </a>
-      <a href="../cuerpo/" class="puerta" style="margin-bottom: var(--space-md); display: block;">
-        Cuerpo — La gramática
-      </a>
-      <a href="../laboratorio/" class="puerta" style="margin-bottom: var(--space-md); display: block;">
-        Laboratorio — El motor
-      </a>
-      <a href="../control/" class="puerta" style="margin-bottom: var(--space-md); display: block;">
-        Control — La cabina
-      </a>
-      <a href="../legado/" class="puerta" style="display: block;">
-        Legado — Lo que queda
-      </a>
-    </div>
+    <nav class="mt-xl" style="width: 100%; max-width: 320px; display: flex; flex-direction: column; gap: var(--s-sm);">
+      <a href="../emisión/" class="puerta">1F — Academia</a>
+      <a href="../cuerpo/" class="puerta">2F — Tutorial</a>
+      <a href="../laboratorio/" class="puerta">3F — Gesture Lab</a>
+      <a href="../control/" class="puerta">4F — Control</a>
+      <a href="../legado/" class="puerta">5F — Strategy</a>
+    </nav>
   </section>
 
   <script>
     (function() {
       'use strict';
-
       const BEAT = 857;
       const gate = document.getElementById('gate');
       const code = gate.getAttribute('data-gate-code');
       const inputs = gate.querySelectorAll('.clave-digito');
       const inner = document.getElementById('innerWorld');
 
-      // Check session
       if (sessionStorage.getItem('tango_auth') === 'true') {
         gate.style.display = 'none';
         inner.style.display = 'flex';
+      } else {
+        inputs[0].focus();
       }
-
-      // Auto-focus first input
-      inputs[0].focus();
 
       inputs.forEach((input, i) => {
         input.addEventListener('input', () => {
-          if (input.value && i < inputs.length - 1) {
-            inputs[i + 1].focus();
-          }
+          if (input.value && i < inputs.length - 1) inputs[i + 1].focus();
           checkCode();
         });
-
         input.addEventListener('keydown', (e) => {
-          if (e.key === 'Backspace' && !input.value && i > 0) {
-            inputs[i - 1].focus();
-          }
+          if (e.key === 'Backspace' && !input.value && i > 0) inputs[i - 1].focus();
         });
       });
 
@@ -103,27 +77,21 @@
         if (entered.length === 4) {
           if (entered === code) {
             sessionStorage.setItem('tango_auth', 'true');
+            gate.style.transition = `opacity ${BEAT}ms var(--retreat)`;
             gate.style.opacity = '0';
-            gate.style.transition = `opacity ${BEAT}ms var(--ease-retreat)`;
             setTimeout(() => {
               gate.style.display = 'none';
               inner.style.display = 'flex';
             }, BEAT);
           } else {
-            inputs.forEach(i => {
-              i.value = '';
-              i.style.borderColor = '#ff1744';
-            });
+            inputs.forEach(i => { i.value = ''; i.style.borderColor = 'var(--magenta)'; });
             inputs[0].focus();
-            setTimeout(() => {
-              inputs.forEach(i => i.style.borderColor = '');
-            }, BEAT);
+            setTimeout(() => inputs.forEach(i => { i.style.borderColor = ''; }), BEAT);
           }
         }
       }
     })();
   </script>
-  <script src="../design/translate-overlay.js"></script>
   <script src="https://dtslib1979.github.io/dtslib-branch/hq/sdk/dtslib-bridge.js"></script>
 </body>
 </html>

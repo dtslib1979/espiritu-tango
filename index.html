@@ -7,137 +7,255 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  <title>TANGO MAGENTA — Studio & Broadcast System</title>
-  <meta name="description" content="El primer sistema que respira. Donde el cuerpo es la interfaz y el tango es el protocolo.">
+  <title>TANGO MAGENTA — Studio OS</title>
+  <meta name="description" content="El primer sistema que respira. Donde el cuerpo es la interfaz y el tango es el protocolo. 서울 강남 탱고 아카데미.">
+  <meta name="keywords" content="tango, 탱고, 강남 탱고, tango magenta, 탱고 마젠타, 강남구청역, 탱고 학원, academia de tango">
 
-  <!-- OG Tags -->
-  <meta property="og:title" content="TANGO MAGENTA">
-  <meta property="og:description" content="El primer sistema que respira.">
+  <!-- Korean SEO -->
+  <meta name="description" lang="ko" content="탱고 마젠타 — 서울 강남 탱고 아카데미. 강남구청역 3-1번 출구 도보 1분. 입문 정규 클래스 & 원데이 클래스.">
+
+  <!-- OG -->
+  <meta property="og:title" content="TANGO MAGENTA — Studio OS">
+  <meta property="og:description" content="El primer sistema que respira. 서울 강남 탱고 아카데미.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://dtslib1979.github.io/tango-magenta/">
   <meta property="og:site_name" content="TANGO MAGENTA">
+  <meta property="og:locale" content="es_AR">
+  <meta property="og:locale:alternate" content="ko_KR">
+
+  <!-- Structured Data: LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "DanceSchool",
+    "name": "탱고 마젠타",
+    "alternateName": "TANGO MAGENTA",
+    "url": "https://dtslib1979.github.io/tango-magenta/",
+    "telephone": "+82-507-1402-3774",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "선릉로 709 B1",
+      "addressLocality": "강남구",
+      "addressRegion": "서울특별시",
+      "addressCountry": "KR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 37.5172,
+      "longitude": 127.0473
+    },
+    "openingHours": "Mo-Su",
+    "priceRange": "₩10,000-₩80,000",
+    "sameAs": ["http://cafe.naver.com/thestep2011"],
+    "description": "서울 강남 탱고 아카데미. 강남구청역 3-1번 출구 도보 1분.",
+    "knowsAbout": ["Argentine Tango", "Milonga", "Tango Nuevo"]
+  }
+  </script>
 
   <!-- PWA -->
   <link rel="manifest" href="manifest.webmanifest">
 
+  <!-- Preload critical -->
+  <link rel="preload" href="design/tango.css" as="style">
+  <link rel="preload" href="design/entrada.js" as="script">
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
 
   <!-- Design System -->
   <link rel="stylesheet" href="design/tango.css">
 </head>
-<body>
+<body class="con-reproductor">
 
   <!-- ═══ Ritual de Entrada ═══ -->
-  <div class="ritual-oscuridad" role="presentation" aria-hidden="true">
+  <div class="ritual" role="presentation" aria-hidden="true">
     <p class="ritual-texto">Respirá despacio.</p>
+    <button class="ritual-saltar" aria-label="건너뛰기">건너뛰기</button>
   </div>
 
-  <!-- ═══ Monumento ═══ -->
-  <section class="espacio-centro" aria-label="Entrada principal">
-    <p class="susurro latido" aria-label="Subtítulo">EL PRIMER SISTEMA QUE <span class="magenta">RESPIRA</span></p>
+  <!-- ═══ I. Monumento ═══ -->
+  <section class="espacio-centro" aria-label="Entrada">
+    <p class="susurro latido">EL PRIMER SISTEMA QUE <span class="magenta">RESPIRA</span></p>
 
-    <h1 class="monumento" style="margin-top: var(--space-lg);">
-      TANGO<br>MAGENTA
-    </h1>
+    <h1 class="monumento mt-lg">TANGO<br>MAGENTA</h1>
 
-    <p class="voz" style="margin-top: var(--space-xl); max-width: 280px;">
-      Donde el <span class="magenta">cuerpo</span> es la <span class="magenta">interfaz</span> y el tango es el <span class="magenta">protocolo</span>.
+    <p class="voz mt-xl">
+      Donde el <span class="magenta">cuerpo</span> es la <span class="magenta">interfaz</span><br>
+      y el tango es el <span class="magenta">protocolo</span>.
     </p>
+    <span class="ko mt-sm">몸이 인터페이스이고, 탱고가 프로토콜인 곳.</span>
 
     <div class="linea"></div>
 
-    <a href="#capas" class="puerta" aria-label="Entrar al sistema">
+    <a href="#pisos" class="puerta puerta--principal" aria-label="Entrar">
       Entrá.
     </a>
   </section>
 
-  <!-- ═══ Las 5 Capas ═══ -->
-  <section class="espacio" id="capas" aria-label="Navegación por capas">
+  <!-- ═══ II. Los 5 Pisos ═══ -->
+  <section class="espacio" id="pisos" aria-label="Studio OS">
 
-    <!-- 1F: 학원 -->
-    <article class="tarjeta revelar" role="article">
-      <p class="susurro">1F</p>
-      <h2 class="tarjeta-titulo">Academia</h2>
-      <p class="tarjeta-texto">La <span class="magenta">milonga</span> real. El piso, el abrazo, el primer paso. Donde todo empieza de verdad.</p>
-      <a href="emisión/" class="puerta" style="margin-top: var(--space-md);">Entrá</a>
+    <!-- 1F: Academia — The Real Floor -->
+    <article class="tarjeta tarjeta--expandida revelar">
+      <p class="susurro">1F — ACADEMIA</p>
+      <h2 class="tarjeta-titulo">La Milonga Real</h2>
+      <p class="tarjeta-texto">
+        El piso, el <span class="magenta">abrazo</span>, el primer paso.
+        Donde todo empieza de verdad.
+      </p>
+      <span class="ko">진짜 밀롱가. 모든 것이 시작되는 곳.</span>
+
+      <!-- Academy info: directly visible, no hidden drawer -->
+      <div class="academia-info revelar">
+        <div class="cupon">
+          <p class="cupon-label">PRIMERA VEZ</p>
+          <p class="cupon-oferta">Red Wine 1 Glass</p>
+          <p class="cupon-sub">Tu primer tango viene con vino.</p>
+        </div>
+
+        <div class="mt-lg">
+          <div class="precio">
+            <span class="precio-nombre">생애 첫 탱고 입문 정규</span>
+            <span class="precio-monto">₩80,000</span>
+          </div>
+          <div class="precio">
+            <span class="precio-nombre">원데이 클래스</span>
+            <span class="precio-monto">₩10,000</span>
+          </div>
+        </div>
+
+        <div class="mt-lg">
+          <div class="academia-dato academia-dato--destacado">
+            <span class="academia-dato-icono">◉</span>
+            <span class="academia-dato-texto">서울 강남구 선릉로 709 B1</span>
+          </div>
+          <div class="academia-dato">
+            <span class="academia-dato-icono">▸</span>
+            <span class="academia-dato-texto">강남구청역 3-1번 출구, 도보 1분</span>
+          </div>
+          <div class="academia-dato">
+            <span class="academia-dato-icono">◇</span>
+            <span class="academia-dato-texto">7호선 / 분당선</span>
+          </div>
+        </div>
+
+        <div class="mt-md">
+          <a href="tel:050714023774" class="puerta mt-sm">
+            전화하기 — 0507-1402-3774
+          </a>
+        </div>
+        <div class="mt-sm">
+          <a href="http://cafe.naver.com/thestep2011" target="_blank" rel="noopener" class="puerta puerta--secundaria">
+            네이버 카페 →
+          </a>
+        </div>
+      </div>
+
+      <a href="emisión/" class="puerta mt-lg">Más →</a>
     </article>
 
     <div class="linea"></div>
 
     <!-- 2F: Tutorial -->
-    <article class="tarjeta revelar" role="article">
-      <p class="susurro">2F</p>
-      <h2 class="tarjeta-titulo">Tutorial</h2>
-      <p class="tarjeta-texto">Manos, pies, <span class="magenta">peso</span>, <span class="magenta">ritmo</span>. Zoom-in al detalle. Seguí con el cuerpo.</p>
-      <a href="cuerpo/" class="puerta" style="margin-top: var(--space-md);">Seguí</a>
+    <article class="tarjeta revelar">
+      <p class="susurro">2F — TUTORIAL</p>
+      <h2 class="tarjeta-titulo">Body Grammar</h2>
+      <p class="tarjeta-texto">
+        Manos, pies, <span class="magenta">peso</span>, <span class="magenta">ritmo</span>.
+        Zoom-in al detalle. Seguí con el cuerpo.
+      </p>
+      <span class="ko">손, 발, 무게, 리듬. 몸으로 따라와.</span>
+      <a href="cuerpo/" class="puerta mt-md">Seguí</a>
     </article>
 
     <div class="linea"></div>
 
     <!-- 3F: Gesture Lab -->
-    <article class="tarjeta revelar" role="article">
-      <p class="susurro">3F</p>
-      <h2 class="tarjeta-titulo">Gesture Lab</h2>
-      <p class="tarjeta-texto">El motor de <span class="magenta">gestos</span>. Body protocol. Donde la <span class="magenta">danza</span> se vuelve sistema.</p>
-      <a href="laboratorio/" class="puerta" style="margin-top: var(--space-md);">Experimentá</a>
+    <article class="tarjeta revelar">
+      <p class="susurro">3F — GESTURE LAB</p>
+      <h2 class="tarjeta-titulo">Motor de Gestos</h2>
+      <p class="tarjeta-texto">
+        Body protocol. Donde la <span class="magenta">danza</span> se vuelve sistema.
+      </p>
+      <span class="ko">몸의 프로토콜. 춤이 시스템이 되는 곳.</span>
+      <a href="laboratorio/" class="puerta mt-md">Experimentá</a>
     </article>
 
     <div class="linea"></div>
 
     <!-- 4F: Control Room -->
-    <article class="tarjeta revelar" role="article">
-      <p class="susurro">4F</p>
+    <article class="tarjeta revelar">
+      <p class="susurro">4F — CONTROL</p>
       <h2 class="tarjeta-titulo">Control Room</h2>
-      <p class="tarjeta-texto">La cabina. Claude + Chrome. Automatización, métricas, el <span class="magenta">pulso</span> del sistema.</p>
-      <a href="control/" class="puerta" style="margin-top: var(--space-md);">Observá</a>
+      <p class="tarjeta-texto">
+        Claude + Chrome. El <span class="magenta">pulso</span> del sistema.
+      </p>
+      <span class="ko">자동화, 메트릭스, 시스템의 심장박동.</span>
+      <a href="control/" class="puerta mt-md">Observá</a>
     </article>
 
     <div class="linea"></div>
 
     <!-- 5F: Strategy -->
-    <article class="tarjeta revelar" role="article">
-      <p class="susurro">5F</p>
-      <h2 class="tarjeta-titulo">Strategy</h2>
-      <p class="tarjeta-texto">Expansión, partnerships, <span class="magenta">estructura</span> de ingresos. El futuro del <span class="magenta">legado</span>.</p>
-      <a href="legado/" class="puerta" style="margin-top: var(--space-md);">Mirá</a>
+    <article class="tarjeta revelar">
+      <p class="susurro">5F — STRATEGY</p>
+      <h2 class="tarjeta-titulo">Expansión</h2>
+      <p class="tarjeta-texto">
+        Partnerships, <span class="magenta">estructura</span> de ingresos. El futuro del <span class="magenta">legado</span>.
+      </p>
+      <span class="ko">확장, 파트너십, 레거시의 미래.</span>
+      <a href="legado/" class="puerta mt-md">Mirá</a>
     </article>
 
   </section>
 
-  <!-- ═══ Portal Interno ═══ -->
-  <section class="espacio-centro revelar" aria-label="Acceso interno">
-    <p class="susurro">PARA LOS QUE YA SABEN</p>
-    <a href="inner/" class="puerta" style="margin-top: var(--space-lg);">
-      Portal Interno
-    </a>
+  <!-- ═══ III. Manifiesto ═══ -->
+  <section class="espacio-centro" aria-label="Manifiesto">
+    <div class="revelar--escala revelar">
+      <p class="susurro">MANIFIESTO</p>
+      <blockquote class="mt-xl">
+        <p class="voz" style="font-style: italic; border-left: 2px solid var(--magenta); padding-left: var(--s-lg);">
+          No construimos software.<br>
+          Construimos <span class="magenta">mundos</span>.<br>
+          No diseñamos interfaces.<br>
+          Diseñamos <span class="magenta">encuentros</span>.<br>
+          No programamos funciones.<br>
+          Programamos <span class="magenta">rituales</span>.
+        </p>
+      </blockquote>
+      <span class="ko mt-md">소프트웨어가 아닌 세계를. 인터페이스가 아닌 만남을. 함수가 아닌 의식을.</span>
+    </div>
   </section>
 
-  <!-- ═══ Pie ═══ -->
+  <!-- ═══ IV. Portal Interno ═══ -->
+  <section class="espacio-centro revelar" aria-label="Portal">
+    <p class="susurro">PARA LOS QUE YA SABEN</p>
+    <a href="inner/" class="puerta mt-lg">Portal Interno</a>
+  </section>
+
+  <!-- ═══ V. Footer ═══ -->
   <footer class="pie" role="contentinfo">
     <p class="pie-marca respirar">TANGO MAGENTA</p>
-    <p class="pie-copy">&copy; 2026 TANGO MAGENTA. Buenos Aires.</p>
+    <p class="pie-copy">&copy; 2026 Buenos Aires / Seoul</p>
   </footer>
 
-  <!-- ═══ Reproductor (Audio Layer) ═══ -->
-  <div class="reproductor" id="reproductor" aria-label="Reproductor de audio">
+  <!-- ═══ Audio Layer ═══ -->
+  <div class="reproductor" aria-label="Reproductor">
     <iframe
       src="https://open.spotify.com/embed/track/3mGkPsZbHEBf8ZT1ExZnww?utm_source=generator&theme=0"
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
       loading="lazy"
-      title="Por una Cabeza — Carlos Gardel, Itzhak Perlman">
+      title="Por una Cabeza — Itzhak Perlman">
     </iframe>
   </div>
 
   <!-- Scripts -->
   <script src="design/entrada.js"></script>
   <script src="design/body-protocol.js"></script>
-  <script src="design/compromiso.js"></script>
-  <script src="design/translate-overlay.js"></script>
 
-  <!-- DTSLIB HQ Bridge SDK -->
+  <!-- DTSLIB HQ -->
   <script src="https://dtslib1979.github.io/dtslib-branch/hq/sdk/dtslib-bridge.js"></script>
 </body>
 </html>

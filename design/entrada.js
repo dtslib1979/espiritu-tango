@@ -1,12 +1,16 @@
 /**
- * Entrada — Ritual de Ingreso
- * "La entrada no es un click. Es una ceremonia."
+ * Entrada — Ritual de Ingreso v3.0
  *
- * Step 0: Oscuridad absoluta (3 segundos)
- * Step 1: "Respirá despacio." (aparece lentamente)
- * Step 2: La pantalla despierta al ritmo del corazón
- * Step 3: El monumento aparece
- * Step 4: "Entrá." — una sola puerta
+ * The entrance is not a click. It's a ceremony.
+ * But ceremonies can be skipped by those who know.
+ *
+ * Timeline:
+ *   0.0s  — Absolute darkness
+ *   2.5s  — "Respirá despacio." fades in (CSS animation-delay)
+ *   5.4s  — Ritual fades out, system awakens
+ *
+ * Skip: Button appears at 1s for returning-energy users.
+ * Session: Once entered, ritual is instant on revisit.
  */
 
 (function() {
@@ -14,31 +18,48 @@
 
   const BEAT = 857;
   const BREATH = 2571;
+  const TOTAL = 2500 + BREATH;
 
-  function initEntrada() {
-    const ritual = document.querySelector('.ritual-oscuridad');
+  function init() {
+    const ritual = document.querySelector('.ritual');
     if (!ritual) return;
 
-    // Si ya visitó en esta sesión, saltar ritual
+    // Skip for returning visitors
     if (sessionStorage.getItem('tango_entered') === 'true') {
       ritual.classList.add('despierta');
       return;
     }
 
-    // Step 0: 3 segundos de oscuridad absoluta
-    // Step 1: Texto aparece (handled by CSS animation-delay: 3s)
+    // Skip button
+    const skipBtn = ritual.querySelector('.ritual-saltar');
+    if (skipBtn) {
+      skipBtn.addEventListener('click', () => awaken(ritual), { once: true });
+    }
 
-    // Step 2: Después del texto, esperar un respiro más
-    setTimeout(() => {
-      ritual.classList.add('despierta');
-      sessionStorage.setItem('tango_entered', 'true');
-    }, 3000 + BREATH + BEAT);
+    // Natural timeline: darkness → text → awaken
+    const timer = setTimeout(() => awaken(ritual), TOTAL);
+
+    // Store timer reference for skip cleanup
+    ritual._timer = timer;
   }
 
-  // Ejecutar inmediatamente (no esperar DOMContentLoaded para el ritual)
+  function awaken(ritual) {
+    if (ritual.classList.contains('despierta')) return;
+
+    clearTimeout(ritual._timer);
+    ritual.classList.add('despierta');
+    sessionStorage.setItem('tango_entered', 'true');
+
+    // Clean up after transition
+    ritual.addEventListener('transitionend', () => {
+      ritual.setAttribute('aria-hidden', 'true');
+    }, { once: true });
+  }
+
+  // Execute immediately — ritual must block before first paint
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initEntrada);
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    initEntrada();
+    init();
   }
 })();

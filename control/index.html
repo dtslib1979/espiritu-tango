@@ -8,7 +8,7 @@
   <meta name="description" content="La cabina. Métricas vivas, estado del sistema, el pulso de todo lo que emitimos.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../design/tango.css">
 </head>
 <body>
@@ -16,103 +16,92 @@
   <!-- ═══ Cabecera ═══ -->
   <section class="espacio-centro" aria-label="Control">
     <p class="susurro latido">4F</p>
-    <h1 class="monumento" style="font-size: clamp(1.8rem, 9vw, 3.5rem); margin-top: var(--space-md);">
-      Control Room
-    </h1>
-    <p class="voz" style="margin-top: var(--space-lg);">
+    <h1 class="monumento mt-md">Control Room</h1>
+    <p class="voz mt-lg">
       Claude + Chrome.<br>
       El <span class="magenta">pulso</span> del sistema.
     </p>
+    <span class="ko mt-sm">자동화와 메트릭스. 시스템의 심장.</span>
   </section>
 
   <!-- ═══ System Status ═══ -->
-  <section class="espacio" aria-label="Estado del sistema">
+  <section class="espacio--compact" aria-label="Estado del sistema">
     <p class="susurro revelar">ESTADO DEL SISTEMA</p>
 
-    <div class="tarjeta revelar" style="margin-top: var(--space-lg);">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-dim);">SEÑAL</p>
-        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: #4CAF50;">● EN VIVO</p>
+    <div class="tarjeta revelar mt-lg">
+      <div class="info-linea">
+        <span class="info-clave">SIGNAL</span>
+        <span class="info-valor info-valor--vivo">● EN VIVO</span>
       </div>
-      <div class="linea" style="margin: var(--space-sm) 0;"></div>
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-dim);">BPM</p>
-        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-gold);">70</p>
+      <div class="info-linea">
+        <span class="info-clave">BPM</span>
+        <span class="info-valor info-valor--gold">70</span>
       </div>
-      <div class="linea" style="margin: var(--space-sm) 0;"></div>
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-dim);">CAPAS</p>
-        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-glow);">5 / 5</p>
+      <div class="info-linea">
+        <span class="info-clave">CAPAS</span>
+        <span class="info-valor">5 / 5</span>
       </div>
-      <div class="linea" style="margin: var(--space-sm) 0;"></div>
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-dim);">PROTOCOLO</p>
-        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-glow);">BODY v1.0</p>
+      <div class="info-linea">
+        <span class="info-clave">PROTOCOLO</span>
+        <span class="info-valor">BODY v3.0</span>
       </div>
-      <div class="linea" style="margin: var(--space-sm) 0;"></div>
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-dim);">IDIOMA</p>
-        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-glow);">es-AR</p>
+      <div class="info-linea">
+        <span class="info-clave">IDIOMA</span>
+        <span class="info-valor">es-AR + ko</span>
       </div>
     </div>
   </section>
 
   <!-- ═══ Métricas ═══ -->
-  <section class="espacio" aria-label="Métricas">
+  <section class="espacio--compact" aria-label="Métricas">
     <p class="susurro revelar">MÉTRICAS</p>
 
-    <article class="tarjeta revelar" style="margin-top: var(--space-lg);">
-      <h2 class="tarjeta-titulo" style="color: var(--tango-magenta);">Emisiones</h2>
-      <p style="font-family: var(--font-monument); font-size: 3rem; color: var(--tango-glow); margin-top: var(--space-sm);" id="metric-emisiones">—</p>
-      <p class="tarjeta-texto">Transmisiones totales emitidas</p>
+    <article class="tarjeta revelar mt-lg">
+      <h2 class="tarjeta-titulo" style="color: var(--magenta);">Emisiones</h2>
+      <p class="monumento mt-sm" style="font-size: 3rem;" id="metric-emisiones">—</p>
+      <p class="tarjeta-texto">Transmisiones totales</p>
     </article>
 
     <article class="tarjeta revelar">
-      <h2 class="tarjeta-titulo" style="color: var(--tango-gold);">Gestos</h2>
-      <p style="font-family: var(--font-monument); font-size: 3rem; color: var(--tango-glow); margin-top: var(--space-sm);" id="metric-gestos">—</p>
-      <p class="tarjeta-texto">Gestos registrados en el motor</p>
+      <h2 class="tarjeta-titulo" style="color: var(--gold);">Gestos</h2>
+      <p class="monumento mt-sm" style="font-size: 3rem;" id="metric-gestos">—</p>
+      <p class="tarjeta-texto">Gestos en el motor</p>
     </article>
 
     <article class="tarjeta revelar">
-      <h2 class="tarjeta-titulo" style="color: var(--tango-flesh);">Legados</h2>
-      <p style="font-family: var(--font-monument); font-size: 3rem; color: var(--tango-glow); margin-top: var(--space-sm);" id="metric-legados">—</p>
-      <p class="tarjeta-texto">Entradas en el archivo del legado</p>
+      <h2 class="tarjeta-titulo" style="color: var(--flesh);">Legados</h2>
+      <p class="monumento mt-sm" style="font-size: 3rem;" id="metric-legados">—</p>
+      <p class="tarjeta-texto">Entradas en el archivo</p>
     </article>
   </section>
 
   <!-- ═══ Arquitectura ═══ -->
-  <section class="espacio" aria-label="Arquitectura">
+  <section class="espacio--compact" aria-label="Arquitectura">
     <p class="susurro revelar">ARQUITECTURA</p>
-
-    <div class="revelar" style="margin-top: var(--space-xl);">
-      <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-dim); line-height: 2.2;">
-        <span style="color: var(--tango-magenta);">1F</span> ACADEMIA &nbsp;&nbsp;&nbsp;&nbsp;→ offline.revenue<br>
-        <span style="color: var(--tango-magenta);">2F</span> TUTORIAL &nbsp;&nbsp;&nbsp;&nbsp;→ zoom-in.body<br>
-        <span style="color: var(--tango-magenta);">3F</span> GESTURE LAB → body.protocol<br>
-        <span style="color: var(--tango-magenta);">4F</span> CONTROL &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ <span style="color: var(--tango-gold);">current.layer</span><br>
-        <span style="color: var(--tango-magenta);">5F</span> STRATEGY &nbsp;&nbsp;&nbsp;&nbsp;→ expansion.plan
-      </p>
+    <div class="codigo revelar mt-xl">
+      <span style="color: var(--magenta);">1F</span> ACADEMIA &nbsp;&nbsp;&nbsp;&nbsp;→ offline.revenue<br>
+      <span style="color: var(--magenta);">2F</span> TUTORIAL &nbsp;&nbsp;&nbsp;&nbsp;→ zoom-in.body<br>
+      <span style="color: var(--magenta);">3F</span> GESTURE LAB → body.protocol<br>
+      <span style="color: var(--magenta);">4F</span> CONTROL &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ <span style="color: var(--gold);">current.layer</span><br>
+      <span style="color: var(--magenta);">5F</span> STRATEGY &nbsp;&nbsp;&nbsp;&nbsp;→ expansion.plan
     </div>
   </section>
 
-  <!-- ═══ HQ Connection ═══ -->
-  <section class="espacio" aria-label="Conexión HQ">
-    <p class="susurro revelar">CONEXIÓN HQ</p>
-
-    <div class="tarjeta revelar" style="margin-top: var(--space-lg);">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-dim);">DTSLIB BRIDGE</p>
-        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: #4CAF50;">● CONNECTED</p>
+  <!-- ═══ HQ ═══ -->
+  <section class="espacio--compact" aria-label="HQ Connection">
+    <p class="susurro revelar">HQ CONNECTION</p>
+    <div class="tarjeta revelar mt-lg">
+      <div class="info-linea">
+        <span class="info-clave">BRIDGE</span>
+        <span class="info-valor info-valor--vivo">● CONNECTED</span>
       </div>
-      <div class="linea" style="margin: var(--space-sm) 0;"></div>
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-dim);">BRANCH</p>
-        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-glow);">tango-magenta</p>
+      <div class="info-linea">
+        <span class="info-clave">BRANCH</span>
+        <span class="info-valor">tango-magenta</span>
       </div>
-      <div class="linea" style="margin: var(--space-sm) 0;"></div>
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-dim);">SDK</p>
-        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-glow);">v3.0</p>
+      <div class="info-linea">
+        <span class="info-clave">SDK</span>
+        <span class="info-valor">v3.0</span>
       </div>
     </div>
   </section>
@@ -128,22 +117,17 @@
   </footer>
 
   <script src="../design/body-protocol.js"></script>
-  <script src="../design/translate-overlay.js"></script>
   <script>
-    // Load metrics from API
     async function loadMetrics() {
       try {
         const [gestures, legacy] = await Promise.all([
           fetch('../api/gestures.json').then(r => r.json()).catch(() => ({ gestures: [] })),
           fetch('../api/legacy.json').then(r => r.json()).catch(() => ({ entries: [] }))
         ]);
-
         document.getElementById('metric-emisiones').textContent = '∞';
         document.getElementById('metric-gestos').textContent = gestures.gestures ? gestures.gestures.length : '0';
         document.getElementById('metric-legados').textContent = legacy.entries ? legacy.entries.length : '0';
-      } catch (e) {
-        // Silent
-      }
+      } catch (e) { /* silent */ }
     }
     document.addEventListener('DOMContentLoaded', loadMetrics);
   </script>

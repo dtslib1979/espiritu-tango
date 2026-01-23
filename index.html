@@ -241,15 +241,52 @@
     <p class="pie-copy">&copy; 2026 Buenos Aires / Seoul</p>
   </footer>
 
-  <!-- ═══ Audio Layer ═══ -->
-  <div class="reproductor" aria-label="Reproductor">
+  <!-- ═══ Audio Layer (Breaking News Ticker) ═══ -->
+  <div class="reproductor" id="reproductor" aria-label="Reproductor">
+    <div class="ticker" id="ticker">
+      <div class="ticker-accent"></div>
+      <div class="ticker-live">
+        <span class="ticker-dot"></span>
+        <span class="ticker-label">LIVE</span>
+      </div>
+      <div class="ticker-scroll">
+        <span class="ticker-text">NOW PLAYING — <span>Por una Cabeza</span> — Carlos Gardel / Itzhak Perlman — TANGO MAGENTA RADIO &nbsp;&nbsp;&nbsp; ♪ &nbsp;&nbsp;&nbsp; 70 BPM &nbsp;&nbsp;&nbsp;</span>
+      </div>
+      <span class="ticker-expand">▲</span>
+    </div>
     <iframe
-      src="https://open.spotify.com/embed/track/3mGkPsZbHEBf8ZT1ExZnww?utm_source=generator&theme=0"
+      id="spotify-player"
+      src="https://open.spotify.com/embed/track/3mGkPsZbHEBf8ZT1ExZnww?utm_source=generator&theme=0&autoplay=1"
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
       loading="lazy"
       title="Por una Cabeza — Itzhak Perlman">
     </iframe>
   </div>
+
+  <script>
+    // Ticker: tap to expand/collapse Spotify player
+    (function() {
+      var reproductor = document.getElementById('reproductor');
+      var ticker = document.getElementById('ticker');
+      var player = document.getElementById('spotify-player');
+      var expanded = false;
+
+      ticker.addEventListener('click', function() {
+        expanded = !expanded;
+        reproductor.classList.toggle('expandido', expanded);
+        document.querySelector('.ticker-expand').textContent = expanded ? '▼' : '▲';
+      });
+
+      // Auto-loop: reload iframe every 30s to restart preview
+      var loopInterval = setInterval(function() {
+        if (!expanded) {
+          var src = player.src;
+          player.src = '';
+          player.src = src;
+        }
+      }, 30000);
+    })();
+  </script>
 
   <!-- Scripts -->
   <script src="design/entrada.js"></script>

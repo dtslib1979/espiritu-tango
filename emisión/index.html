@@ -86,14 +86,43 @@
     <p class="pie-copy">Academia — La milonga viva</p>
   </footer>
 
-  <!-- Reproductor -->
-  <div class="reproductor" aria-label="Reproductor">
+  <!-- Audio Layer (Breaking News Ticker) -->
+  <div class="reproductor" id="reproductor" aria-label="Reproductor">
+    <div class="ticker" id="ticker">
+      <div class="ticker-accent"></div>
+      <div class="ticker-live">
+        <span class="ticker-dot"></span>
+        <span class="ticker-label">LIVE</span>
+      </div>
+      <div class="ticker-scroll">
+        <span class="ticker-text">NOW PLAYING — <span>Por una Cabeza</span> — Carlos Gardel / Itzhak Perlman — TANGO MAGENTA RADIO &nbsp;&nbsp;&nbsp; ♪ &nbsp;&nbsp;&nbsp;</span>
+      </div>
+      <span class="ticker-expand">▲</span>
+    </div>
     <iframe
-      src="https://open.spotify.com/embed/track/3mGkPsZbHEBf8ZT1ExZnww?utm_source=generator&theme=0"
+      id="spotify-player"
+      src="https://open.spotify.com/embed/track/3mGkPsZbHEBf8ZT1ExZnww?utm_source=generator&theme=0&autoplay=1"
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
       loading="lazy" title="Por una Cabeza">
     </iframe>
   </div>
+
+  <script>
+    (function() {
+      var reproductor = document.getElementById('reproductor');
+      var ticker = document.getElementById('ticker');
+      var player = document.getElementById('spotify-player');
+      var expanded = false;
+      ticker.addEventListener('click', function() {
+        expanded = !expanded;
+        reproductor.classList.toggle('expandido', expanded);
+        document.querySelector('.ticker-expand').textContent = expanded ? '▼' : '▲';
+      });
+      setInterval(function() {
+        if (!expanded) { var s = player.src; player.src = ''; player.src = s; }
+      }, 30000);
+    })();
+  </script>
 
   <script src="../design/body-protocol.js"></script>
   <script src="https://dtslib1979.github.io/dtslib-branch/hq/sdk/dtslib-bridge.js"></script>

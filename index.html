@@ -249,22 +249,80 @@
 
   </section>
 
-  <!-- ═══ III. Manifiesto ═══ -->
-  <section class="espacio-centro" aria-label="Manifiesto">
-    <div class="revelar--escala revelar">
-      <p class="susurro">MANIFIESTO</p>
-      <blockquote class="mt-xl">
-        <p class="voz" style="font-style: italic; border-left: 2px solid var(--magenta); padding-left: var(--s-lg);">
-          No construimos software.<br>
-          Construimos <span class="magenta">mundos</span>.<br>
-          No diseñamos interfaces.<br>
-          Diseñamos <span class="magenta">encuentros</span>.<br>
-          No programamos funciones.<br>
-          Programamos <span class="magenta">rituales</span>.
-        </p>
-      </blockquote>
-      <span lang="ko" class="ko mt-md">소프트웨어가 아닌 세계를. 인터페이스가 아닌 만남을. 함수가 아닌 의식을.</span>
+  <!-- ═══ III. Manifiesto — Stone Tablets ═══ -->
+  <section class="tablet-section" aria-label="Manifiesto">
+    <p class="susurro revelar" style="text-align:center; margin-bottom: var(--s-lg);">MANIFIESTO</p>
+
+    <div class="tablet-carousel" id="tabletCarousel">
+      <div class="tablet-track" id="tabletTrack">
+
+        <div class="tablet">
+          <span class="tablet-numeral">I</span>
+          <p class="tablet-text">
+            No construimos software.<br>
+            Construimos <span class="tablet-glow">mundos</span>.
+          </p>
+          <span lang="ko" class="tablet-ko">소프트웨어가 아닌 세계를.</span>
+        </div>
+
+        <div class="tablet">
+          <span class="tablet-numeral">II</span>
+          <p class="tablet-text">
+            No diseñamos interfaces.<br>
+            Diseñamos <span class="tablet-glow">encuentros</span>.
+          </p>
+          <span lang="ko" class="tablet-ko">인터페이스가 아닌 만남을.</span>
+        </div>
+
+        <div class="tablet">
+          <span class="tablet-numeral">III</span>
+          <p class="tablet-text">
+            No programamos funciones.<br>
+            Programamos <span class="tablet-glow">rituales</span>.
+          </p>
+          <span lang="ko" class="tablet-ko">함수가 아닌 의식을.</span>
+        </div>
+
+        <div class="tablet">
+          <span class="tablet-numeral">IV</span>
+          <p class="tablet-text">
+            El <span class="tablet-glow">cuerpo</span> es la primera<br>
+            tecnología.
+          </p>
+          <span lang="ko" class="tablet-ko">몸은 최초의 기술.</span>
+        </div>
+
+        <div class="tablet">
+          <span class="tablet-numeral">V</span>
+          <p class="tablet-text">
+            El tango no se enseña.<br>
+            Se <span class="tablet-glow">transmite</span>.
+          </p>
+          <span lang="ko" class="tablet-ko">탱고는 가르치는 게 아니라 전해지는 것.</span>
+        </div>
+
+        <div class="tablet">
+          <span class="tablet-numeral">VI</span>
+          <p class="tablet-text">
+            La <span class="tablet-glow">pausa</span> es tan importante<br>
+            como el movimiento.
+          </p>
+          <span lang="ko" class="tablet-ko">멈춤은 움직임만큼 중요하다.</span>
+        </div>
+
+        <div class="tablet">
+          <span class="tablet-numeral">VII</span>
+          <p class="tablet-text">
+            Cada sesión es<br>
+            <span class="tablet-glow">irrepetible</span>.
+          </p>
+          <span lang="ko" class="tablet-ko">모든 세션은 반복 불가.</span>
+        </div>
+
+      </div>
     </div>
+
+    <div class="tablet-dots" id="tabletDots"></div>
   </section>
 
   <!-- ═══ IV. Portal Interno ═══ -->
@@ -364,6 +422,85 @@
   <!-- Scripts -->
   <script src="design/entrada.js"></script>
   <script src="design/body-protocol.js"></script>
+
+  <!-- Tablet Carousel -->
+  <script>
+  (function() {
+    var track = document.getElementById('tabletTrack');
+    var dotsEl = document.getElementById('tabletDots');
+    if (!track || !dotsEl) return;
+
+    var slides = track.children;
+    var total = slides.length;
+    var current = 0;
+    var startX = 0;
+    var dx = 0;
+    var dragging = false;
+    var autoTimer;
+
+    // Build dots
+    for (var i = 0; i < total; i++) {
+      var dot = document.createElement('button');
+      dot.className = 'tablet-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+      dot.dataset.idx = i;
+      dotsEl.appendChild(dot);
+    }
+    var dots = dotsEl.querySelectorAll('.tablet-dot');
+
+    function goTo(idx) {
+      current = (idx + total) % total;
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      for (var j = 0; j < dots.length; j++) {
+        dots[j].classList.toggle('active', j === current);
+      }
+    }
+
+    function next() { goTo(current + 1); }
+
+    function resetAuto() {
+      clearInterval(autoTimer);
+      autoTimer = setInterval(next, 4500);
+    }
+
+    // Touch
+    track.addEventListener('touchstart', function(e) {
+      dragging = true;
+      startX = e.touches[0].clientX;
+      dx = 0;
+      track.style.transition = 'none';
+      clearInterval(autoTimer);
+    }, { passive: true });
+
+    track.addEventListener('touchmove', function(e) {
+      if (!dragging) return;
+      dx = e.touches[0].clientX - startX;
+      var offset = -(current * 100) + (dx / track.offsetWidth) * 100;
+      track.style.transform = 'translateX(' + offset + '%)';
+    }, { passive: true });
+
+    track.addEventListener('touchend', function() {
+      if (!dragging) return;
+      dragging = false;
+      track.style.transition = '';
+      if (dx < -40) next();
+      else if (dx > 40) goTo(current - 1);
+      else goTo(current);
+      resetAuto();
+    });
+
+    // Dots click
+    dotsEl.addEventListener('click', function(e) {
+      var t = e.target;
+      if (t.dataset && t.dataset.idx !== undefined) {
+        goTo(parseInt(t.dataset.idx));
+        resetAuto();
+      }
+    });
+
+    resetAuto();
+  })();
+  </script>
 
   <!-- DTSLIB HQ -->
   <script src="https://dtslib1979.github.io/dtslib-branch/hq/sdk/dtslib-bridge.js"></script>

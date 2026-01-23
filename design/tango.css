@@ -318,6 +318,123 @@ a:active { opacity: 0.7; }
   display: block;
 }
 
+/* ─── Stone Tablet Carousel (Manifesto) ─── */
+.tablet-section {
+  padding: var(--s-xxl) 0;
+  overflow: hidden;
+}
+
+.tablet-carousel {
+  width: 100%;
+  overflow: hidden;
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.tablet-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.tablet {
+  flex: 0 0 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--s-lg);
+  box-sizing: border-box;
+}
+
+.tablet > * {
+  max-width: 320px;
+  width: 100%;
+  background:
+    linear-gradient(145deg, #1e1a17 0%, #2a2420 25%, #1c1815 50%, #252019 75%, #1a1613 100%);
+  border: 1px solid rgba(180, 160, 130, 0.12);
+  border-radius: 6px;
+  padding: 40px 28px 32px;
+  text-align: center;
+  position: relative;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 240, 210, 0.04),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+    0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.tablet-numeral {
+  display: block;
+  font-family: var(--f-monument);
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  color: rgba(200, 170, 120, 0.35);
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.tablet-numeral::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: rgba(200, 170, 120, 0.15);
+  margin: 12px auto 0;
+}
+
+.tablet-text {
+  font-family: var(--f-monument);
+  font-size: 1.15rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: rgba(220, 200, 175, 0.85);
+  letter-spacing: -0.01em;
+  text-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.6),
+    0 -1px 0 rgba(255, 240, 210, 0.03);
+}
+
+.tablet-glow {
+  color: var(--magenta);
+  text-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.6),
+    0 0 12px rgba(233, 30, 99, 0.15);
+}
+
+.tablet-ko {
+  display: block;
+  font-family: 'Noto Serif KR', serif;
+  font-size: 0.75rem;
+  color: rgba(200, 180, 150, 0.4);
+  margin-top: 20px;
+  letter-spacing: 0.02em;
+}
+
+.tablet-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: var(--s-xl);
+}
+
+.tablet-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(200, 170, 120, 0.15);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tablet-dot.active {
+  background: rgba(200, 170, 120, 0.5);
+  transform: scale(1.4);
+}
+
 /* Door (Button/Link) */
 .puerta {
   display: inline-block;

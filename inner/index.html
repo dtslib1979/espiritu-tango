@@ -1,76 +1,128 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="es-AR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#0a0a0a">
-  <title>Inner Portal | TANGO MAGENTA</title>
-  <link rel="stylesheet" href="../design/cave.css">
-  <style>
-    @keyframes fadeOut {
-      to { opacity: 0; transform: scale(0.95); }
-    }
-    .gate-hint {
-      margin-top: 24px;
-      font-size: 0.75rem;
-      color: var(--cave-dim);
-      opacity: 0.5;
-    }
-  </style>
+  <meta name="theme-color" content="#0a0008">
+  <title>Portal Interno — TANGO MAGENTA</title>
+  <meta name="description" content="Acceso restringido. Solo para los que ya saben.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../design/tango.css">
 </head>
 <body>
 
-  <!-- Gate -->
-  <div class="gate-overlay" data-gate-code="1126">
-    <div class="gate-box">
-      <p class="monument" style="font-size: 2rem;">Inner Portal</p>
-      <p class="whisper" style="margin-top: 16px;">횃불을 밝혀라</p>
+  <!-- ═══ Puerta Secreta ═══ -->
+  <div class="puerta-secreta" data-gate-code="1126" id="gate">
+    <div style="text-align: center;">
+      <h1 style="font-family: var(--font-monument); font-size: 2rem; color: var(--tango-glow);">
+        Portal Interno
+      </h1>
+      <p class="susurro" style="margin-top: var(--space-md);">Ingresá la clave</p>
 
-      <div class="gate-input">
-        <input type="tel" class="gate-digit" maxlength="1" inputmode="numeric">
-        <input type="tel" class="gate-digit" maxlength="1" inputmode="numeric">
-        <input type="tel" class="gate-digit" maxlength="1" inputmode="numeric">
-        <input type="tel" class="gate-digit" maxlength="1" inputmode="numeric">
+      <div class="clave-input" role="group" aria-label="Código de acceso">
+        <input type="tel" class="clave-digito" maxlength="1" inputmode="numeric" aria-label="Dígito 1">
+        <input type="tel" class="clave-digito" maxlength="1" inputmode="numeric" aria-label="Dígito 2">
+        <input type="tel" class="clave-digito" maxlength="1" inputmode="numeric" aria-label="Dígito 3">
+        <input type="tel" class="clave-digito" maxlength="1" inputmode="numeric" aria-label="Dígito 4">
       </div>
 
-      <p class="gate-hint">Access code required</p>
+      <p class="susurro" style="margin-top: var(--space-lg); opacity: 0.4;">
+        Solo para personal autorizado
+      </p>
     </div>
   </div>
 
-  <!-- Inner World (shown after gate) -->
-  <section class="cave-entrance" style="display: none;" id="innerWorld">
-    <p class="whisper">INNER WORLD</p>
-    <h1 class="monument" style="font-size: 2.5rem; margin-top: 16px;">Welcome</h1>
+  <!-- ═══ Mundo Interno ═══ -->
+  <section class="espacio-centro" id="innerWorld" style="display: none;" aria-label="Mundo interno">
+    <p class="susurro latido">ADENTRO</p>
+    <h1 class="monumento" style="font-size: clamp(2rem, 10vw, 4rem); margin-top: var(--space-md);">
+      Bienvenido.
+    </h1>
 
-    <div style="margin-top: 48px; width: 100%;">
-      <a href="../zone/alpha/" class="cave-door" style="margin-bottom: 16px;">
-        Zone Alpha — {{ZONE_A_TITLE}}
+    <p class="voz" style="margin-top: var(--space-lg);">
+      Estás en el centro de la operación.
+    </p>
+
+    <div style="margin-top: var(--space-2xl); width: 100%; max-width: 320px;">
+      <a href="../emisión/" class="puerta" style="margin-bottom: var(--space-md); display: block;">
+        Emisión — La señal
       </a>
-      <a href="../zone/beta/" class="cave-door" style="margin-bottom: 16px;">
-        Zone Beta — {{ZONE_B_TITLE}}
+      <a href="../cuerpo/" class="puerta" style="margin-bottom: var(--space-md); display: block;">
+        Cuerpo — La gramática
       </a>
-      <a href="../zone/gamma/" class="cave-door">
-        Zone Gamma — {{ZONE_C_TITLE}}
+      <a href="../laboratorio/" class="puerta" style="margin-bottom: var(--space-md); display: block;">
+        Laboratorio — El motor
+      </a>
+      <a href="../control/" class="puerta" style="margin-bottom: var(--space-md); display: block;">
+        Control — La cabina
+      </a>
+      <a href="../legado/" class="puerta" style="display: block;">
+        Legado — Lo que queda
       </a>
     </div>
   </section>
 
-  <script src="../design/cave.js"></script>
   <script>
-    // Check if already authenticated
-    if (sessionStorage.getItem('cave_auth') === 'true') {
-      document.querySelector('.gate-overlay').style.display = 'none';
-      document.getElementById('innerWorld').style.display = 'flex';
-    }
+    (function() {
+      'use strict';
 
-    // Show inner world after gate opens
-    const gateObserver = new MutationObserver(() => {
-      const gate = document.querySelector('.gate-overlay');
-      if (gate.style.display === 'none') {
-        document.getElementById('innerWorld').style.display = 'flex';
+      const BEAT = 857;
+      const gate = document.getElementById('gate');
+      const code = gate.getAttribute('data-gate-code');
+      const inputs = gate.querySelectorAll('.clave-digito');
+      const inner = document.getElementById('innerWorld');
+
+      // Check session
+      if (sessionStorage.getItem('tango_auth') === 'true') {
+        gate.style.display = 'none';
+        inner.style.display = 'flex';
       }
-    });
-    gateObserver.observe(document.querySelector('.gate-overlay'), { attributes: true, attributeFilter: ['style'] });
+
+      // Auto-focus first input
+      inputs[0].focus();
+
+      inputs.forEach((input, i) => {
+        input.addEventListener('input', () => {
+          if (input.value && i < inputs.length - 1) {
+            inputs[i + 1].focus();
+          }
+          checkCode();
+        });
+
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace' && !input.value && i > 0) {
+            inputs[i - 1].focus();
+          }
+        });
+      });
+
+      function checkCode() {
+        const entered = Array.from(inputs).map(i => i.value).join('');
+        if (entered.length === 4) {
+          if (entered === code) {
+            sessionStorage.setItem('tango_auth', 'true');
+            gate.style.opacity = '0';
+            gate.style.transition = `opacity ${BEAT}ms var(--ease-retreat)`;
+            setTimeout(() => {
+              gate.style.display = 'none';
+              inner.style.display = 'flex';
+            }, BEAT);
+          } else {
+            inputs.forEach(i => {
+              i.value = '';
+              i.style.borderColor = '#ff1744';
+            });
+            inputs[0].focus();
+            setTimeout(() => {
+              inputs.forEach(i => i.style.borderColor = '');
+            }, BEAT);
+          }
+        }
+      }
+    })();
   </script>
+  <script src="https://dtslib1979.github.io/dtslib-branch/hq/sdk/dtslib-bridge.js"></script>
 </body>
 </html>

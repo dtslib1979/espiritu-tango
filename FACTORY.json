@@ -1,92 +1,78 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "id": "tango-magenta-core",
-  "version": "1.0.0",
+  "version": "2.0.0",
 
   "identity": {
     "name": "TANGO MAGENTA",
-    "tagline": "{{TAGLINE}}",
-    "type": "content-factory",
-    "domain": "{{DOMAIN}}",
+    "tagline": "El primer sistema que respira",
+    "type": "studio-broadcast-system",
+    "domain": "dtslib1979.github.io/tango-magenta",
+    "language": "es-AR",
     "NOT": "website"
   },
 
   "philosophy": {
-    "core": "{{PHILOSOPHY_CORE}}",
-    "humanRole": "{{HUMAN_ROLE}}",
-    "systemRole": "분류 → 변환 → 배포",
-    "result": "{{PHILOSOPHY_RESULT}}"
-  },
-
-  "trilogy": {
-    "zone-alpha": {
-      "layer": "개체 (Entity)",
-      "keyword": "{{ZONE_A_KEYWORD}}",
-      "essence": "{{ZONE_A_ESSENCE}}",
-      "character": ["날것", "감정", "실험"],
-      "metaphor": "샘",
-      "oneLiner": "{{ZONE_A_ONELINER}}"
-    },
-    "zone-beta": {
-      "layer": "정체성 (Identity)",
-      "keyword": "{{ZONE_B_KEYWORD}}",
-      "essence": "{{ZONE_B_ESSENCE}}",
-      "character": ["구조", "방법론", "재사용"],
-      "metaphor": "정수기",
-      "oneLiner": "{{ZONE_B_ONELINER}}"
-    },
-    "zone-gamma": {
-      "layer": "회사 (Company)",
-      "keyword": "{{ZONE_C_KEYWORD}}",
-      "essence": "{{ZONE_C_ESSENCE}}",
-      "character": ["완성", "규격", "상품"],
-      "metaphor": "병에 담긴 물",
-      "oneLiner": "{{ZONE_C_ONELINER}}"
-    }
-  },
-
-  "contentFlow": {
-    "description": "같은 생각이 세 번 태어난다",
-    "stages": [
-      { "stage": 1, "location": "zone-alpha", "form": "살아 있는 형태", "state": "raw" },
-      { "stage": 2, "location": "zone-beta", "form": "설명 가능한 형태", "state": "structured" },
-      { "stage": 3, "location": "zone-gamma", "form": "팔 수 있는 형태", "state": "published" }
-    ]
-  },
-
-  "factoryStructure": {
-    "inbox": {
-      "description": "원석을 던지는 곳",
-      "subdirs": ["voice", "text", "visual", "mixed"]
-    },
-    "process": {
-      "description": "AI가 처리하는 공간",
-      "subdirs": ["queue", "working", "done"]
-    },
-    "output": {
-      "description": "도메인별 결과물",
-      "subdirs": ["alpha", "beta", "gamma"]
-    },
-    "pipelines": {
-      "types": ["text-to-text", "text-to-video", "text-to-webtoon", "text-to-ebook"]
-    }
+    "core": "El cuerpo es la interfaz. El tango es el protocolo.",
+    "humanRole": "El bailarín que navega",
+    "systemRole": "Acompañar, no responder",
+    "result": "Un legado que respira"
   },
 
   "architecture": {
-    "name": "4-Layer Showroom System",
+    "name": "5-Layer Studio & Broadcast System",
     "layers": [
-      { "level": 0, "name": "External World", "platform": "YouTube, Social", "purpose": "발견 & 첫 접촉" },
-      { "level": 1, "name": "Public Portal", "platform": "{{DOMAIN}}", "purpose": "브랜드 경험 & 탐색" },
-      { "level": 2, "name": "Inner Portal", "platform": "{{DOMAIN}}/inner", "purpose": "게이트키핑" },
-      { "level": 3, "name": "Inner World", "zones": ["alpha", "beta", "gamma"], "purpose": "핵심 창작 & 비즈" }
-    ],
-    "funnel": "넓은 입구 → 좁은 출구"
+      { "level": 1, "id": "emisión", "name": "Emisión", "purpose": "La señal que sale al mundo", "verb": "Sintonizá" },
+      { "level": 2, "id": "cuerpo", "name": "Cuerpo", "purpose": "La gramática del movimiento", "verb": "Sentí" },
+      { "level": 3, "id": "laboratorio", "name": "Laboratorio", "purpose": "El motor de gestos", "verb": "Experimentá" },
+      { "level": 4, "id": "control", "name": "Control", "purpose": "La cabina del sistema", "verb": "Observá" },
+      { "level": 5, "id": "legado", "name": "Legado", "purpose": "Donde la vida se vuelve mundo", "verb": "Recordá" }
+    ]
+  },
+
+  "bodyProtocol": {
+    "version": "1.0",
+    "bpm": 70,
+    "interactions": {
+      "scroll": "acercarse",
+      "tap": "compromiso",
+      "hold": "esperar",
+      "swipe": "girar",
+      "idle": "respirar",
+      "back": "soltar"
+    }
+  },
+
+  "timing": {
+    "bpm": 70,
+    "beat_ms": 857,
+    "half_beat_ms": 428,
+    "breath_ms": 2571,
+    "phrase_ms": 3428
   },
 
   "theme": {
-    "primary": "{{COLOR_PRIMARY}}",
-    "accent": "{{COLOR_ACCENT}}",
-    "bg": "{{COLOR_BG}}",
-    "glow": "{{COLOR_GLOW}}"
+    "primary": "#E91E63",
+    "accent": "#FFD54F",
+    "bg": "#0a0008",
+    "glow": "#f0e8ec",
+    "void": "#0a0008",
+    "smoke": "#1a1118"
+  },
+
+  "audio": {
+    "sources": ["spotify", "youtube"],
+    "serviceWorker": false,
+    "position": "fixed-bottom",
+    "height": "80px"
+  },
+
+  "compatibility": {
+    "bingReadAloud": true,
+    "translation": true,
+    "semanticHTML": true,
+    "reducedMotion": true,
+    "mobileOnly": true,
+    "maxWidth": "430px"
   }
 }

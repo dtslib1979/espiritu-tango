@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0008">
+  <title>Control — TANGO MAGENTA</title>
+  <meta name="description" content="La cabina. Métricas vivas, estado del sistema, el pulso de todo lo que emitimos.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../design/tango.css">
+</head>
+<body>
+
+  <!-- ═══ Cabecera ═══ -->
+  <section class="espacio-centro" aria-label="Control">
+    <p class="susurro latido">CAPA 04</p>
+    <h1 class="monumento" style="font-size: clamp(2rem, 10vw, 4rem); margin-top: var(--space-md);">
+      Control
+    </h1>
+    <p class="voz" style="margin-top: var(--space-lg);">
+      La cabina.<br>
+      El pulso de todo lo que emitimos.
+    </p>
+  </section>
+
+  <!-- ═══ System Status ═══ -->
+  <section class="espacio" aria-label="Estado del sistema">
+    <p class="susurro revelar">ESTADO DEL SISTEMA</p>
+
+    <div class="tarjeta revelar" style="margin-top: var(--space-lg);">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-dim);">SEÑAL</p>
+        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: #4CAF50;">● EN VIVO</p>
+      </div>
+      <div class="linea" style="margin: var(--space-sm) 0;"></div>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-dim);">BPM</p>
+        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-gold);">70</p>
+      </div>
+      <div class="linea" style="margin: var(--space-sm) 0;"></div>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-dim);">CAPAS</p>
+        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-glow);">5 / 5</p>
+      </div>
+      <div class="linea" style="margin: var(--space-sm) 0;"></div>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-dim);">PROTOCOLO</p>
+        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-glow);">BODY v1.0</p>
+      </div>
+      <div class="linea" style="margin: var(--space-sm) 0;"></div>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-dim);">IDIOMA</p>
+        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-glow);">es-AR</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Métricas ═══ -->
+  <section class="espacio" aria-label="Métricas">
+    <p class="susurro revelar">MÉTRICAS</p>
+
+    <article class="tarjeta revelar" style="margin-top: var(--space-lg);">
+      <h2 class="tarjeta-titulo" style="color: var(--tango-magenta);">Emisiones</h2>
+      <p style="font-family: var(--font-monument); font-size: 3rem; color: var(--tango-glow); margin-top: var(--space-sm);" id="metric-emisiones">—</p>
+      <p class="tarjeta-texto">Transmisiones totales emitidas</p>
+    </article>
+
+    <article class="tarjeta revelar">
+      <h2 class="tarjeta-titulo" style="color: var(--tango-gold);">Gestos</h2>
+      <p style="font-family: var(--font-monument); font-size: 3rem; color: var(--tango-glow); margin-top: var(--space-sm);" id="metric-gestos">—</p>
+      <p class="tarjeta-texto">Gestos registrados en el motor</p>
+    </article>
+
+    <article class="tarjeta revelar">
+      <h2 class="tarjeta-titulo" style="color: var(--tango-flesh);">Legados</h2>
+      <p style="font-family: var(--font-monument); font-size: 3rem; color: var(--tango-glow); margin-top: var(--space-sm);" id="metric-legados">—</p>
+      <p class="tarjeta-texto">Entradas en el archivo del legado</p>
+    </article>
+  </section>
+
+  <!-- ═══ Arquitectura ═══ -->
+  <section class="espacio" aria-label="Arquitectura">
+    <p class="susurro revelar">ARQUITECTURA</p>
+
+    <div class="revelar" style="margin-top: var(--space-xl);">
+      <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-dim); line-height: 2.2;">
+        <span style="color: var(--tango-magenta);">L1</span> EMISIÓN &nbsp;&nbsp;&nbsp;&nbsp;→ broadcast.out<br>
+        <span style="color: var(--tango-magenta);">L2</span> CUERPO &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ body.protocol<br>
+        <span style="color: var(--tango-magenta);">L3</span> LABORATORIO → gesture.engine<br>
+        <span style="color: var(--tango-magenta);">L4</span> CONTROL &nbsp;&nbsp;&nbsp;&nbsp;→ <span style="color: var(--tango-gold);">current.layer</span><br>
+        <span style="color: var(--tango-magenta);">L5</span> LEGADO &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ legacy.archive
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ HQ Connection ═══ -->
+  <section class="espacio" aria-label="Conexión HQ">
+    <p class="susurro revelar">CONEXIÓN HQ</p>
+
+    <div class="tarjeta revelar" style="margin-top: var(--space-lg);">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-dim);">DTSLIB BRIDGE</p>
+        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: #4CAF50;">● CONNECTED</p>
+      </div>
+      <div class="linea" style="margin: var(--space-sm) 0;"></div>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-dim);">BRANCH</p>
+        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-glow);">tango-magenta</p>
+      </div>
+      <div class="linea" style="margin: var(--space-sm) 0;"></div>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-dim);">SDK</p>
+        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-glow);">v3.0</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Navegación ═══ -->
+  <section class="espacio-centro revelar" aria-label="Navegación">
+    <a href="../" class="puerta">← Volver</a>
+  </section>
+
+  <footer class="pie" role="contentinfo">
+    <p class="pie-marca">TANGO MAGENTA</p>
+    <p class="pie-copy">Control — El pulso vivo</p>
+  </footer>
+
+  <script src="../design/body-protocol.js"></script>
+  <script>
+    // Load metrics from API
+    async function loadMetrics() {
+      try {
+        const [gestures, legacy] = await Promise.all([
+          fetch('../api/gestures.json').then(r => r.json()).catch(() => ({ gestures: [] })),
+          fetch('../api/legacy.json').then(r => r.json()).catch(() => ({ entries: [] }))
+        ]);
+
+        document.getElementById('metric-emisiones').textContent = '∞';
+        document.getElementById('metric-gestos').textContent = gestures.gestures ? gestures.gestures.length : '0';
+        document.getElementById('metric-legados').textContent = legacy.entries ? legacy.entries.length : '0';
+      } catch (e) {
+        // Silent
+      }
+    }
+    document.addEventListener('DOMContentLoaded', loadMetrics);
+  </script>
+  <script src="https://dtslib1979.github.io/dtslib-branch/hq/sdk/dtslib-bridge.js"></script>
+</body>
+</html>

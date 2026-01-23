@@ -1,0 +1,63 @@
+name: Content Pipeline Validation
+
+on:
+  push:
+    paths:
+      - 'api/**'
+      - '**.html'
+  pull_request:
+    paths:
+      - 'api/**'
+      - '**.html'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate JSON API files
+        run: |
+          echo "Validating API JSON files..."
+          for file in api/*.json; do
+            if [ -f "$file" ]; then
+              python3 -m json.tool "$file" > /dev/null 2>&1
+              if [ $? -eq 0 ]; then
+                echo "✓ $file is valid JSON"
+              else
+                echo "✗ $file is INVALID JSON"
+                exit 1
+              fi
+            fi
+          done
+
+      - name: Validate HTML structure
+        run: |
+          echo "Checking HTML files for lang attribute..."
+          for file in $(find . -name "*.html" -not -path "./.git/*"); do
+            if grep -q 'lang="es-AR"' "$file"; then
+              echo "✓ $file has es-AR lang"
+            else
+              echo "⚠ $file missing es-AR lang attribute"
+            fi
+          done
+
+      - name: Check Body Protocol compliance
+        run: |
+          echo "Checking body-protocol.js exists..."
+          if [ -f "design/body-protocol.js" ]; then
+            echo "✓ Body Protocol found"
+          else
+            echo "✗ Body Protocol missing"
+            exit 1
+          fi
+
+          echo "Checking tango.css design system..."
+          if [ -f "design/tango.css" ]; then
+            echo "✓ Design system found"
+            grep -c "var(--beat)" design/tango.css && echo "BPM timing system present"
+          else
+            echo "✗ Design system missing"
+            exit 1
+          fi

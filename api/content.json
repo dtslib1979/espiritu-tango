@@ -1,5 +1,13 @@
 {
-  "version": "1.0",
+  "version": "2.0",
+  "system": "tango-magenta",
   "lastUpdated": "2026-01-23T00:00:00Z",
+  "layers": [
+    { "id": "emisión", "name": "Emisión", "status": "active" },
+    { "id": "cuerpo", "name": "Cuerpo", "status": "active" },
+    { "id": "laboratorio", "name": "Laboratorio", "status": "active" },
+    { "id": "control", "name": "Control", "status": "active" },
+    { "id": "legado", "name": "Legado", "status": "active" }
+  ],
   "items": []
 }

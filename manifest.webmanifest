@@ -1,11 +1,12 @@
 {
-  "name": "TANGO MAGENTA",
+  "name": "TANGO MAGENTA — Studio & Broadcast",
   "short_name": "TANGO",
-  "description": "{{TAGLINE}}",
+  "description": "El primer sistema que respira. Donde el cuerpo es la interfaz.",
   "start_url": "/tango-magenta/",
   "display": "standalone",
-  "background_color": "#0a0a0a",
-  "theme_color": "#0a0a0a",
+  "background_color": "#0a0008",
+  "theme_color": "#0a0008",
+  "lang": "es-AR",
   "icons": [
     {
       "src": "assets/icons/icon-192.png",

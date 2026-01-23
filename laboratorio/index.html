@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0008">
+  <title>Laboratorio — TANGO MAGENTA</title>
+  <meta name="description" content="El motor de gestos. Donde el movimiento se renderiza y la danza se vuelve código.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../design/tango.css">
+</head>
+<body>
+
+  <!-- ═══ Cabecera ═══ -->
+  <section class="espacio-centro" aria-label="Laboratorio">
+    <p class="susurro latido">CAPA 03</p>
+    <h1 class="monumento" style="font-size: clamp(1.8rem, 9vw, 3.5rem); margin-top: var(--space-md);">
+      Laboratorio
+    </h1>
+    <p class="voz" style="margin-top: var(--space-lg);">
+      El motor de gestos.<br>
+      Donde la danza se vuelve código.
+    </p>
+  </section>
+
+  <!-- ═══ Gesture Engine ═══ -->
+  <section class="espacio" aria-label="Motor de gestos">
+    <p class="susurro revelar">GESTURE ENGINE v1.0</p>
+
+    <article class="tarjeta revelar" style="margin-top: var(--space-lg);">
+      <p class="susurro">GESTO 001</p>
+      <h2 class="tarjeta-titulo">Ocho</h2>
+      <p class="tarjeta-texto">El movimiento base. Una figura infinita dibujada con los pies. El ADN del tango.</p>
+      <div style="margin-top: var(--space-md); padding: var(--space-md); background: var(--tango-wall); border-radius: var(--radius);">
+        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-gold);">
+          { name: "ocho",<br>
+          &nbsp;&nbsp;type: "figure",<br>
+          &nbsp;&nbsp;beats: 4,<br>
+          &nbsp;&nbsp;direction: "forward|back",<br>
+          &nbsp;&nbsp;pivot: true }
+        </p>
+      </div>
+    </article>
+
+    <article class="tarjeta revelar">
+      <p class="susurro">GESTO 002</p>
+      <h2 class="tarjeta-titulo">Caminata</h2>
+      <p class="tarjeta-texto">El paso consciente. No se camina para llegar. Se camina para estar.</p>
+      <div style="margin-top: var(--space-md); padding: var(--space-md); background: var(--tango-wall); border-radius: var(--radius);">
+        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-gold);">
+          { name: "caminata",<br>
+          &nbsp;&nbsp;type: "locomotion",<br>
+          &nbsp;&nbsp;beats: 2,<br>
+          &nbsp;&nbsp;weight: "full",<br>
+          &nbsp;&nbsp;connection: "chest" }
+        </p>
+      </div>
+    </article>
+
+    <article class="tarjeta revelar">
+      <p class="susurro">GESTO 003</p>
+      <h2 class="tarjeta-titulo">Parada</h2>
+      <p class="tarjeta-texto">Detener al otro sin fuerza. Con presencia. El pie que dice «acá».</p>
+      <div style="margin-top: var(--space-md); padding: var(--space-md); background: var(--tango-wall); border-radius: var(--radius);">
+        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-gold);">
+          { name: "parada",<br>
+          &nbsp;&nbsp;type: "interruption",<br>
+          &nbsp;&nbsp;beats: 1,<br>
+          &nbsp;&nbsp;signal: "foot-block",<br>
+          &nbsp;&nbsp;requires: "lead" }
+        </p>
+      </div>
+    </article>
+
+    <article class="tarjeta revelar">
+      <p class="susurro">GESTO 004</p>
+      <h2 class="tarjeta-titulo">Sacada</h2>
+      <p class="tarjeta-texto">Ocupar el espacio que el otro deja. No es empujar. Es llenar el vacío.</p>
+      <div style="margin-top: var(--space-md); padding: var(--space-md); background: var(--tango-wall); border-radius: var(--radius);">
+        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-gold);">
+          { name: "sacada",<br>
+          &nbsp;&nbsp;type: "displacement",<br>
+          &nbsp;&nbsp;beats: 2,<br>
+          &nbsp;&nbsp;energy: "transfer",<br>
+          &nbsp;&nbsp;contact: "leg" }
+        </p>
+      </div>
+    </article>
+
+    <article class="tarjeta revelar">
+      <p class="susurro">GESTO 005</p>
+      <h2 class="tarjeta-titulo">Volcada</h2>
+      <p class="tarjeta-texto">Caer juntos sin caerse. La confianza hecha movimiento. El eje compartido.</p>
+      <div style="margin-top: var(--space-md); padding: var(--space-md); background: var(--tango-wall); border-radius: var(--radius);">
+        <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-gold);">
+          { name: "volcada",<br>
+          &nbsp;&nbsp;type: "off-axis",<br>
+          &nbsp;&nbsp;beats: 3,<br>
+          &nbsp;&nbsp;axis: "shared",<br>
+          &nbsp;&nbsp;trust: "required" }
+        </p>
+      </div>
+    </article>
+  </section>
+
+  <!-- ═══ Render Pipeline ═══ -->
+  <section class="espacio" aria-label="Pipeline de renderizado">
+    <p class="susurro revelar">RENDER PIPELINE</p>
+
+    <div class="revelar" style="margin-top: var(--space-xl);">
+      <p style="font-family: var(--font-code); font-size: var(--fs-whisper); color: var(--tango-dim); line-height: 2;">
+        <span style="color: var(--tango-magenta);">01</span> INPUT &nbsp;→ Cuerpo detecta gesto<br>
+        <span style="color: var(--tango-magenta);">02</span> PARSE &nbsp;→ Motor identifica figura<br>
+        <span style="color: var(--tango-magenta);">03</span> TIMING → BPM sincroniza (70 BPM)<br>
+        <span style="color: var(--tango-magenta);">04</span> CURVE &nbsp;→ Ease-embrace aplica<br>
+        <span style="color: var(--tango-magenta);">05</span> RENDER → CSS transition ejecuta<br>
+        <span style="color: var(--tango-magenta);">06</span> SENSE &nbsp;→ Feedback háptico confirma
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ Navegación ═══ -->
+  <section class="espacio-centro revelar" aria-label="Navegación">
+    <a href="../" class="puerta">← Volver</a>
+  </section>
+
+  <footer class="pie" role="contentinfo">
+    <p class="pie-marca">TANGO MAGENTA</p>
+    <p class="pie-copy">Laboratorio — El motor vivo</p>
+  </footer>
+
+  <script src="../design/body-protocol.js"></script>
+  <script src="https://dtslib1979.github.io/dtslib-branch/hq/sdk/dtslib-bridge.js"></script>
+</body>
+</html>

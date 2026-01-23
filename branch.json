@@ -1,18 +1,19 @@
 {
   "id": "tango-magenta",
   "name": "TANGO MAGENTA",
-  "tagline": "{{TAGLINE}}",
+  "tagline": "El primer sistema que respira",
   "hq": "dtslib1979/dtslib-branch",
-  "version": "1.0",
+  "version": "2.0",
   "status": "active",
   "visibility": "public",
   "area": "broadcasting",
-  "tier": "standard",
+  "tier": "premium",
+  "language": "es-AR",
   "theme": {
-    "primary": "{{COLOR_PRIMARY}}",
-    "accent": "{{COLOR_ACCENT}}",
-    "bg": "#0a0a0a",
-    "text": "#e8e8e8"
+    "primary": "#E91E63",
+    "accent": "#FFD54F",
+    "bg": "#0a0008",
+    "text": "#f0e8ec"
   },
   "subscriptions": [
     {
@@ -28,5 +29,5 @@
       "target": "assets/js"
     }
   ],
-  "features": ["broadcasting", "cave-ui", "4-layer"]
+  "features": ["broadcasting", "body-protocol", "5-layer", "tango-ui", "audio-layer"]
 }

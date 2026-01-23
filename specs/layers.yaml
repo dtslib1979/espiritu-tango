@@ -1,52 +1,99 @@
-# 4-Layer Showroom Architecture
-# Broadcasting Content Flow System
+# 5-Layer Studio & Broadcast Architecture
+# "El primer sistema que respira."
+
+version: "2.0"
+system: "tango-magenta"
+language: "es-AR"
 
 layers:
-  - level: 0
-    name: External World
-    type: showroom_public
-    platform: "YouTube, Social Media"
-    purpose: "발견 & 첫 접촉"
-    action: "CTA → 본 사이트로 유도"
-
   - level: 1
-    name: Public Portal
-    type: showroom_curated
-    platform: "{{DOMAIN}}"
-    purpose: "브랜드 경험 & 깊은 탐색"
-    content: "선별된 콘텐츠만 공개"
+    id: "emisión"
+    name: "Emisión"
+    english: "Broadcast"
+    purpose: "La señal que sale al mundo"
+    verb: "Sintonizá"
+    content:
+      - "Spotify playlists (tango, ambient, experimental)"
+      - "YouTube video sessions"
+      - "Audio archive"
+    audio: true
 
   - level: 2
-    name: Inner Portal
-    type: gateway
-    platform: "{{DOMAIN}}/inner"
-    purpose: "게이트키핑 & 필터링"
-    method: "비밀번호 (월간/멤버십)"
+    id: "cuerpo"
+    name: "Cuerpo"
+    english: "Body"
+    purpose: "La gramática del movimiento"
+    verb: "Sentí"
+    content:
+      - "Body API documentation"
+      - "6 interaction definitions"
+      - "Design principles"
+      - "Hidden secrets (long press)"
 
   - level: 3
-    name: Inner World
-    type: core
-    zones:
-      - id: alpha
-        layer: "개체 (Entity)"
-        state: raw
-      - id: beta
-        layer: "정체성 (Identity)"
-        state: structured
-      - id: gamma
-        layer: "회사 (Company)"
-        state: published
-    purpose: "핵심 창작 & 비즈니스"
+    id: "laboratorio"
+    name: "Laboratorio"
+    english: "Laboratory"
+    purpose: "El motor de gestos"
+    verb: "Experimentá"
+    content:
+      - "Gesture database (8 tango figures)"
+      - "Render pipeline visualization"
+      - "Code-level gesture definitions"
 
-funnel: "넓은 입구 → 좁은 출구 (진지한 사람만 안으로)"
+  - level: 4
+    id: "control"
+    name: "Control"
+    english: "Control Room"
+    purpose: "La cabina del sistema"
+    verb: "Observá"
+    content:
+      - "System status dashboard"
+      - "Live metrics (emissions, gestures, legacy)"
+      - "Architecture visualization"
+      - "HQ connection status"
 
-touch_model:
-  view_zone: "상단 60% — 보기만 (스크롤)"
-  thumb_zone: "하단 40% — 인터랙션 집중"
+  - level: 5
+    id: "legado"
+    name: "Legado"
+    english: "Legacy"
+    purpose: "Donde la vida se vuelve mundo"
+    verb: "Recordá"
+    content:
+      - "World constitution (5 articles)"
+      - "Archive entries (timeline)"
+      - "Manifesto"
 
-gestures:
-  tap: "선택 / 문 열기"
-  swipe_up: "더 깊이 / 다음 섹션"
-  swipe_lr: "Zone 전환"
-  long_press: "이스터에그 / 숨겨진 메뉴"
-  pull_down: "동굴 입구로 복귀"
+entrada:
+  description: "La entrada no es un click. Es una ceremonia."
+  ritual: true
+  steps: 3
+  duration: "~6.4s (3000 + 2571 + 857)"
+
+gate:
+  location: "inner/"
+  code: "1126"
+  session_storage: "tango_auth"
+
+body_protocol:
+  version: "1.0"
+  bpm: 70
+  interactions: 6
+  philosophy: "El cuerpo es la interfaz"
+
+audio_layer:
+  sources: ["spotify", "youtube"]
+  service_worker: false
+  position: "fixed-bottom"
+  height: "80px"
+  class: "reproductor"
+
+compatibility:
+  bing_read_aloud: true
+  translation: true
+  semantic_html: true
+  reduced_motion: true
+  mobile_only: true
+  max_width: "430px"
+
+funnel: "Oscuridad → Ritual → Monumento → Capas → Profundidad"

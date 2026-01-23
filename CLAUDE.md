@@ -1,23 +1,31 @@
-# TANGO MAGENTA Agent Protocol
+# TANGO MAGENTA Agent Protocol v2.0
 
 > Claude Code agent guide for the tango-magenta repository.
+> "El primer sistema que respira."
 
 ---
 
 ## 1. Project Overview
 
 ### Purpose
-4-Layer Broadcasting Content Factory (CAVE UI Architecture)
+5-Layer Studio & Broadcast System (Body-as-Interface Architecture)
 
 ### Tech Stack
 - Pure static site (HTML/CSS/JS)
 - GitHub Pages hosting
-- CAVE UI Design System
+- Tango UI Design System (BPM-based)
+- Body Interaction Protocol v1.0
 - Mobile-Only (430px max-width)
+- No Service Worker
+- Bing Read-Aloud & Translation Compatible
+
+### Language
+- Base: Argentine Spanish (es-AR, porteño)
+- Vos form throughout
+- Buenos Aires street tone
 
 ### Architecture
-parksy.kr 방송국 구조를 그대로 카피한 템플릿.
-4-Layer Showroom + Content Factory Pipeline.
+5-Layer broadcasting system where the body is the interface and tango is the protocol.
 
 ---
 
@@ -29,6 +37,7 @@ parksy.kr 방송국 구조를 그대로 카피한 템플릿.
 | **Branch ID** | tango-magenta |
 | **Status** | active |
 | **Visibility** | public |
+| **Tier** | premium |
 | **Established** | 2026.01.23 |
 
 ---
@@ -37,37 +46,49 @@ parksy.kr 방송국 구조를 그대로 카피한 템플릿.
 
 ```
 tango-magenta/
-├── index.html              # Layer 1: Public Portal
+├── index.html              # Entrada (Ritual + 5-Layer Navigation)
+├── emisión/
+│   └── index.html          # L1: Broadcast (Spotify/YouTube)
+├── cuerpo/
+│   └── index.html          # L2: Body Grammar (Body API docs)
+├── laboratorio/
+│   └── index.html          # L3: Gesture Engine (Motion rendering)
+├── control/
+│   └── index.html          # L4: Control Room (System metrics)
+├── legado/
+│   └── index.html          # L5: Legacy (Constitution + Archive)
 ├── inner/
-│   └── index.html          # Layer 2: Gate (password)
-├── zone/
-│   ├── alpha/index.html    # Layer 3: Zone A (raw/entity)
-│   ├── beta/index.html     # Layer 3: Zone B (structured/identity)
-│   └── gamma/index.html    # Layer 3: Zone C (published/company)
+│   └── index.html          # Gate (password: 1126)
 │
 ├── design/
-│   ├── cave.css            # CAVE UI stylesheet
-│   ├── cave.js             # Mobile touch interactions
-│   └── meaning-layer.yaml  # Semantic element definitions
-│
-├── specs/
-│   └── layers.yaml         # 4-Layer architecture spec
+│   ├── tango.css           # Design System (BPM timing, dance curves)
+│   ├── body-protocol.js    # Body Interaction Protocol
+│   └── entrada.js          # Ritual entrance sequence
 │
 ├── api/
-│   └── content.json        # Content data endpoint
+│   ├── gestures.json       # Gesture database
+│   ├── legacy.json         # Legacy archive data
+│   └── content.json        # Content endpoint
+│
+├── specs/
+│   ├── body-protocol.yaml  # Full protocol specification
+│   ├── constitution.md     # World constitution
+│   └── layers.yaml         # Architecture spec
+│
+├── .github/workflows/
+│   ├── deploy.yml          # GitHub Pages deployment
+│   ├── content-pipeline.yml # Content validation
+│   └── lighthouse.yml      # Performance audits
 │
 ├── assets/
 │   ├── icons/
 │   ├── og/
 │   └── audio/
 │
-├── scripts/                # Build/deploy scripts
-├── docs/                   # Documentation
-├── platform/               # Platform extensions
-│
-├── FACTORY.json            # Core factory configuration
+├── FACTORY.json            # Core system configuration v2.0
 ├── branch.json             # Franchise OS identity
-├── manifest.webmanifest    # PWA
+├── manifest.webmanifest    # PWA manifest
+├── .lighthouserc.json      # Lighthouse CI config
 ├── sitemap.xml
 ├── robots.txt
 └── .nojekyll
@@ -75,69 +96,81 @@ tango-magenta/
 
 ---
 
-## 4. Content Variables ({{PLACEHOLDER}})
+## 4. Body Protocol (UI Events = Body Actions)
 
-이 레포는 템플릿입니다. 아래 변수들을 실제 값으로 교체해야 합니다:
-
-| Variable | Description | Location |
-|----------|-------------|----------|
-| `{{TAGLINE}}` | 사이트 태그라인 | index.html, FACTORY.json, manifest |
-| `{{DOMAIN}}` | 커스텀 도메인 | FACTORY.json, specs |
-| `{{WHISPER_TOP}}` | 입구 상단 속삭임 텍스트 | index.html |
-| `{{ZONE_A_TITLE}}` | Zone Alpha 제목 | index, inner, zone/alpha |
-| `{{ZONE_A_DESC}}` | Zone Alpha 설명 | index, zone/alpha |
-| `{{ZONE_B_TITLE}}` | Zone Beta 제목 | index, inner, zone/beta |
-| `{{ZONE_B_DESC}}` | Zone Beta 설명 | index, zone/beta |
-| `{{ZONE_C_TITLE}}` | Zone Gamma 제목 | index, inner, zone/gamma |
-| `{{ZONE_C_DESC}}` | Zone Gamma 설명 | index, zone/gamma |
-| `{{COLOR_PRIMARY}}` | 주 색상 | branch.json, FACTORY.json |
-| `{{COLOR_ACCENT}}` | 보조 색상 | branch.json, FACTORY.json |
-| `{{COLOR_BG}}` | 배경 색상 | FACTORY.json |
-| `{{COLOR_GLOW}}` | 발광 색상 | FACTORY.json |
-| `{{PHILOSOPHY_CORE}}` | 핵심 철학 | FACTORY.json |
-| `{{HUMAN_ROLE}}` | 인간 역할 정의 | FACTORY.json |
-| `{{PHILOSOPHY_RESULT}}` | 결과 정의 | FACTORY.json |
-| `{{ZONE_A_KEYWORD}}` | Zone A 키워드 | FACTORY.json |
-| `{{ZONE_A_ESSENCE}}` | Zone A 본질 | FACTORY.json |
-| `{{ZONE_A_ONELINER}}` | Zone A 한줄 | FACTORY.json |
-| `{{ZONE_B_KEYWORD}}` | Zone B 키워드 | FACTORY.json |
-| `{{ZONE_B_ESSENCE}}` | Zone B 본질 | FACTORY.json |
-| `{{ZONE_B_ONELINER}}` | Zone B 한줄 | FACTORY.json |
-| `{{ZONE_C_KEYWORD}}` | Zone C 키워드 | FACTORY.json |
-| `{{ZONE_C_ESSENCE}}` | Zone C 본질 | FACTORY.json |
-| `{{ZONE_C_ONELINER}}` | Zone C 한줄 | FACTORY.json |
+| Event | Spanish | English | Implementation |
+|-------|---------|---------|----------------|
+| Scroll | Acercarse | Approach | IntersectionObserver |
+| Tap | Compromiso | Commit | click/touchend |
+| Hold | Esperar | Wait/Sense | touchstart + 857ms |
+| Swipe | Girar | Turn | touchstart/end diff |
+| Idle 3s | Respirar | Breathe | body.respirando |
+| Back | Soltar | Release | history.back() |
 
 ---
 
-## 5. CAVE UI Principles
+## 5. BPM Timing System (70 BPM Tango Lento)
 
-- 어둡고 (동굴)
-- 여백 많고 (비어있음이 깊이)
-- 텍스트 적고 (한 마디가 무겁게)
-- 클릭 = 이동 (페이지가 아니라 장소)
-- 스크롤 = 더 깊이
-
----
-
-## 6. Gate Code
-
-Inner Portal 비밀번호: `1126`
-(inner/index.html의 data-gate-code 속성)
+| Token | Value | Use |
+|-------|-------|-----|
+| --beat | 857ms | Standard transition |
+| --half-beat | 428ms | Quick response |
+| --double-beat | 1714ms | Slow reveal |
+| --breath | 2571ms | Full breath cycle |
+| --phrase | 3428ms | 4-bar phrase |
 
 ---
 
-## 7. Commit Convention
+## 6. Dance Motion Curves
+
+| Curve | Values | Use |
+|-------|--------|-----|
+| --ease-approach | cubic-bezier(0.16, 1, 0.3, 1) | Entrance |
+| --ease-retreat | cubic-bezier(0.7, 0, 0.84, 0) | Exit |
+| --ease-embrace | cubic-bezier(0.34, 1.56, 0.64, 1) | Overshoot |
+| --ease-release | cubic-bezier(0.25, 0, 0.5, 1) | Gentle end |
+
+---
+
+## 7. Gate Code
+
+Inner Portal password: `1126`
+(inner/index.html data-gate-code attribute)
+
+---
+
+## 8. Entrada Ritual
+
+1. 3s absolute darkness
+2. "Respirá despacio." appears (CSS animation-delay: 3s)
+3. After breath + beat: ritual fades, system appears
+4. sessionStorage skip on return visits
+
+---
+
+## 9. Audio Layer
+
+- Spotify embed playlists (fixed bottom, 80px)
+- YouTube embed for video sessions
+- No service worker
+- body.con-reproductor adds padding-bottom
+
+---
+
+## 10. Commit Convention
 
 ```
 feat: New feature
 fix: Bug fix
-design: CAVE UI changes
+design: Tango UI changes
 content: Content add/modify
 arch: Architecture changes
+body: Body Protocol changes
+audio: Audio layer changes
 ```
 
 ---
 
 *Last updated: 2026-01-23*
-*Template source: parksy.kr*
+*Architecture: 5-Layer Studio & Broadcast*
 *Affiliation: DTSLIB HQ*

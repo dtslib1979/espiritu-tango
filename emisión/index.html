@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0008">
+  <title>Emisión — TANGO MAGENTA</title>
+  <meta name="description" content="La señal que sale al mundo. Audio en vivo, sets grabados, frecuencias que no se apagan.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../design/tango.css">
+</head>
+<body class="con-reproductor">
+
+  <!-- ═══ Cabecera ═══ -->
+  <section class="espacio-centro" aria-label="Emisión">
+    <p class="susurro latido">CAPA 01</p>
+    <h1 class="monumento" style="font-size: clamp(2rem, 10vw, 4rem); margin-top: var(--space-md);">
+      Emisión
+    </h1>
+    <p class="voz" style="margin-top: var(--space-lg);">
+      La señal que sale al mundo.<br>
+      Frecuencias que no se apagan.
+    </p>
+  </section>
+
+  <!-- ═══ Sets en Vivo ═══ -->
+  <section class="espacio" aria-label="Sets en vivo">
+    <p class="susurro revelar">EN VIVO</p>
+
+    <article class="tarjeta revelar" style="margin-top: var(--space-lg);">
+      <h2 class="tarjeta-titulo">Milonga Nocturna</h2>
+      <p class="tarjeta-texto">Set de tango electrónico. 120 minutos de ritual sonoro.</p>
+      <div style="margin-top: var(--space-md); border-radius: var(--radius); overflow: hidden;">
+        <iframe
+          width="100%" height="152"
+          src="https://open.spotify.com/embed/playlist/37i9dQZF1DX1s9knjP51Oa?utm_source=generator&theme=0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+          style="border: none;"
+          title="Milonga Nocturna playlist">
+        </iframe>
+      </div>
+    </article>
+
+    <article class="tarjeta revelar">
+      <h2 class="tarjeta-titulo">Abrazo Ambient</h2>
+      <p class="tarjeta-texto">Paisajes sonoros para la práctica del movimiento lento.</p>
+      <div style="margin-top: var(--space-md); border-radius: var(--radius); overflow: hidden;">
+        <iframe
+          width="100%" height="152"
+          src="https://open.spotify.com/embed/playlist/37i9dQZF1DWZqd5JICBD0p?utm_source=generator&theme=0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+          style="border: none;"
+          title="Abrazo Ambient playlist">
+        </iframe>
+      </div>
+    </article>
+  </section>
+
+  <!-- ═══ Video Sessions ═══ -->
+  <section class="espacio" aria-label="Sesiones de video">
+    <p class="susurro revelar">SESIONES</p>
+
+    <article class="tarjeta revelar" style="margin-top: var(--space-lg);">
+      <h2 class="tarjeta-titulo">Sesión 001</h2>
+      <p class="tarjeta-texto">Primera transmisión. El cuerpo como antena.</p>
+      <div style="margin-top: var(--space-md); border-radius: var(--radius); overflow: hidden; aspect-ratio: 16/9;">
+        <iframe
+          width="100%" height="100%"
+          src="https://www.youtube.com/embed/videoseries?list=PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+          style="border: none;"
+          title="Sesión de video">
+        </iframe>
+      </div>
+    </article>
+
+    <article class="tarjeta revelar">
+      <h2 class="tarjeta-titulo">Archivo Sonoro</h2>
+      <p class="tarjeta-texto">Grabaciones de milongas perdidas. Audio restaurado.</p>
+      <div style="margin-top: var(--space-md); border-radius: var(--radius); overflow: hidden;">
+        <iframe
+          width="100%" height="152"
+          src="https://open.spotify.com/embed/playlist/37i9dQZF1EQnqst5TRi17F?utm_source=generator&theme=0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+          style="border: none;"
+          title="Archivo Sonoro playlist">
+        </iframe>
+      </div>
+    </article>
+  </section>
+
+  <!-- ═══ Navegación ═══ -->
+  <section class="espacio-centro revelar" aria-label="Navegación">
+    <a href="../" class="puerta">← Volver</a>
+  </section>
+
+  <!-- ═══ Pie ═══ -->
+  <footer class="pie" role="contentinfo">
+    <p class="pie-marca">TANGO MAGENTA</p>
+    <p class="pie-copy">Emisión — La señal viva</p>
+  </footer>
+
+  <!-- ═══ Reproductor Fijo ═══ -->
+  <div class="reproductor" aria-label="Reproductor">
+    <iframe
+      src="https://open.spotify.com/embed/playlist/37i9dQZF1DX1s9knjP51Oa?utm_source=generator&theme=0"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy"
+      title="Reproductor global">
+    </iframe>
+  </div>
+
+  <script src="../design/body-protocol.js"></script>
+  <script src="https://dtslib1979.github.io/dtslib-branch/hq/sdk/dtslib-bridge.js"></script>
+</body>
+</html>

@@ -320,35 +320,12 @@ a:active { opacity: 0.7; }
 
 /* ─── Stone Tablet Carousel (Manifesto) ─── */
 .tablet-section {
-  position: relative;
-  padding: 0;
-  margin: var(--s-xxl) 0;
+  padding: var(--s-xxl) 0;
   overflow: hidden;
 }
 
-.tablet-stone {
-  position: relative;
-  width: 78%;
-  max-width: 340px;
-  margin: 0 auto;
-  aspect-ratio: 1010 / 1659;
-}
-
-.tablet-stone img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-}
-
 .tablet-carousel {
-  position: absolute;
-  top: 12%;
-  left: 12%;
-  right: 12%;
-  bottom: 30%;
-  display: flex;
-  align-items: center;
+  width: 100%;
   overflow: hidden;
   touch-action: pan-y;
   -webkit-user-select: none;
@@ -357,8 +334,6 @@ a:active { opacity: 0.7; }
 
 .tablet-track {
   display: flex;
-  width: 100%;
-  height: 100%;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
 }
@@ -369,65 +344,88 @@ a:active { opacity: 0.7; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 12px 8px;
+  padding: 0 var(--s-md);
   box-sizing: border-box;
+}
+
+.tablet-block {
+  width: 100%;
+  max-width: 340px;
+  background: url('../Stone.png') center 30% / cover no-repeat;
+  border-radius: 8px;
+  padding: 48px 28px 40px;
   text-align: center;
+  position: relative;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.5),
+    0 12px 48px rgba(0, 0, 0, 0.3);
+}
+
+.tablet-block::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.35);
+  pointer-events: none;
 }
 
 .tablet-numeral {
+  position: relative;
   display: block;
   font-family: var(--f-monument);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   letter-spacing: 0.35em;
-  color: rgba(255, 200, 100, 0.6);
-  margin-bottom: 16px;
-  text-shadow: 0 0 8px rgba(255, 180, 60, 0.2);
+  color: rgba(255, 210, 120, 0.7);
+  margin-bottom: 20px;
+  text-shadow: 0 0 8px rgba(255, 180, 60, 0.25);
 }
 
 .tablet-numeral::after {
   content: '';
   display: block;
-  width: 20px;
+  width: 24px;
   height: 1px;
-  background: rgba(255, 200, 100, 0.2);
-  margin: 10px auto 0;
+  background: rgba(255, 200, 100, 0.25);
+  margin: 12px auto 0;
 }
 
 .tablet-text {
+  position: relative;
   font-family: var(--f-monument);
-  font-size: clamp(0.95rem, 3.5vw, 1.2rem);
+  font-size: clamp(1rem, 4vw, 1.25rem);
   font-weight: 400;
   line-height: 1.8;
-  color: rgba(240, 230, 215, 0.92);
+  color: rgba(245, 235, 220, 0.95);
   letter-spacing: 0.01em;
   text-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.8),
-    0 0 6px rgba(0, 0, 0, 0.4);
+    0 2px 4px rgba(0, 0, 0, 0.9),
+    0 0 8px rgba(0, 0, 0, 0.5);
 }
 
 .tablet-glow {
-  color: #ffb74d;
+  color: #ffcc66;
   text-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.8),
-    0 0 10px rgba(255, 180, 60, 0.3);
+    0 2px 4px rgba(0, 0, 0, 0.9),
+    0 0 14px rgba(255, 180, 60, 0.35);
 }
 
 .tablet-ko {
+  position: relative;
   display: block;
   font-family: 'Noto Serif KR', serif;
-  font-size: 0.72rem;
-  color: rgba(220, 200, 170, 0.5);
-  margin-top: 18px;
+  font-size: 0.75rem;
+  color: rgba(230, 210, 180, 0.6);
+  margin-top: 20px;
   letter-spacing: 0.02em;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
 }
 
 .tablet-dots {
   display: flex;
   justify-content: center;
   gap: 8px;
-  margin-top: var(--s-md);
-  padding-bottom: var(--s-md);
+  margin-top: var(--s-lg);
 }
 
 .tablet-dot {

@@ -93,14 +93,19 @@
     let startX = 0;
     let startY = 0;
     let startTime = 0;
+    let startTarget = null;
 
     document.addEventListener('touchstart', (e) => {
       startX = e.touches[0].pageX;
       startY = e.touches[0].pageY;
       startTime = Date.now();
+      startTarget = e.target;
     }, { passive: true });
 
     document.addEventListener('touchend', (e) => {
+      // Skip if swipe originated inside a carousel or interactive scroll region
+      if (startTarget && startTarget.closest('.tablet-carousel, .tablet-track')) return;
+
       const diffX = startX - e.changedTouches[0].pageX;
       const diffY = startY - e.changedTouches[0].pageY;
       const elapsed = Date.now() - startTime;

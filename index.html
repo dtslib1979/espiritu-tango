@@ -81,25 +81,30 @@
 
   <!-- ═══ Ribbon — 인연의 실 (Thread of Fate) ═══ -->
   <div class="ribbon-container" id="ribbonContainer" aria-hidden="true">
-    <svg class="ribbon-svg" viewBox="0 0 430 932" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <svg class="ribbon-svg" viewBox="0 0 430 932" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <filter id="ribbon-glow">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
+          <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
           <feMerge>
             <feMergeNode in="blur"/>
             <feMergeNode in="SourceGraphic"/>
           </feMerge>
         </filter>
-        <filter id="ribbon-glow-strong">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
-          <feMerge>
-            <feMergeNode in="blur"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
+        <filter id="ribbon-ambient">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="8"/>
         </filter>
       </defs>
 
-      <!-- Main ribbon — sinuous tango embrace path -->
+      <!-- Ambient glow layer (wide, soft, behind everything) -->
+      <path class="ribbon-path ribbon-path--ambient" id="ribbonAmbient"
+        d="M 215 -10
+           C 300 60, 130 130, 340 200
+           S 90 290, 260 370
+           C 380 430, 60 500, 215 580
+           S 360 660, 170 740
+           C 50 800, 370 860, 215 942" />
+
+      <!-- Main silk ribbon — core thread -->
       <path class="ribbon-path ribbon-path--main" id="ribbonMain"
         d="M 215 -10
            C 300 60, 130 130, 340 200
@@ -108,21 +113,31 @@
            S 360 660, 170 740
            C 50 800, 370 860, 215 942" />
 
-      <!-- Echo ribbon 1 — partner's trace, offset -->
-      <path class="ribbon-path ribbon-path--echo1" id="ribbonEcho1"
+      <!-- Silk thread 1 — tight weave, slight offset left -->
+      <path class="ribbon-path ribbon-path--thread" id="ribbonThread1"
+        d="M 210 -10
+           C 290 65, 125 135, 333 205
+           S 85 295, 254 375
+           C 372 435, 55 505, 209 585
+           S 353 665, 164 745
+           C 44 805, 363 865, 209 942" />
+
+      <!-- Silk thread 2 — tight weave, slight offset right -->
+      <path class="ribbon-path ribbon-path--thread" id="ribbonThread2"
+        d="M 220 -10
+           C 310 55, 137 125, 347 195
+           S 97 285, 266 365
+           C 388 425, 67 495, 221 575
+           S 367 655, 176 735
+           C 57 795, 377 855, 221 942" />
+
+      <!-- Partner echo — distant trace -->
+      <path class="ribbon-path ribbon-path--echo" id="ribbonEcho1"
         d="M 190 -10
            C 100 80, 330 160, 150 260
            S 350 350, 190 440
            C 60 520, 370 600, 240 700
            S 100 800, 250 942" />
-
-      <!-- Echo ribbon 2 — scattered whisper -->
-      <path class="ribbon-path ribbon-path--echo2" id="ribbonEcho2"
-        d="M 240 -10
-           C 370 100, 60 200, 310 310
-           S 120 420, 290 530
-           C 400 620, 80 720, 260 830
-           S 170 900, 230 942" />
     </svg>
   </div>
 
@@ -150,6 +165,7 @@
     <div class="danza-video-wrap">
       <video class="danza-video"
              src="danza-mobile.mp4"
+             poster="danza-poster.jpg"
              autoplay
              muted
              loop
@@ -601,54 +617,57 @@
     'use strict';
     var container = document.getElementById('ribbonContainer');
     var mainPath = document.getElementById('ribbonMain');
+    var ambient = document.getElementById('ribbonAmbient');
+    var thread1 = document.getElementById('ribbonThread1');
+    var thread2 = document.getElementById('ribbonThread2');
     var echo1 = document.getElementById('ribbonEcho1');
-    var echo2 = document.getElementById('ribbonEcho2');
     if (!container || !mainPath) return;
 
-    // Calculate actual path lengths
-    var mainLen = mainPath.getTotalLength();
-    var echo1Len = echo1 ? echo1.getTotalLength() : 1800;
-    var echo2Len = echo2 ? echo2.getTotalLength() : 1600;
+    // Calculate actual path lengths and set dasharray
+    var paths = [
+      { el: mainPath, lag: 0 },
+      { el: ambient, lag: 0 },
+      { el: thread1, lag: 0.02 },
+      { el: thread2, lag: 0.04 },
+      { el: echo1, lag: 0.1 }
+    ];
 
-    // Set dasharray to actual lengths
-    mainPath.style.strokeDasharray = mainLen;
-    mainPath.style.strokeDashoffset = mainLen;
-    if (echo1) {
-      echo1.style.strokeDasharray = echo1Len;
-      echo1.style.strokeDashoffset = echo1Len;
-    }
-    if (echo2) {
-      echo2.style.strokeDasharray = echo2Len;
-      echo2.style.strokeDashoffset = echo2Len;
-    }
+    paths.forEach(function(p) {
+      if (!p.el) return;
+      p.len = p.el.getTotalLength();
+      p.el.style.strokeDasharray = p.len;
+      p.el.style.strokeDashoffset = p.len;
+    });
 
-    // Initial draw amount (visible without scrolling)
+    // Initial draw amount (visible on hero without scrolling)
     var INITIAL_DRAW = 0.22;
+    var APPROACH = 'cubic-bezier(0.16, 1, 0.3, 1)';
 
     // Show ribbon after ritual, then animate initial portion
     var showDelay = sessionStorage.getItem('tango_entered') ? 500 : 5500;
     setTimeout(function() {
       container.classList.add('visible');
-      // Smooth initial draw animation
-      mainPath.style.transition = 'stroke-dashoffset 2.5s cubic-bezier(0.16, 1, 0.3, 1)';
-      mainPath.style.strokeDashoffset = mainLen * (1 - INITIAL_DRAW);
-      if (echo1) {
-        echo1.style.transition = 'stroke-dashoffset 2.8s cubic-bezier(0.16, 1, 0.3, 1)';
-        echo1.style.strokeDashoffset = echo1Len * (1 - INITIAL_DRAW * 0.7);
-      }
-      if (echo2) {
-        echo2.style.transition = 'stroke-dashoffset 3s cubic-bezier(0.16, 1, 0.3, 1)';
-        echo2.style.strokeDashoffset = echo2Len * (1 - INITIAL_DRAW * 0.5);
-      }
+
+      // Staggered initial draw for each layer
+      paths.forEach(function(p, i) {
+        if (!p.el) return;
+        var delay = i * 200;
+        var drawAmount = INITIAL_DRAW * Math.max(0.4, 1 - p.lag * 3);
+        setTimeout(function() {
+          p.el.style.transition = 'stroke-dashoffset 2.5s ' + APPROACH;
+          p.el.style.strokeDashoffset = p.len * (1 - drawAmount);
+        }, delay);
+      });
+
       // Reset to fast transitions after initial draw
       setTimeout(function() {
-        mainPath.style.transition = 'stroke-dashoffset 0.08s linear';
-        if (echo1) echo1.style.transition = 'stroke-dashoffset 0.08s linear';
-        if (echo2) echo2.style.transition = 'stroke-dashoffset 0.08s linear';
-      }, 3200);
+        paths.forEach(function(p) {
+          if (p.el) p.el.style.transition = 'stroke-dashoffset 0.08s linear';
+        });
+      }, 3500);
     }, showDelay);
 
-    // Scroll-linked reveal (builds on top of initial draw)
+    // Scroll-linked reveal
     var ticking = false;
     function onScroll() {
       if (ticking) return;
@@ -658,20 +677,14 @@
         var docHeight = document.documentElement.scrollHeight - window.innerHeight;
         var scrollProgress = Math.min(scrollTop / docHeight, 1);
 
-        // Combine initial draw with scroll progress
-        var progress = Math.max(INITIAL_DRAW, INITIAL_DRAW + scrollProgress * (1 - INITIAL_DRAW));
+        paths.forEach(function(p) {
+          if (!p.el) return;
+          var progress = Math.max(INITIAL_DRAW,
+            INITIAL_DRAW + Math.max(0, scrollProgress - p.lag) * (1 - INITIAL_DRAW));
+          p.el.style.strokeDashoffset = p.len * (1 - progress);
+        });
 
-        // Main ribbon
-        mainPath.style.strokeDashoffset = mainLen * (1 - progress);
-
-        // Echo ribbons lag slightly behind
-        var e1Progress = Math.max(0, (progress - 0.08) / 0.92);
-        if (echo1) echo1.style.strokeDashoffset = echo1Len * (1 - e1Progress);
-
-        var e2Progress = Math.max(0, (progress - 0.15) / 0.85);
-        if (echo2) echo2.style.strokeDashoffset = echo2Len * (1 - e2Progress);
-
-        // Add breathing class when scrolled
+        // Breathing when scrolled
         if (scrollProgress > 0.05) {
           mainPath.classList.add('alive');
         } else {

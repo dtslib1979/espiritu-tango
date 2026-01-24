@@ -801,37 +801,51 @@ button {
   stroke: var(--magenta);
   stroke-linecap: round;
   stroke-linejoin: round;
-  filter: url(#ribbon-glow);
 }
 
-.ribbon-path--main {
-  stroke-width: 1.5;
-  opacity: 0.25;
+/* Ambient glow — soft wide halo behind the ribbon */
+.ribbon-path--ambient {
+  stroke-width: 14;
+  opacity: 0.07;
+  filter: url(#ribbon-ambient);
   stroke-dasharray: 2000;
   stroke-dashoffset: 2000;
-  transition: stroke-dashoffset 0.05s linear;
+  transition: stroke-dashoffset 0.08s linear;
 }
 
-.ribbon-path--echo1 {
-  stroke-width: 0.8;
-  opacity: 0.12;
+/* Main silk ribbon — visible core */
+.ribbon-path--main {
+  stroke-width: 2.5;
+  opacity: 0.45;
+  filter: url(#ribbon-glow);
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  transition: stroke-dashoffset 0.08s linear;
+}
+
+/* Silk threads — fine fibers flanking the main ribbon */
+.ribbon-path--thread {
+  stroke-width: 0.7;
+  opacity: 0.3;
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  transition: stroke-dashoffset 0.08s linear;
+}
+
+/* Partner echo — distant parallel trace */
+.ribbon-path--echo {
+  stroke-width: 1.2;
+  opacity: 0.15;
+  filter: url(#ribbon-glow);
   stroke-dasharray: 1800;
   stroke-dashoffset: 1800;
-  transition: stroke-dashoffset 0.05s linear;
-}
-
-.ribbon-path--echo2 {
-  stroke-width: 0.5;
-  opacity: 0.08;
-  stroke-dasharray: 1600;
-  stroke-dashoffset: 1600;
-  transition: stroke-dashoffset 0.05s linear;
+  transition: stroke-dashoffset 0.08s linear;
 }
 
 /* Ribbon breathing pulse */
 @keyframes ribbon-breathe {
-  0%, 100% { opacity: 0.25; filter: url(#ribbon-glow); }
-  50% { opacity: 0.4; filter: url(#ribbon-glow-strong); }
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.65; }
 }
 
 .ribbon-path--main.alive {

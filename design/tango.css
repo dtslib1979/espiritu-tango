@@ -803,53 +803,62 @@ button {
   stroke-linejoin: round;
 }
 
-/* Ambient glow — soft wide halo behind the ribbon */
+/* Ambient glow — soft, barely there */
 .ribbon-path--ambient {
-  stroke-width: 14;
-  opacity: 0.07;
+  stroke-width: 6;
+  opacity: 0.03;
   filter: url(#ribbon-ambient);
   stroke-dasharray: 2000;
   stroke-dashoffset: 2000;
   transition: stroke-dashoffset 0.08s linear;
 }
 
-/* Main silk ribbon — visible core */
+/* Main ribbon — dim, flicker reveals it */
 .ribbon-path--main {
-  stroke-width: 2.5;
-  opacity: 0.45;
-  filter: url(#ribbon-glow);
-  stroke-dasharray: 2000;
-  stroke-dashoffset: 2000;
-  transition: stroke-dashoffset 0.08s linear;
-}
-
-/* Silk threads — fine fibers flanking the main ribbon */
-.ribbon-path--thread {
-  stroke-width: 0.7;
-  opacity: 0.3;
-  stroke-dasharray: 2000;
-  stroke-dashoffset: 2000;
-  transition: stroke-dashoffset 0.08s linear;
-}
-
-/* Partner echo — distant parallel trace */
-.ribbon-path--echo {
   stroke-width: 1.2;
-  opacity: 0.15;
+  opacity: 0.12;
   filter: url(#ribbon-glow);
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  transition: stroke-dashoffset 0.08s linear;
+}
+
+/* Silk threads — ghost-thin */
+.ribbon-path--thread {
+  stroke-width: 0.4;
+  opacity: 0.08;
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  transition: stroke-dashoffset 0.08s linear;
+}
+
+/* Partner echo — barely visible */
+.ribbon-path--echo {
+  stroke-width: 0.6;
+  opacity: 0.06;
   stroke-dasharray: 1800;
   stroke-dashoffset: 1800;
   transition: stroke-dashoffset 0.08s linear;
 }
 
-/* Ribbon breathing pulse */
-@keyframes ribbon-breathe {
-  0%, 100% { opacity: 0.45; }
-  50% { opacity: 0.65; }
+/* Flicker effect — 점등 (lights turning on/off) */
+@keyframes ribbon-flicker {
+  0%, 100% { opacity: 0.08; }
+  15% { opacity: 0.2; }
+  30% { opacity: 0.05; }
+  45% { opacity: 0.18; }
+  60% { opacity: 0.03; }
+  75% { opacity: 0.22; }
+  90% { opacity: 0.1; }
 }
 
 .ribbon-path--main.alive {
-  animation: ribbon-breathe var(--breath) ease-in-out infinite;
+  animation: ribbon-flicker 4s ease-in-out infinite;
+}
+
+.ribbon-path--thread.alive {
+  animation: ribbon-flicker 4s ease-in-out infinite;
+  animation-delay: 0.5s;
 }
 
 /* ─── VII-C. Dance Video Section ─── */
@@ -940,34 +949,49 @@ button {
 }
 
 .huella-svg {
-  width: 88px;
-  height: 103px;
-  filter: drop-shadow(0 0 12px rgba(233, 30, 99, 0.2));
+  width: 140px;
+  height: 164px;
+  filter: drop-shadow(0 0 20px rgba(233, 30, 99, 0.3))
+          drop-shadow(0 0 60px rgba(233, 30, 99, 0.1));
   transition: filter var(--beat) var(--approach);
 }
 
 .huella-link:active .huella-svg {
-  filter: drop-shadow(0 0 24px rgba(233, 30, 99, 0.5));
+  filter: drop-shadow(0 0 30px rgba(233, 30, 99, 0.6))
+          drop-shadow(0 0 80px rgba(233, 30, 99, 0.2));
 }
 
 .huella-ridge {
   fill: none;
   stroke: var(--magenta);
-  stroke-width: 1.2;
+  stroke-width: 1.8;
   stroke-linecap: round;
   stroke-dasharray: 400;
   stroke-dashoffset: 400;
   animation: huella-draw var(--double) var(--approach) forwards;
 }
 
-.huella-ridge--1 { opacity: 0.2; animation-delay: 0ms; }
-.huella-ridge--2 { opacity: 0.3; animation-delay: 120ms; }
-.huella-ridge--3 { opacity: 0.45; animation-delay: 240ms; }
-.huella-ridge--4 { opacity: 0.6; animation-delay: 360ms; }
-.huella-ridge--5 { opacity: 0.8; animation-delay: 480ms; }
+.huella-ridge--1 { opacity: 0.35; animation-delay: 0ms; }
+.huella-ridge--2 { opacity: 0.5; animation-delay: 120ms; }
+.huella-ridge--3 { opacity: 0.65; animation-delay: 240ms; }
+.huella-ridge--4 { opacity: 0.8; animation-delay: 360ms; }
+.huella-ridge--5 { opacity: 0.95; animation-delay: 480ms; }
 
 @keyframes huella-draw {
   to { stroke-dashoffset: 0; }
+}
+
+/* Shimmer effect — traveling highlight along ridges */
+.huella-ridge--3,
+.huella-ridge--4,
+.huella-ridge--5 {
+  animation: huella-draw var(--double) var(--approach) forwards,
+             huella-shimmer 3.4s ease-in-out infinite;
+}
+
+@keyframes huella-shimmer {
+  0%, 100% { filter: none; }
+  50% { filter: drop-shadow(0 0 6px rgba(233, 30, 99, 0.8)); }
 }
 
 .huella-core {
@@ -978,21 +1002,21 @@ button {
 }
 
 @keyframes huella-core-pulse {
-  0%, 100% { opacity: 0.4; r: 4; }
-  50% { opacity: 0.9; r: 5; }
+  0%, 100% { opacity: 0.5; r: 4; }
+  50% { opacity: 1; r: 6; }
 }
 
 .huella-label {
   font-family: var(--f-ko);
-  font-size: var(--t-xs);
+  font-size: var(--t-sm);
   color: var(--dim);
   letter-spacing: 0.05em;
-  opacity: 0.4;
+  opacity: 0.5;
   transition: opacity var(--half) var(--approach);
 }
 
 .huella-link:active .huella-label {
-  opacity: 0.8;
+  opacity: 1;
 }
 
 /* Idle state */

@@ -636,7 +636,7 @@
     var echo1 = document.getElementById('ribbonEcho1');
     if (!container || !mainPath) return;
 
-    // Calculate actual path lengths and set dasharray
+    // Calculate actual path lengths and set dasharray for reveal
     var paths = [
       { el: mainPath, lag: 0 },
       { el: ambient, lag: 0 },
@@ -697,11 +697,15 @@
           p.el.style.strokeDashoffset = p.len * (1 - progress);
         });
 
-        // Breathing when scrolled
+        // Flicker when scrolled
         if (scrollProgress > 0.05) {
           mainPath.classList.add('alive');
+          if (thread1) thread1.classList.add('alive');
+          if (thread2) thread2.classList.add('alive');
         } else {
           mainPath.classList.remove('alive');
+          if (thread1) thread1.classList.remove('alive');
+          if (thread2) thread2.classList.remove('alive');
         }
 
         ticking = false;

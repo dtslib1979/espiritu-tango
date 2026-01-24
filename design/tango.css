@@ -923,6 +923,78 @@ button {
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
 }
 
+/* ─── VII-D. Fingerprint Portal (Huella) ─── */
+
+.huella-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-sm);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform var(--half) var(--approach);
+}
+
+.huella-link:active {
+  transform: scale(0.94);
+}
+
+.huella-svg {
+  width: 88px;
+  height: 103px;
+  filter: drop-shadow(0 0 12px rgba(233, 30, 99, 0.2));
+  transition: filter var(--beat) var(--approach);
+}
+
+.huella-link:active .huella-svg {
+  filter: drop-shadow(0 0 24px rgba(233, 30, 99, 0.5));
+}
+
+.huella-ridge {
+  fill: none;
+  stroke: var(--magenta);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: huella-draw var(--double) var(--approach) forwards;
+}
+
+.huella-ridge--1 { opacity: 0.2; animation-delay: 0ms; }
+.huella-ridge--2 { opacity: 0.3; animation-delay: 120ms; }
+.huella-ridge--3 { opacity: 0.45; animation-delay: 240ms; }
+.huella-ridge--4 { opacity: 0.6; animation-delay: 360ms; }
+.huella-ridge--5 { opacity: 0.8; animation-delay: 480ms; }
+
+@keyframes huella-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+.huella-core {
+  fill: var(--magenta);
+  opacity: 0;
+  animation: huella-core-pulse var(--breath) ease-in-out infinite;
+  animation-delay: 600ms;
+}
+
+@keyframes huella-core-pulse {
+  0%, 100% { opacity: 0.4; r: 4; }
+  50% { opacity: 0.9; r: 5; }
+}
+
+.huella-label {
+  font-family: var(--f-ko);
+  font-size: var(--t-xs);
+  color: var(--dim);
+  letter-spacing: 0.05em;
+  opacity: 0.4;
+  transition: opacity var(--half) var(--approach);
+}
+
+.huella-link:active .huella-label {
+  opacity: 0.8;
+}
+
 /* Idle state */
 body.respirando .monumento {
   animation: respirar var(--breath) ease-in-out infinite;

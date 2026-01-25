@@ -492,7 +492,7 @@ body.drifting .tarjeta {
   background: linear-gradient(180deg, var(--smoke), rgba(136, 14, 79, 0.05));
 }
 
-/* ─── CAD Floor Plan (1F) ─── */
+/* ─── CAD Floor Plan (1F) — Film Frame ─── */
 .cad-plano {
   background: #091209;
   border-color: rgba(200, 225, 210, 0.08);
@@ -505,6 +505,150 @@ body.drifting .tarjeta {
   width: 100%;
   height: auto;
   display: block;
+}
+
+/* Film Frame Effect */
+.film-frame {
+  position: relative;
+  background: #050805;
+  border: 3px solid #1a1a1a;
+  border-radius: 4px;
+  padding: var(--s-md) var(--s-xl);
+  overflow: hidden;
+}
+
+/* Cinematic letterbox bars */
+.film-frame::before,
+.film-frame::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: #000;
+  z-index: 5;
+}
+
+.film-frame::before { top: 0; }
+.film-frame::after { bottom: 0; }
+
+/* Film sprocket holes */
+.film-sprockets {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 12px 0;
+  z-index: 2;
+}
+
+.film-sprockets--left { left: 0; }
+.film-sprockets--right { right: 0; }
+
+.film-sprockets span {
+  display: block;
+  width: 8px;
+  height: 12px;
+  margin: 0 auto;
+  background: #000;
+  border: 1px solid rgba(200, 225, 210, 0.15);
+  border-radius: 1px;
+}
+
+/* Film code (frame number) */
+.film-code {
+  position: absolute;
+  top: 12px;
+  right: 24px;
+  text-align: right;
+  z-index: 6;
+  opacity: 0.4;
+}
+
+.film-code-num {
+  display: block;
+  font-family: var(--f-code);
+  font-size: 1.5rem;
+  color: rgba(255, 180, 60, 0.6);
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.film-code-label {
+  display: block;
+  font-family: var(--f-code);
+  font-size: 0.5rem;
+  color: rgba(255, 180, 60, 0.4);
+  letter-spacing: 0.15em;
+}
+
+/* Vignette for cinema feel */
+.film-frame .cad-svg {
+  position: relative;
+  z-index: 3;
+  filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.5));
+}
+
+/* Corner crop marks — film registration */
+.film-frame .susurro::before,
+.film-frame .susurro::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 1px solid rgba(200, 225, 210, 0.2);
+  z-index: 4;
+}
+
+.film-frame .susurro {
+  position: relative;
+}
+
+.film-frame .susurro::before {
+  top: -8px;
+  left: -8px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.film-frame .susurro::after {
+  top: -8px;
+  right: -8px;
+  border-left: none;
+  border-bottom: none;
+}
+
+/* Film grain overlay — enhanced for this section */
+.film-frame > .cad-svg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.8;
+  mix-blend-mode: overlay;
+}
+
+/* Zoom-in animation on scroll reveal */
+.film-frame.visible {
+  animation: film-zoom-in 1.2s var(--approach) forwards;
+}
+
+@keyframes film-zoom-in {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+    filter: blur(2px);
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
 }
 
 /* ─── Stone Tablet Carousel (Manifesto) ─── */

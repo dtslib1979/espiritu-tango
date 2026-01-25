@@ -501,7 +501,7 @@ body.drifting .tarjeta {
 
 /* Disable default tarjeta touch effect for cad-plano and film-frame */
 .cad-plano:not(.film-frame)::before { display: none; }
-.tarjeta.film-frame::before { inset: auto !important; background: #000 !important; }
+.tarjeta.film-frame::before { inset: auto !important; }
 
 .cad-svg {
   width: 100%;

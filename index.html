@@ -998,28 +998,67 @@
   })();
   </script>
 
-  <!-- Ending Credits — Cinematic Effects -->
+  <!-- Ending Credits — Mobile Interactive -->
   <script>
   (function() {
     'use strict';
     var section = document.querySelector('.ending-credits');
+    var shoesWrap = document.querySelector('.credits-shoes');
     var shoesImg = document.querySelector('.shoes-hero');
     var particles = document.querySelector('.credits-particles');
     if (!section || !shoesImg) return;
 
-    // 3D Parallax on mouse move
-    section.addEventListener('mousemove', function(e) {
+    // MOBILE: Touch interaction
+    var tapCount = 0;
+    shoesWrap.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      shoesWrap.classList.add('tapped');
+      createSparkBurst(e.touches[0]);
+      tapCount++;
+      if (tapCount >= 3) {
+        createMagicParticles();
+        tapCount = 0;
+      }
+    }, { passive: false });
+
+    shoesWrap.addEventListener('touchend', function() {
+      setTimeout(function() {
+        shoesWrap.classList.remove('tapped');
+      }, 300);
+    });
+
+    // Click interaction (desktop)
+    shoesWrap.addEventListener('click', function(e) {
+      shoesWrap.classList.add('tapped');
+      createSparkBurst(e);
+      setTimeout(function() {
+        shoesWrap.classList.remove('tapped');
+      }, 400);
+    });
+
+    // Spark burst on tap
+    function createSparkBurst(e) {
+      if (!particles) return;
       var rect = section.getBoundingClientRect();
-      var x = (e.clientX - rect.left) / rect.width - 0.5;
-      var y = (e.clientY - rect.top) / rect.height - 0.5;
-      shoesImg.style.transform = 'translateY(' + (y * -15) + 'px) rotateY(' + (x * 10) + 'deg) rotateX(' + (y * -5) + 'deg)';
-    });
+      var cx = ((e.clientX || e.pageX) - rect.left) / rect.width * 100;
+      var cy = ((e.clientY || e.pageY) - rect.top) / rect.height * 100;
 
-    section.addEventListener('mouseleave', function() {
-      shoesImg.style.transform = '';
-    });
+      for (var i = 0; i < 8; i++) {
+        var spark = document.createElement('div');
+        var angle = (i / 8) * 360;
+        var dist = 30 + Math.random() * 20;
+        spark.style.cssText = 'position:absolute;width:3px;height:3px;' +
+          'background:rgba(233,30,99,0.9);border-radius:50%;' +
+          'left:' + cx + '%;top:' + cy + '%;pointer-events:none;' +
+          'box-shadow:0 0 6px rgba(233,30,99,0.8);' +
+          'animation:spark-fly 0.6s ease-out forwards;' +
+          '--angle:' + angle + 'deg;--dist:' + dist + 'px;';
+        particles.appendChild(spark);
+        setTimeout(function() { spark.remove(); }, 700);
+      }
+    }
 
-    // Scroll-triggered entrance animation
+    // Scroll reveal
     var observer = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
@@ -1028,44 +1067,39 @@
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.4 });
     observer.observe(section);
 
-    // Create floating magic particles
+    // Magic particles
     function createMagicParticles() {
       if (!particles) return;
-      for (var i = 0; i < 20; i++) {
+      for (var i = 0; i < 12; i++) {
         setTimeout(function() {
           var p = document.createElement('div');
-          var size = 2 + Math.random() * 4;
-          var x = 20 + Math.random() * 60;
-          var duration = 3 + Math.random() * 4;
-          var delay = Math.random() * 2;
+          var size = 2 + Math.random() * 3;
+          var x = 30 + Math.random() * 40;
           p.style.cssText = 'position:absolute;width:' + size + 'px;height:' + size + 'px;' +
-            'background:radial-gradient(circle,rgba(200,160,140,0.8),rgba(180,140,120,0.3));' +
-            'border-radius:50%;left:' + x + '%;bottom:20%;pointer-events:none;' +
-            'animation:particle-rise ' + duration + 's ease-out ' + delay + 's forwards;' +
-            'box-shadow:0 0 ' + (size * 2) + 'px rgba(200,160,140,0.4);';
+            'background:rgba(233,30,99,0.6);border-radius:50%;' +
+            'left:' + x + '%;bottom:30%;pointer-events:none;' +
+            'animation:particle-rise 3s ease-out forwards;' +
+            'box-shadow:0 0 8px rgba(233,30,99,0.4);';
           particles.appendChild(p);
-          setTimeout(function() { p.remove(); }, (duration + delay) * 1000 + 500);
-        }, i * 150);
+          setTimeout(function() { p.remove(); }, 3500);
+        }, i * 100);
       }
     }
 
-    // Continuous ambient particles
-    setInterval(function() {
-      if (!particles || !section.classList.contains('revealed')) return;
-      if (Math.random() > 0.7) {
-        var p = document.createElement('div');
-        var size = 1 + Math.random() * 2;
-        var x = 10 + Math.random() * 80;
-        p.style.cssText = 'position:absolute;width:' + size + 'px;height:' + size + 'px;' +
-          'background:rgba(180,150,140,0.5);border-radius:50%;left:' + x + '%;bottom:0;' +
-          'pointer-events:none;animation:particle-rise 5s ease-out forwards;';
-        particles.appendChild(p);
-        setTimeout(function() { p.remove(); }, 5500);
-      }
-    }, 400);
+    // Add keyframes
+    var style = document.createElement('style');
+    style.textContent = '@keyframes particle-rise{' +
+      '0%{transform:translateY(0) scale(1);opacity:0;}' +
+      '20%{opacity:1;}' +
+      '100%{transform:translateY(-80px) scale(0.2);opacity:0;}' +
+      '}@keyframes spark-fly{' +
+      '0%{transform:translate(-50%,-50%) scale(1);opacity:1;}' +
+      '100%{transform:translate(calc(-50% + cos(var(--angle))*var(--dist)),calc(-50% + sin(var(--angle))*var(--dist))) scale(0);opacity:0;}' +
+      '}';
+    document.head.appendChild(style);
 
     // Add keyframes
     var style = document.createElement('style');

@@ -1443,6 +1443,46 @@ body.in-sync .ticker-badge::after {
   100% { transform: translateX(-50%); }
 }
 
+/* Ticker Play Button */
+.ticker-play {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 100%;
+  background: var(--wall);
+  border: none;
+  border-left: 1px solid #333;
+  color: var(--silver);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background var(--half) var(--approach),
+              color var(--half) var(--approach);
+}
+
+.ticker-play:active {
+  background: rgba(233, 30, 99, 0.2);
+  color: var(--magenta);
+}
+
+.ticker-play.playing {
+  color: var(--magenta);
+}
+
+.ticker-play-icon,
+.ticker-pause-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.ticker-play.playing .ticker-play-icon {
+  display: none;
+}
+
+.ticker-play.playing .ticker-pause-icon {
+  display: block;
+}
+
 /* Solo mode: ticker is distant/gray */
 body:not(.paired) .ticker {
   opacity: 0.5;

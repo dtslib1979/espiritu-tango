@@ -558,29 +558,38 @@
     <input type="text" class="partner-code" placeholder="파트너 코드 입력" lang="ko" aria-label="파트너 코드">
   </section>
 
-  <!-- ═══ Vintage Tango Shoes ═══ -->
-  <section class="tango-shoes-section revelar" aria-label="Tango Shoes">
-    <div class="shoes-container">
-      <div class="shoe shoe--lead" aria-label="Leader's Shoe">
-        <img src="https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=200&h=300&fit=crop&q=80"
-             alt="Vintage men's tango shoe"
-             class="shoe-img"
-             loading="lazy">
-        <div class="shoe-glow"></div>
-        <div class="shoe-dust"></div>
+  <!-- ═══ ENDING CREDITS — Tango Shoes ═══ -->
+  <section class="ending-credits" aria-label="Ending Credits">
+    <div class="credits-curtain"></div>
+
+    <div class="credits-stage">
+      <!-- Spotlight -->
+      <div class="spotlight"></div>
+
+      <!-- The Shoes -->
+      <div class="credits-shoes">
+        <img src="shoes.png" alt="Tango Shoes — Where two souls meet" class="shoes-hero">
+        <div class="shoes-reflection"></div>
+        <div class="shoes-shadow"></div>
       </div>
-      <div class="shoes-spark"></div>
-      <div class="shoe shoe--follow" aria-label="Follower's Shoe">
-        <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=200&h=300&fit=crop&q=80"
-             alt="Vintage women's tango shoe"
-             class="shoe-img"
-             loading="lazy">
-        <div class="shoe-glow"></div>
-        <div class="shoe-dust"></div>
-      </div>
+
+      <!-- Floating Particles -->
+      <div class="credits-particles" aria-hidden="true"></div>
     </div>
-    <p class="shoes-caption susurro">donde dos almas bailan</p>
-    <span lang="ko" class="ko shoes-caption-ko">두 영혼이 춤추는 곳</span>
+
+    <!-- Credits Text -->
+    <div class="credits-text">
+      <p class="credits-tagline">donde dos almas se encuentran</p>
+      <span class="credits-tagline-ko">두 영혼이 만나는 곳</span>
+
+      <div class="credits-divider"></div>
+
+      <p class="credits-role">DIRECTED BY</p>
+      <p class="credits-name">EL TANGO</p>
+
+      <p class="credits-role">CHOREOGRAPHY</p>
+      <p class="credits-name">BUENOS AIRES × SEOUL</p>
+    </div>
   </section>
 
   <!-- ═══ V. Footer ═══ -->
@@ -989,73 +998,82 @@
   })();
   </script>
 
-  <!-- Tango Shoes Special Effects -->
+  <!-- Ending Credits — Cinematic Effects -->
   <script>
   (function() {
     'use strict';
-    var shoes = document.querySelectorAll('.shoe');
-    var spark = document.querySelector('.shoes-spark');
-    if (!shoes.length) return;
+    var section = document.querySelector('.ending-credits');
+    var shoesImg = document.querySelector('.shoes-hero');
+    var particles = document.querySelector('.credits-particles');
+    if (!section || !shoesImg) return;
 
-    // 3D Parallax tilt effect
-    shoes.forEach(function(shoe) {
-      shoe.addEventListener('mousemove', function(e) {
-        var rect = shoe.getBoundingClientRect();
-        var x = (e.clientX - rect.left) / rect.width - 0.5;
-        var y = (e.clientY - rect.top) / rect.height - 0.5;
-        var rotateX = y * 20;
-        var rotateY = x * -20;
-        shoe.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale(1.08)';
-      });
-
-      shoe.addEventListener('mouseleave', function() {
-        var isLead = shoe.classList.contains('shoe--lead');
-        shoe.style.transform = isLead ? 'rotate(-8deg) translateY(5px)' : 'rotate(8deg) translateY(5px)';
-      });
+    // 3D Parallax on mouse move
+    section.addEventListener('mousemove', function(e) {
+      var rect = section.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width - 0.5;
+      var y = (e.clientY - rect.top) / rect.height - 0.5;
+      shoesImg.style.transform = 'translateY(' + (y * -15) + 'px) rotateY(' + (x * 10) + 'deg) rotateX(' + (y * -5) + 'deg)';
     });
 
-    // Spark particle burst on scroll reveal
+    section.addEventListener('mouseleave', function() {
+      shoesImg.style.transform = '';
+    });
+
+    // Scroll-triggered entrance animation
     var observer = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
-        if (entry.isIntersecting && spark) {
-          spark.style.animation = 'none';
-          setTimeout(function() {
-            spark.style.animation = 'spark-flicker 1.5s ease-in-out infinite, spark-burst 0.8s ease-out';
-          }, 50);
-          createParticles();
+        if (entry.isIntersecting) {
+          section.classList.add('revealed');
+          createMagicParticles();
+          observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.3 });
+    observer.observe(section);
 
-    var section = document.querySelector('.tango-shoes-section');
-    if (section) observer.observe(section);
-
-    // Create floating dust particles
-    function createParticles() {
-      var container = document.querySelector('.shoes-container');
-      if (!container) return;
-      for (var i = 0; i < 12; i++) {
-        var p = document.createElement('div');
-        p.className = 'shoe-particle';
-        p.style.cssText = 'position:absolute;width:2px;height:2px;background:rgba(180,100,130,0.6);' +
-          'border-radius:50%;pointer-events:none;left:50%;top:50%;' +
-          'animation:particle-float 2s ease-out forwards;' +
-          'animation-delay:' + (i * 0.1) + 's;' +
-          '--angle:' + (i * 30) + 'deg;';
-        container.appendChild(p);
-        setTimeout(function() { p.remove(); }, 2500);
+    // Create floating magic particles
+    function createMagicParticles() {
+      if (!particles) return;
+      for (var i = 0; i < 20; i++) {
+        setTimeout(function() {
+          var p = document.createElement('div');
+          var size = 2 + Math.random() * 4;
+          var x = 20 + Math.random() * 60;
+          var duration = 3 + Math.random() * 4;
+          var delay = Math.random() * 2;
+          p.style.cssText = 'position:absolute;width:' + size + 'px;height:' + size + 'px;' +
+            'background:radial-gradient(circle,rgba(200,160,140,0.8),rgba(180,140,120,0.3));' +
+            'border-radius:50%;left:' + x + '%;bottom:20%;pointer-events:none;' +
+            'animation:particle-rise ' + duration + 's ease-out ' + delay + 's forwards;' +
+            'box-shadow:0 0 ' + (size * 2) + 'px rgba(200,160,140,0.4);';
+          particles.appendChild(p);
+          setTimeout(function() { p.remove(); }, (duration + delay) * 1000 + 500);
+        }, i * 150);
       }
     }
 
-    // Add particle keyframes
+    // Continuous ambient particles
+    setInterval(function() {
+      if (!particles || !section.classList.contains('revealed')) return;
+      if (Math.random() > 0.7) {
+        var p = document.createElement('div');
+        var size = 1 + Math.random() * 2;
+        var x = 10 + Math.random() * 80;
+        p.style.cssText = 'position:absolute;width:' + size + 'px;height:' + size + 'px;' +
+          'background:rgba(180,150,140,0.5);border-radius:50%;left:' + x + '%;bottom:0;' +
+          'pointer-events:none;animation:particle-rise 5s ease-out forwards;';
+        particles.appendChild(p);
+        setTimeout(function() { p.remove(); }, 5500);
+      }
+    }, 400);
+
+    // Add keyframes
     var style = document.createElement('style');
-    style.textContent = '@keyframes particle-float{' +
-      '0%{transform:translate(-50%,-50%) scale(1);opacity:1;}' +
-      '100%{transform:translate(calc(-50% + cos(var(--angle,0deg))*60px),calc(-50% + sin(var(--angle,0deg))*60px - 30px)) scale(0);opacity:0;}' +
-      '}@keyframes spark-burst{' +
-      '0%{transform:scale(1);box-shadow:0 0 8px rgba(233,30,99,0.8);}' +
-      '50%{transform:scale(3);box-shadow:0 0 30px rgba(233,30,99,1),0 0 60px rgba(233,30,99,0.5);}' +
-      '100%{transform:scale(1);box-shadow:0 0 8px rgba(233,30,99,0.8);}' +
+    style.textContent = '@keyframes particle-rise{' +
+      '0%{transform:translateY(0) scale(1);opacity:0;}' +
+      '10%{opacity:1;}' +
+      '90%{opacity:0.5;}' +
+      '100%{transform:translateY(-150px) scale(0.3);opacity:0;}' +
       '}';
     document.head.appendChild(style);
   })();

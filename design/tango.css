@@ -1678,12 +1678,13 @@ body.in-sync .sync-status {
 }
 
 .guide-titulo {
-  font-family: var(--f-ko);
+  font-family: var(--f-monument);
   font-size: var(--t-lg);
+  font-style: italic;
   font-weight: 400;
   color: var(--glow);
   text-align: center;
-  margin: var(--s-md) 0 var(--s-xl);
+  margin: var(--s-md) 0 var(--s-md);
   letter-spacing: -0.01em;
 }
 
@@ -1737,10 +1738,17 @@ body.in-sync .sync-status {
 }
 
 .guide-step-desc {
-  font-family: var(--f-ko);
+  font-family: var(--f-voice);
   font-size: var(--t-xs);
   color: var(--dim);
   line-height: 1.4;
+}
+
+.guide-step-ko {
+  display: block;
+  font-size: 0.6rem;
+  margin-top: var(--s-2xs);
+  opacity: 0.5;
 }
 
 /* Demo Animation */

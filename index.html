@@ -7,6 +7,10 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+  <!-- Translation Support -->
+  <meta name="google" content="translate">
+  <meta http-equiv="Content-Language" content="es-AR, ko-KR">
+
   <title>TANGO MAGENTA — Studio OS</title>
   <meta name="description" content="El primer sistema que respira. Donde el cuerpo es la interfaz y el tango es el protocolo. 서울 강남 탱고 아카데미.">
   <meta name="keywords" content="tango, 탱고, 강남 탱고, tango magenta, 탱고 마젠타, 강남구청역, 탱고 학원, academia de tango">
@@ -540,7 +544,7 @@
     <p class="pie-copy">&copy; 2026 Buenos Aires / Seoul</p>
   </footer>
 
-  <!-- ═══ Audio Layer (CNN Breaking Ticker) ═══ -->
+  <!-- ═══ Audio Layer (CNN Breaking Ticker + YouTube Audio) ═══ -->
   <div class="reproductor" id="reproductor" aria-label="Audio">
     <div class="ticker" id="ticker">
       <div class="ticker-badge">
@@ -550,6 +554,18 @@
       <div class="ticker-scroll">
         <span class="ticker-text"><b>Por una Cabeza</b> — Carlos Gardel<span class="sep"></span>TANGO MAGENTA RADIO<span class="sep"></span>Buenos Aires / Seoul<span class="sep"></span><b>Por una Cabeza</b> — Carlos Gardel<span class="sep"></span>TANGO MAGENTA RADIO<span class="sep"></span>Buenos Aires / Seoul<span class="sep"></span></span>
       </div>
+      <button class="ticker-play" id="tickerPlay" aria-label="재생">
+        <svg class="ticker-play-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+        <svg class="ticker-pause-icon" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+          <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+        </svg>
+      </button>
+    </div>
+    <!-- Hidden YouTube Player for Audio -->
+    <div id="ytContainer" style="position:absolute;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;">
+      <div id="ytPlayer"></div>
     </div>
   </div>
 
@@ -557,6 +573,63 @@
   <script src="design/tango-partner.js"></script>
   <script src="design/entrada.js"></script>
   <script src="design/body-protocol.js"></script>
+
+  <!-- YouTube Audio Player -->
+  <script>
+  (function() {
+    'use strict';
+    var playBtn = document.getElementById('tickerPlay');
+    var player = null;
+    var isPlaying = false;
+    var ytReady = false;
+
+    // YouTube IFrame API
+    var tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    var firstScript = document.getElementsByTagName('script')[0];
+    firstScript.parentNode.insertBefore(tag, firstScript);
+
+    window.onYouTubeIframeAPIReady = function() {
+      player = new YT.Player('ytPlayer', {
+        height: '1',
+        width: '1',
+        videoId: 'Nl2lM_1tWIE',  // Por una Cabeza - Carlos Gardel
+        playerVars: {
+          autoplay: 0,
+          loop: 1,
+          playlist: 'Nl2lM_1tWIE',
+          controls: 0,
+          disablekb: 1,
+          modestbranding: 1,
+          playsinline: 1
+        },
+        events: {
+          onReady: function() { ytReady = true; },
+          onStateChange: function(e) {
+            if (e.data === YT.PlayerState.PLAYING) {
+              isPlaying = true;
+              if (playBtn) playBtn.classList.add('playing');
+            } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
+              isPlaying = false;
+              if (playBtn) playBtn.classList.remove('playing');
+            }
+          }
+        }
+      });
+    };
+
+    if (playBtn) {
+      playBtn.addEventListener('click', function() {
+        if (!ytReady || !player) return;
+        if (isPlaying) {
+          player.pauseVideo();
+        } else {
+          player.playVideo();
+        }
+      });
+    }
+  })();
+  </script>
 
   <!-- Tablet Carousel -->
   <script>

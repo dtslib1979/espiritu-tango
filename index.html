@@ -326,6 +326,99 @@
 
   </section>
 
+  <!-- ═══ Partner Guide — 파트너 시스템 가이드 ═══ -->
+  <section class="espacio--compact revelar" aria-label="Partner Guide" id="partner-guide">
+    <div class="guide-container">
+      <p class="susurro" style="text-align:center;">CÓMO BAILAR JUNTOS</p>
+      <h2 class="guide-titulo" lang="ko">탱고는 혼자 추는 춤이 아닙니다</h2>
+
+      <div class="guide-steps">
+        <!-- Step 1 -->
+        <div class="guide-step" data-step="1">
+          <div class="guide-step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
+            </svg>
+          </div>
+          <p class="guide-step-title">1. 코드 공유</p>
+          <p class="guide-step-desc" lang="ko">아래 초대 코드를 파트너에게 보내세요</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="guide-step" data-step="2">
+          <div class="guide-step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <p class="guide-step-title">2. 연결</p>
+          <p class="guide-step-desc" lang="ko">파트너가 코드를 입력하면 자동 연결</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="guide-step" data-step="3">
+          <div class="guide-step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <p class="guide-step-title">3. 잠금 해제</p>
+          <p class="guide-step-desc" lang="ko">블러 처리된 3-5층이 열립니다</p>
+        </div>
+      </div>
+
+      <!-- Interactive Demo -->
+      <div class="guide-demo">
+        <p class="susurro">DEMO</p>
+        <div class="demo-phones">
+          <div class="demo-phone demo-phone--lead" id="demoLead">
+            <div class="demo-screen">
+              <div class="demo-dot"></div>
+              <span>리드</span>
+            </div>
+          </div>
+          <div class="demo-sync-line" id="demoSyncLine"></div>
+          <div class="demo-phone demo-phone--follow" id="demoFollow">
+            <div class="demo-screen">
+              <div class="demo-dot"></div>
+              <span>팔로우</span>
+            </div>
+          </div>
+        </div>
+        <p class="guide-demo-hint" lang="ko">폰을 기울이면 파트너도 함께 움직입니다</p>
+        <button class="puerta guide-demo-btn" id="demoBtn">체험하기</button>
+      </div>
+
+      <!-- Invite Code Box -->
+      <div class="guide-invite" id="guideInvite">
+        <p class="susurro">내 초대 코드</p>
+        <div class="guide-invite-code" id="guideInviteCode">연결 중...</div>
+        <button class="guide-copy-btn" id="guideCopyBtn" aria-label="코드 복사">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="9" y="9" width="13" height="13" rx="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Partner Input -->
+      <div class="guide-join">
+        <p class="susurro">파트너 코드 입력</p>
+        <input type="text" class="partner-code guide-partner-input" id="guidePartnerInput" placeholder="abc123" lang="ko" aria-label="파트너 코드" maxlength="10">
+        <button class="puerta guide-join-btn" id="guideJoinBtn">연결</button>
+      </div>
+
+      <!-- Connection Status -->
+      <div class="guide-status" id="guideStatus">
+        <span class="guide-status-dot"></span>
+        <span class="guide-status-text" lang="ko">연결 대기 중</span>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══ III. Manifiesto — Stone Tablets ═══ -->
   <section class="tablet-section" aria-label="Manifiesto">
     <p class="susurro revelar" style="text-align:center; padding-top: var(--s-xl);">MANIFIESTO</p>
@@ -648,6 +741,120 @@
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+  </script>
+
+  <!-- Partner Guide Script -->
+  <script>
+  (function() {
+    'use strict';
+
+    // Elements
+    var demoBtn = document.getElementById('demoBtn');
+    var guideDemo = document.querySelector('.guide-demo');
+    var guideInviteCode = document.getElementById('guideInviteCode');
+    var guideCopyBtn = document.getElementById('guideCopyBtn');
+    var guidePartnerInput = document.getElementById('guidePartnerInput');
+    var guideJoinBtn = document.getElementById('guideJoinBtn');
+    var guideStatus = document.getElementById('guideStatus');
+    var guideStatusText = guideStatus ? guideStatus.querySelector('.guide-status-text') : null;
+
+    // Demo animation toggle
+    var demoActive = false;
+    if (demoBtn && guideDemo) {
+      demoBtn.addEventListener('click', function() {
+        demoActive = !demoActive;
+        guideDemo.classList.toggle('active', demoActive);
+        demoBtn.textContent = demoActive ? '중지' : '체험하기';
+      });
+    }
+
+    // Show invite code when connection is ready
+    function updateInviteCode() {
+      if (window.tangoConnection && window.tangoConnection.myPeerId) {
+        if (guideInviteCode) {
+          guideInviteCode.textContent = window.tangoConnection.myPeerId;
+        }
+      } else {
+        // Check again in a moment
+        setTimeout(updateInviteCode, 500);
+      }
+    }
+    updateInviteCode();
+
+    // Copy button
+    if (guideCopyBtn && guideInviteCode) {
+      guideCopyBtn.addEventListener('click', function() {
+        var code = guideInviteCode.textContent;
+        if (code && code !== '연결 중...') {
+          navigator.clipboard.writeText(code).then(function() {
+            guideCopyBtn.classList.add('copied');
+            setTimeout(function() {
+              guideCopyBtn.classList.remove('copied');
+            }, 1500);
+          });
+        }
+      });
+    }
+
+    // Join button
+    if (guideJoinBtn && guidePartnerInput) {
+      function tryConnect() {
+        var code = guidePartnerInput.value.trim().toLowerCase();
+        if (code && window.tangoConnection) {
+          updateStatus('connecting', '연결 중...');
+          window.tangoConnection.connect(code);
+        }
+      }
+
+      guideJoinBtn.addEventListener('click', tryConnect);
+      guidePartnerInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') tryConnect();
+      });
+    }
+
+    // Status updates
+    function updateStatus(state, text) {
+      if (!guideStatus || !guideStatusText) return;
+      guideStatus.className = 'guide-status ' + state;
+      guideStatusText.textContent = text;
+    }
+
+    // Watch for connection state
+    var statusObserver = new MutationObserver(function() {
+      if (document.body.classList.contains('paired')) {
+        updateStatus('connected', '파트너와 연결됨!');
+        // Highlight step 3
+        var step3 = document.querySelector('.guide-step[data-step="3"]');
+        if (step3) step3.classList.add('active');
+      } else if (document.body.classList.contains('in-sync')) {
+        updateStatus('connected', '완벽한 싱크!');
+      } else if (document.body.classList.contains('drifting')) {
+        updateStatus('connecting', '싱크 맞추는 중...');
+      }
+    });
+    statusObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+    // Highlight steps on scroll
+    var steps = document.querySelectorAll('.guide-step');
+    var currentStep = 0;
+
+    function animateSteps() {
+      if (steps.length === 0) return;
+
+      setInterval(function() {
+        // Only animate if not paired
+        if (document.body.classList.contains('paired')) return;
+
+        steps.forEach(function(s, i) {
+          s.classList.toggle('active', i === currentStep);
+        });
+        currentStep = (currentStep + 1) % steps.length;
+      }, 2000);
+    }
+    animateSteps();
+
+    console.log('Partner Guide initialized');
   })();
   </script>
 

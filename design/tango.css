@@ -1643,7 +1643,327 @@ body.in-sync .sync-status {
   color: var(--magenta);
 }
 
-/* ─── IX-D. Ritual Extension ─── */
+/* ─── IX-D. Partner Guide ─── */
+
+.guide-container {
+  max-width: 100%;
+  padding: 0 var(--s-md);
+}
+
+.guide-titulo {
+  font-family: var(--f-ko);
+  font-size: var(--t-lg);
+  font-weight: 400;
+  color: var(--glow);
+  text-align: center;
+  margin: var(--s-md) 0 var(--s-xl);
+  letter-spacing: -0.01em;
+}
+
+.guide-steps {
+  display: flex;
+  gap: var(--s-sm);
+  margin-bottom: var(--s-xl);
+}
+
+.guide-step {
+  flex: 1;
+  text-align: center;
+  padding: var(--s-md) var(--s-xs);
+  background: var(--smoke);
+  border: 1px solid var(--ghost);
+  border-radius: var(--radius);
+  transition: border-color var(--half) var(--approach),
+              background var(--half) var(--approach);
+}
+
+.guide-step:hover,
+.guide-step.active {
+  border-color: rgba(233, 30, 99, 0.3);
+  background: rgba(233, 30, 99, 0.03);
+}
+
+.guide-step-icon {
+  width: 32px;
+  height: 32px;
+  margin: 0 auto var(--s-xs);
+  color: var(--silver);
+  transition: color var(--half) var(--approach);
+}
+
+.guide-step:hover .guide-step-icon,
+.guide-step.active .guide-step-icon {
+  color: var(--magenta);
+}
+
+.guide-step-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.guide-step-title {
+  font-family: var(--f-ko);
+  font-size: var(--t-sm);
+  color: var(--glow);
+  margin-bottom: var(--s-2xs);
+  font-weight: 500;
+}
+
+.guide-step-desc {
+  font-family: var(--f-ko);
+  font-size: var(--t-xs);
+  color: var(--dim);
+  line-height: 1.4;
+}
+
+/* Demo Animation */
+.guide-demo {
+  background: var(--wall);
+  border-radius: var(--radius-lg);
+  padding: var(--s-lg);
+  margin-bottom: var(--s-lg);
+  text-align: center;
+}
+
+.demo-phones {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-md);
+  margin: var(--s-lg) 0;
+}
+
+.demo-phone {
+  width: 60px;
+  height: 100px;
+  background: var(--smoke);
+  border: 2px solid var(--ash);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, border-color var(--half) var(--approach);
+}
+
+.demo-phone--lead {
+  transform-origin: center;
+}
+
+.demo-phone--follow {
+  transform-origin: center;
+}
+
+.demo-screen {
+  text-align: center;
+}
+
+.demo-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--silver);
+  border-radius: 50%;
+  margin: 0 auto var(--s-2xs);
+  transition: background var(--half) var(--approach),
+              box-shadow var(--half) var(--approach);
+}
+
+.demo-phone span {
+  font-family: var(--f-ko);
+  font-size: 0.6rem;
+  color: var(--dim);
+}
+
+.demo-sync-line {
+  width: 40px;
+  height: 2px;
+  background: var(--ash);
+  border-radius: 1px;
+  position: relative;
+  transition: background var(--half) var(--approach),
+              box-shadow var(--half) var(--approach);
+}
+
+/* Demo Active State */
+.guide-demo.active .demo-phone {
+  border-color: var(--magenta);
+}
+
+.guide-demo.active .demo-dot {
+  background: var(--magenta);
+  box-shadow: 0 0 12px var(--magenta);
+}
+
+.guide-demo.active .demo-sync-line {
+  background: var(--magenta);
+  box-shadow: 0 0 8px var(--magenta);
+}
+
+.guide-demo.active .demo-phone--lead {
+  animation: demo-tilt-lead 2s ease-in-out infinite;
+}
+
+.guide-demo.active .demo-phone--follow {
+  animation: demo-tilt-follow 2s ease-in-out infinite;
+}
+
+@keyframes demo-tilt-lead {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
+}
+
+@keyframes demo-tilt-follow {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
+}
+
+.guide-demo-hint {
+  font-family: var(--f-ko);
+  font-size: var(--t-xs);
+  color: var(--dim);
+  margin-bottom: var(--s-md);
+}
+
+.guide-demo-btn {
+  font-family: var(--f-ko);
+  padding: var(--s-xs) var(--s-lg);
+  font-size: var(--t-sm);
+}
+
+/* Invite Code Box */
+.guide-invite {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-sm);
+  background: var(--smoke);
+  border: 1px solid var(--ghost);
+  border-radius: var(--radius);
+  padding: var(--s-md);
+  margin-bottom: var(--s-md);
+}
+
+.guide-invite .susurro {
+  display: none;
+}
+
+.guide-invite-code {
+  font-family: var(--f-code);
+  font-size: var(--t-lg);
+  color: var(--magenta);
+  letter-spacing: 0.15em;
+  font-weight: 400;
+}
+
+.guide-copy-btn {
+  width: 36px;
+  height: 36px;
+  background: var(--wall);
+  border: 1px solid var(--ghost);
+  border-radius: var(--radius);
+  color: var(--dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--half) var(--approach);
+}
+
+.guide-copy-btn:active {
+  background: rgba(233, 30, 99, 0.1);
+  border-color: var(--magenta);
+  color: var(--magenta);
+}
+
+.guide-copy-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.guide-copy-btn.copied {
+  background: rgba(76, 175, 80, 0.1);
+  border-color: #4CAF50;
+  color: #4CAF50;
+}
+
+/* Partner Join */
+.guide-join {
+  display: flex;
+  gap: var(--s-xs);
+  margin-bottom: var(--s-md);
+}
+
+.guide-join .susurro {
+  display: none;
+}
+
+.guide-partner-input {
+  flex: 1;
+  text-transform: lowercase;
+}
+
+.guide-join-btn {
+  font-family: var(--f-ko);
+  padding: var(--s-xs) var(--s-md);
+  font-size: var(--t-sm);
+  flex-shrink: 0;
+}
+
+/* Connection Status */
+.guide-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-xs);
+  padding: var(--s-sm);
+}
+
+.guide-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ash);
+  animation: status-pulse 2s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.guide-status-text {
+  font-family: var(--f-ko);
+  font-size: var(--t-xs);
+  color: var(--dim);
+}
+
+/* Status States */
+.guide-status.connecting .guide-status-dot {
+  background: #FFC107;
+}
+
+.guide-status.connecting .guide-status-text {
+  color: #FFC107;
+}
+
+.guide-status.connected .guide-status-dot {
+  background: var(--magenta);
+  box-shadow: 0 0 8px var(--magenta);
+  animation: none;
+}
+
+.guide-status.connected .guide-status-text {
+  color: var(--magenta);
+}
+
+/* Hide old portal invite elements when guide is present */
+#portal .partner-code,
+#portal #inviteCode {
+  display: none;
+}
+
+/* ─── IX-E. Ritual Extension ─── */
 
 /* Motion permission button (iOS) */
 .ritual-motion-btn {

@@ -539,12 +539,16 @@ body.drifting .tarjeta {
 
 .tablet-block {
   width: 100%;
-  max-width: 340px;
+  max-width: 380px;
+  min-height: 340px;
   background: url('../Stone.png') center 30% / cover no-repeat;
   border-radius: 8px;
-  padding: 48px 28px 40px;
+  padding: 60px 32px 55px;
   text-align: center;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   box-shadow:
     0 4px 24px rgba(0, 0, 0, 0.5),
     0 12px 48px rgba(0, 0, 0, 0.3);
@@ -1142,8 +1146,8 @@ body.drifting .ribbon-path {
 
 /* Fingerprint Portal — Grayscale by default, magenta on event */
 .huella-svg {
-  width: 140px;
-  height: 164px;
+  width: 100px;
+  height: 117px;
   filter: drop-shadow(0 0 20px rgba(192, 192, 192, 0.2))
           grayscale(1) contrast(1.1);
   transition: filter var(--beat) var(--approach);

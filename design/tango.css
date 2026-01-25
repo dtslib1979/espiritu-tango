@@ -509,39 +509,47 @@ body.drifting .tarjeta {
   display: block;
 }
 
-/* Film Frame Effect — KODAK Dark Green Style */
+/* ═══ CINEMA FILM STRIP — Premium Magenta ═══ */
 .film-frame {
   position: relative;
-  background: #0a0a0a !important;
+  background: #0a0408 !important;
   border: none !important;
   border-radius: 0;
-  padding: 28px var(--s-md) !important;
-  margin: var(--s-md) calc(-1 * var(--s-md)) !important;
+  padding: 32px var(--s-sm) !important;
+  margin: var(--s-lg) calc(-1 * var(--s-lg)) !important;
   overflow: visible;
 }
 
-/* Kodak film strip bars — TOP & BOTTOM with sprocket holes */
+/* 35mm Film Strip Bars — Deep Magenta */
 .film-frame::before,
 .film-frame::after {
   content: '' !important;
   display: block !important;
   position: absolute;
-  left: 0;
-  right: 0;
-  height: 24px;
-  background: #1a2e1a;
-  background-image: repeating-linear-gradient(
-    90deg,
-    transparent 0px,
-    transparent 20px,
-    #0a0a0a 20px,
-    #0a0a0a 32px,
-    transparent 32px,
-    transparent 52px
-  );
+  left: -8px;
+  right: -8px;
+  height: 28px;
+  background: linear-gradient(180deg, #4a0d2e 0%, #6b1443 50%, #4a0d2e 100%);
+  border-top: 1px solid rgba(233, 30, 99, 0.4);
+  border-bottom: 1px solid rgba(80, 20, 50, 0.8);
   z-index: 5;
   opacity: 1 !important;
   pointer-events: none;
+  /* Sprocket holes */
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 8px,
+      #0a0408 8px,
+      #0a0408 20px,
+      transparent 20px,
+      transparent 36px
+    );
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.5),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(136, 14, 79, 0.3);
 }
 
 .film-frame::before { top: 0; bottom: auto !important; }
@@ -550,11 +558,11 @@ body.drifting .tarjeta {
 /* Hide old side sprockets */
 .film-sprockets { display: none !important; }
 
-/* Film code (frame number) */
+/* Film code (frame number) — Magenta glow */
 .film-code {
   position: absolute;
-  top: 4px;
-  right: 12px;
+  top: 5px;
+  right: 8px;
   text-align: right;
   z-index: 7;
   opacity: 1;
@@ -564,18 +572,21 @@ body.drifting .tarjeta {
 .film-code-num {
   display: block;
   font-family: var(--f-code);
-  font-size: 1rem;
-  color: #3d5c3d;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #e91e63;
   line-height: 1;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 8px rgba(233, 30, 99, 0.6);
 }
 
 .film-code-label {
   display: block;
   font-family: var(--f-code);
-  font-size: 0.5rem;
-  color: #3d5c3d;
-  letter-spacing: 0.1em;
+  font-size: 0.45rem;
+  font-weight: 500;
+  color: rgba(233, 30, 99, 0.7);
+  letter-spacing: 0.15em;
 }
 
 /* Vignette for cinema feel */
@@ -1211,14 +1222,16 @@ body.drifting .ribbon-path {
 
 .danza-video-wrap {
   position: relative;
-  width: 82%;
+  width: 88%;
   margin: 0 auto;
   aspect-ratio: 3 / 4;
-  max-height: 40vh;
-  overflow: hidden;
+  max-height: 42vh;
+  overflow: visible;
   border-radius: 0;
   border: none;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  box-shadow:
+    0 0 60px rgba(136, 14, 79, 0.2),
+    0 8px 40px rgba(0, 0, 0, 0.6);
 }
 
 .danza-video {
@@ -1229,53 +1242,63 @@ body.drifting .ribbon-path {
   display: block;
 }
 
-/* KODAK film strip — Dark Green with sprocket holes */
+/* ═══ CINEMA FILM STRIP — Premium Magenta ═══ */
 .danza-video-wrap::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
-  height: 20px;
-  background: #1a2e1a;
-  background-image: repeating-linear-gradient(
-    90deg,
-    transparent 0px,
-    transparent 16px,
-    #0a0a0a 16px,
-    #0a0a0a 26px,
-    transparent 26px,
-    transparent 42px
-  );
+  left: -6px;
+  right: -6px;
+  height: 24px;
+  background: linear-gradient(180deg, #4a0d2e 0%, #6b1443 50%, #4a0d2e 100%);
+  border-bottom: 1px solid rgba(233, 30, 99, 0.3);
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 8px,
+      #0a0408 8px,
+      #0a0408 18px,
+      transparent 18px,
+      transparent 32px
+    );
   z-index: 3;
   pointer-events: none;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.6),
+    0 0 15px rgba(136, 14, 79, 0.4);
 }
 
 .danza-video-wrap::after {
   content: '';
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
-  height: 20px;
-  background: #1a2e1a;
-  background-image: repeating-linear-gradient(
-    90deg,
-    transparent 0px,
-    transparent 16px,
-    #0a0a0a 16px,
-    #0a0a0a 26px,
-    transparent 26px,
-    transparent 42px
-  );
+  left: -6px;
+  right: -6px;
+  height: 24px;
+  background: linear-gradient(180deg, #4a0d2e 0%, #6b1443 50%, #4a0d2e 100%);
+  border-top: 1px solid rgba(233, 30, 99, 0.3);
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 8px,
+      #0a0408 8px,
+      #0a0408 18px,
+      transparent 18px,
+      transparent 32px
+    );
   z-index: 3;
   pointer-events: none;
+  box-shadow:
+    inset 0 -2px 4px rgba(0, 0, 0, 0.6),
+    0 0 15px rgba(136, 14, 79, 0.4);
 }
 
 /* Caption overlay */
 .danza-caption {
   position: absolute;
-  bottom: 28px;
+  bottom: 32px;
   left: 0;
   right: 0;
   text-align: center;
@@ -1284,8 +1307,10 @@ body.drifting .ribbon-path {
 }
 
 .danza-caption .susurro {
-  color: rgba(240, 232, 236, 0.35);
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+  color: rgba(233, 30, 99, 0.5);
+  text-shadow: 0 0 20px rgba(136, 14, 79, 0.8);
+  font-weight: 500;
+  letter-spacing: 0.2em;
 }
 
 /* ─── VII-D. Fingerprint Portal (Huella) ─── */

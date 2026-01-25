@@ -291,7 +291,7 @@
     <div class="linea"></div>
 
     <!-- 3F: Gesture Lab -->
-    <article class="tarjeta revelar">
+    <article class="tarjeta revelar" data-floor="3">
       <p class="susurro">3F — GESTURE LAB</p>
       <h2 class="tarjeta-titulo">Motor de Gestos</h2>
       <p class="tarjeta-texto">
@@ -304,7 +304,7 @@
     <div class="linea"></div>
 
     <!-- 4F: Control Room -->
-    <article class="tarjeta revelar">
+    <article class="tarjeta revelar" data-floor="4">
       <p class="susurro">4F — CONTROL</p>
       <h2 class="tarjeta-titulo">Control Room</h2>
       <p class="tarjeta-texto">
@@ -317,7 +317,7 @@
     <div class="linea"></div>
 
     <!-- 5F: Strategy -->
-    <article class="tarjeta revelar">
+    <article class="tarjeta revelar" data-floor="5">
       <p class="susurro">5F — STRATEGY</p>
       <h2 class="tarjeta-titulo">Expansión</h2>
       <p class="tarjeta-texto">
@@ -419,8 +419,8 @@
     <div class="tablet-dots" id="tabletDots"></div>
   </section>
 
-  <!-- ═══ IV. Portal Interno — Huella ═══ -->
-  <section class="espacio-centro revelar" aria-label="Portal">
+  <!-- ═══ IV. Portal Interno — Huella + Partner Invite ═══ -->
+  <section class="espacio-centro revelar" aria-label="Portal" id="portal">
     <p class="susurro">PARA LOS QUE YA SABEN</p>
 
     <a href="inner/" class="huella-link mt-lg" aria-label="Portal Interno">
@@ -434,8 +434,14 @@
         <!-- Center whorl -->
         <circle class="huella-core" cx="60" cy="70" r="4" />
       </svg>
-      <span lang="ko" class="huella-label">지문을 대세요</span>
+      <span lang="ko" class="huella-label">파트너를 초대하세요</span>
     </a>
+
+    <!-- Invite Code (shown when solo) -->
+    <div class="invite-code" id="inviteCode" style="display:none;"></div>
+
+    <!-- Partner Code Input -->
+    <input type="text" class="partner-code" placeholder="파트너 코드 입력" lang="ko" aria-label="파트너 코드">
   </section>
 
   <!-- ═══ V. Footer ═══ -->
@@ -486,13 +492,21 @@
             rel: 0
           },
           events: {
+            onReady: function() {
+              // Initialize TangoAudio system
+              if (window.initTangoAudio) {
+                window.initTangoAudio(player);
+              }
+            },
             onStateChange: function(e) {
               if (e.data === YT.PlayerState.PLAYING) {
                 playBtn.textContent = '♪';
                 playBtn.classList.add('playing');
+                document.body.classList.add('bailando');
               } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
                 playBtn.textContent = '▶';
                 playBtn.classList.remove('playing');
+                document.body.classList.remove('bailando');
               }
             }
           }
@@ -527,6 +541,7 @@
   </script>
 
   <!-- Scripts -->
+  <script src="design/tango-partner.js"></script>
   <script src="design/entrada.js"></script>
   <script src="design/body-protocol.js"></script>
 

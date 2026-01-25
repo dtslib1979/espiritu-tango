@@ -17,20 +17,34 @@
 
 /* ─── I. Tokens ─── */
 :root {
-  /* Palette */
-  --void: #0a0008;
-  --smoke: #110d10;
-  --wall: #1a1118;
-  --stone: #241820;
-  --ash: #3a2830;
+  /* Palette — Film Noir Foundation */
+  --void: #000000;
+  --smoke: #0d0d0d;
+  --wall: #1a1a1a;
+  --stone: #262626;
+  --ash: #404040;
+
+  /* Event Color — Magenta only appears on interaction */
   --magenta: #E91E63;
   --deep: #880E4F;
-  --gold: #FFD54F;
-  --flesh: #FFCCBC;
-  --glow: #f0e8ec;
-  --dim: rgba(240, 232, 236, 0.45);
-  --ghost: rgba(240, 232, 236, 0.12);
+
+  /* Silver Screen — Default state */
+  --silver: #c0c0c0;
+  --sepia: #8B7355;
+
+  /* Light tones — Cool, not warm */
+  --glow: #e8e8e8;
+  --dim: rgba(232, 232, 232, 0.45);
+  --ghost: rgba(232, 232, 232, 0.08);
   --breath-bg: rgba(255, 255, 255, 0.02);
+
+  /* Sync State — Set by JS */
+  --sync: 0;
+  --lead-x: 0px;
+  --lead-y: 0px;
+  --abrazo: 0;
+  --abrazo-x: 50%;
+  --abrazo-y: 50%;
 
   /* BPM 70 — Tango Lento */
   --beat: 857ms;
@@ -110,15 +124,59 @@ body {
   position: relative;
 }
 
-/* Noise/grain texture overlay */
+/* Film grain texture overlay — enhanced with jitter */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.015'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 9000;
-  opacity: 0.4;
+  opacity: 0.55;
+  animation: grain-shift 0.5s steps(1) infinite;
+}
+
+/* Film grain micro-jitter */
+@keyframes grain-shift {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-1px, 1px); }
+  50% { transform: translate(1px, -1px); }
+  75% { transform: translate(-1px, -1px); }
+}
+
+/* Film scratch overlay — vertical lines */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 200px,
+    rgba(255,255,255,0.012) 200px,
+    rgba(255,255,255,0.012) 201px
+  );
+  pointer-events: none;
+  z-index: 9001;
+  opacity: 0;
+  animation: scratch-flicker 8s linear infinite;
+}
+
+@keyframes scratch-flicker {
+  0%, 88%, 100% { opacity: 0; }
+  90%, 96% { opacity: 1; }
+}
+
+/* Vignette effect — cinema darkness at edges */
+body {
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 0%,
+      transparent 40%,
+      rgba(0, 0, 0, 0.4) 100%
+    ),
+    var(--void);
 }
 
 ::selection {
@@ -143,7 +201,9 @@ a {
 }
 a:active { opacity: 0.7; }
 
-/* Monument — The main event */
+/* Monument — The main event
+   Hard shadow instead of glow for noir aesthetic
+   Responds to device motion via --lead-x/y */
 .monumento {
   font-family: var(--f-monument);
   font-size: var(--t-3xl);
@@ -151,8 +211,29 @@ a:active { opacity: 0.7; }
   letter-spacing: -0.04em;
   text-align: center;
   line-height: 0.95;
-  color: var(--glow);
-  text-shadow: 0 0 80px rgba(233, 30, 99, 0.08);
+  color: #ffffff;
+  text-shadow:
+    2px 2px 0 rgba(0, 0, 0, 0.8),
+    4px 4px 8px rgba(0, 0, 0, 0.4);
+  transform: translate(
+    calc(var(--lead-x, 0px) * 0.3),
+    calc(var(--lead-y, 0px) * 0.3)
+  );
+  transition: transform 0.1s ease-out;
+}
+
+/* In sync: monument glows magenta */
+body.in-sync .monumento {
+  color: var(--magenta);
+  text-shadow:
+    0 0 60px rgba(233, 30, 99, 0.5),
+    2px 2px 0 rgba(0, 0, 0, 0.8);
+}
+
+/* Drifting: monument fades */
+body.drifting .monumento {
+  opacity: 0.6;
+  filter: blur(1px);
 }
 
 /* Susurro — Whisper labels */
@@ -204,10 +285,33 @@ a:active { opacity: 0.7; }
   margin-left: var(--s-xs);
 }
 
-/* Magenta — The light that doesn't exist */
+/* Magenta — Appears only on event (touch/sync)
+   Solo: silver (dormant)
+   Paired + Sync: magenta (alive) */
 .magenta {
+  color: var(--silver);
+  text-shadow: none;
+  transition: color var(--half) var(--approach),
+              text-shadow var(--half) var(--approach);
+}
+
+/* Event: touch activates magenta */
+section:active .magenta,
+.tarjeta:active .magenta,
+.puerta:active .magenta {
   color: var(--magenta);
-  text-shadow: 0 0 20px rgba(233, 30, 99, 0.2);
+  text-shadow: 0 0 20px rgba(233, 30, 99, 0.3);
+}
+
+/* Paired + In Sync: magenta lives */
+body.in-sync .magenta {
+  color: var(--magenta);
+  text-shadow: 0 0 25px rgba(233, 30, 99, 0.4);
+}
+
+/* Paired but drifting: faded silver */
+body.drifting .magenta {
+  color: rgba(192, 192, 192, 0.5);
 }
 
 /* Code blocks */
@@ -251,9 +355,16 @@ a:active { opacity: 0.7; }
 .linea {
   width: 48px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--magenta), transparent);
+  background: linear-gradient(90deg, transparent, var(--silver), transparent);
   margin: var(--s-xl) auto;
-  opacity: 0.4;
+  opacity: 0.3;
+  transition: background var(--beat) var(--approach);
+}
+
+/* Paired: linea turns magenta */
+body.paired .linea {
+  background: linear-gradient(90deg, transparent, var(--magenta), transparent);
+  opacity: 0.5;
 }
 
 .linea--full {
@@ -264,35 +375,101 @@ a:active { opacity: 0.7; }
 
 /* ─── V. Components ─── */
 
-/* Card */
+/* Card — Responds to device motion and touch */
 .tarjeta {
-  background: var(--smoke);
+  background: linear-gradient(
+    180deg,
+    rgba(26, 26, 26, 0.9) 0%,
+    rgba(13, 13, 13, 1) 100%
+  );
   border: 1px solid var(--ghost);
   border-radius: var(--radius-lg);
   padding: var(--s-lg);
   margin-bottom: var(--s-md);
   transition: border-color var(--beat) var(--approach),
               transform var(--half) var(--approach),
-              box-shadow var(--beat) var(--approach);
+              box-shadow var(--beat) var(--approach),
+              filter var(--beat) var(--approach);
   position: relative;
   overflow: hidden;
+  transform: translate(
+    calc(var(--lead-x, 0px) * 0.15),
+    calc(var(--lead-y, 0px) * 0.15)
+  );
 }
 
+/* Touch burn effect — magenta radiates from touch point */
 .tarjeta::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at top right, rgba(233, 30, 99, 0.03), transparent 70%);
+  background: radial-gradient(
+    circle at var(--touch-x, 50%) var(--touch-y, 50%),
+    rgba(233, 30, 99, 0.3) 0%,
+    rgba(233, 30, 99, 0.1) 30%,
+    transparent 60%
+  );
   opacity: 0;
-  transition: opacity var(--beat) var(--approach);
+  transition: opacity var(--half) ease-out;
+  pointer-events: none;
 }
 
 .tarjeta:active {
-  border-color: rgba(233, 30, 99, 0.3);
-  transform: scale(0.985);
+  border-color: rgba(233, 30, 99, 0.4);
+  transform: scale(0.985) translate(
+    calc(var(--lead-x, 0px) * 0.15),
+    calc(var(--lead-y, 0px) * 0.15)
+  );
+  box-shadow:
+    inset 0 0 30px rgba(233, 30, 99, 0.05),
+    0 0 40px rgba(233, 30, 99, 0.08);
 }
 
 .tarjeta:active::before { opacity: 1; }
+
+/* Solo mode: floors 3-5 are blurred (locked) */
+body:not(.paired) .tarjeta[data-floor="3"],
+body:not(.paired) .tarjeta[data-floor="4"],
+body:not(.paired) .tarjeta[data-floor="5"] {
+  filter: blur(4px) grayscale(0.5);
+  pointer-events: none;
+  user-select: none;
+}
+
+body:not(.paired) .tarjeta[data-floor="3"]::after,
+body:not(.paired) .tarjeta[data-floor="4"]::after,
+body:not(.paired) .tarjeta[data-floor="5"]::after {
+  content: '파트너가 필요합니다';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--silver);
+  font-family: var(--f-ko);
+  font-size: var(--t-sm);
+  letter-spacing: 0.05em;
+  z-index: 10;
+}
+
+/* Paired: all floors unlocked */
+body.paired .tarjeta {
+  filter: none;
+  pointer-events: auto;
+}
+
+/* In sync: cards glow */
+body.in-sync .tarjeta {
+  border-color: rgba(233, 30, 99, 0.2);
+  box-shadow: 0 0 30px rgba(233, 30, 99, 0.05);
+}
+
+/* Drifting: cards fade */
+body.drifting .tarjeta {
+  opacity: 0.7;
+  filter: blur(1px);
+}
 
 .tarjeta-titulo {
   font-family: var(--f-monument);
@@ -798,9 +975,24 @@ button {
 
 .ribbon-path {
   fill: none;
-  stroke: var(--magenta);
+  stroke: var(--silver);
   stroke-linecap: round;
   stroke-linejoin: round;
+  transition: stroke var(--beat) var(--approach);
+}
+
+/* Paired: ribbon turns magenta based on sync */
+body.paired .ribbon-path {
+  stroke: var(--magenta);
+}
+
+body.in-sync .ribbon-path {
+  opacity: 0.25;
+}
+
+body.drifting .ribbon-path {
+  stroke: var(--silver);
+  opacity: 0.05;
 }
 
 /* Ambient glow — soft, barely there */
@@ -948,27 +1140,47 @@ button {
   transform: scale(0.94);
 }
 
+/* Fingerprint Portal — Grayscale by default, magenta on event */
 .huella-svg {
   width: 140px;
   height: 164px;
-  filter: drop-shadow(0 0 20px rgba(233, 30, 99, 0.3))
-          drop-shadow(0 0 60px rgba(233, 30, 99, 0.1));
+  filter: drop-shadow(0 0 20px rgba(192, 192, 192, 0.2))
+          grayscale(1) contrast(1.1);
   transition: filter var(--beat) var(--approach);
 }
 
+/* Touch: fingerprint comes alive */
 .huella-link:active .huella-svg {
   filter: drop-shadow(0 0 30px rgba(233, 30, 99, 0.6))
-          drop-shadow(0 0 80px rgba(233, 30, 99, 0.2));
+          drop-shadow(0 0 80px rgba(233, 30, 99, 0.2))
+          grayscale(0);
+}
+
+/* Paired: always magenta */
+body.paired .huella-svg {
+  filter: drop-shadow(0 0 20px rgba(233, 30, 99, 0.3))
+          grayscale(0);
 }
 
 .huella-ridge {
   fill: none;
-  stroke: var(--magenta);
+  stroke: var(--silver);
   stroke-width: 1.8;
   stroke-linecap: round;
   stroke-dasharray: 400;
   stroke-dashoffset: 400;
   animation: huella-draw var(--double) var(--approach) forwards;
+  transition: stroke var(--half) var(--approach);
+}
+
+/* Touch: ridges turn magenta */
+.huella-link:active .huella-ridge {
+  stroke: var(--magenta);
+}
+
+/* Paired: ridges always magenta */
+body.paired .huella-ridge {
+  stroke: var(--magenta);
 }
 
 .huella-ridge--1 { opacity: 0.35; animation-delay: 0ms; }
@@ -995,10 +1207,17 @@ button {
 }
 
 .huella-core {
-  fill: var(--magenta);
+  fill: var(--silver);
   opacity: 0;
   animation: huella-core-pulse var(--breath) ease-in-out infinite;
   animation-delay: 600ms;
+  transition: fill var(--half) var(--approach);
+}
+
+/* Core turns magenta on touch or paired */
+.huella-link:active .huella-core,
+body.paired .huella-core {
+  fill: var(--magenta);
 }
 
 @keyframes huella-core-pulse {
@@ -1110,15 +1329,29 @@ body.respirando .susurro {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Red "LIVE" badge — exactly like CNN */
+/* Red "LIVE" badge — exactly like CNN
+   Solo: gray (distant)
+   Paired: red (alive)
+   In-sync: magenta (connected) */
 .ticker-badge {
   display: flex;
   align-items: center;
   gap: 5px;
   padding: 0 10px;
-  background: #cc0000;
+  background: #444;
   flex-shrink: 0;
   position: relative;
+  transition: background var(--half) var(--approach);
+}
+
+/* Paired: badge turns red */
+body.paired .ticker-badge {
+  background: #cc0000;
+}
+
+/* In sync: badge turns magenta */
+body.in-sync .ticker-badge {
+  background: var(--magenta);
 }
 
 .ticker-badge::after {
@@ -1128,7 +1361,16 @@ body.respirando .susurro {
   top: 0;
   bottom: 0;
   width: 6px;
+  background: linear-gradient(to right, #444, transparent);
+  transition: background var(--half) var(--approach);
+}
+
+body.paired .ticker-badge::after {
   background: linear-gradient(to right, #cc0000, transparent);
+}
+
+body.in-sync .ticker-badge::after {
+  background: linear-gradient(to right, var(--magenta), transparent);
 }
 
 .ticker-dot {
@@ -1213,6 +1455,55 @@ body.respirando .susurro {
 
 .ticker-play.playing { color: var(--magenta); }
 
+/* Solo mode: ticker is distant/gray */
+body:not(.paired) .ticker {
+  opacity: 0.5;
+  filter: grayscale(0.5);
+}
+
+body:not(.paired) .ticker-text {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Paired: ticker is alive */
+body.paired .ticker {
+  opacity: 1;
+  filter: none;
+}
+
+/* In sync: ticker glows */
+body.in-sync .ticker {
+  box-shadow: 0 -2px 20px rgba(233, 30, 99, 0.2);
+}
+
+/* Beat pulse indicator */
+body.beat .ticker-dot {
+  transform: scale(1.8);
+  transition: transform 0.1s ease-out;
+}
+
+/* Beat pulse overlay */
+.beat-pulse {
+  position: fixed;
+  inset: 0;
+  border: 2px solid var(--magenta);
+  opacity: 0;
+  animation: pulse-expand var(--beat) ease-out forwards;
+  pointer-events: none;
+  z-index: 100;
+}
+
+@keyframes pulse-expand {
+  0% {
+    opacity: 0.3;
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
 /* Hidden audio element for actual playback */
 .reproductor audio {
   display: none;
@@ -1227,6 +1518,175 @@ body.con-reproductor .pie {
 }
 
 
+/* ─── IX-B. Abrazo (Two-Finger Embrace) ─── */
+
+/* When two fingers touch = abrazo (embrace)
+   Magenta radiates from the embrace point */
+body.abrazando::before {
+  content: '';
+  position: fixed;
+  left: var(--abrazo-x, 50%);
+  top: var(--abrazo-y, 50%);
+  width: calc(100px + var(--abrazo, 0) * 300px);
+  height: calc(100px + var(--abrazo, 0) * 300px);
+  background: radial-gradient(
+    circle,
+    rgba(233, 30, 99, calc(var(--abrazo, 0) * 0.4)) 0%,
+    rgba(233, 30, 99, calc(var(--abrazo, 0) * 0.1)) 40%,
+    transparent 70%
+  );
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+  transition: width 0.2s ease-out, height 0.2s ease-out;
+}
+
+/* During abrazo, the world softens */
+body.abrazando .monumento {
+  filter: blur(0);
+  opacity: calc(0.3 + var(--abrazo, 0) * 0.7);
+}
+
+body.abrazando .tarjeta {
+  filter: blur(calc(3px - var(--abrazo, 0) * 3px));
+}
+
+/* ─── IX-C. Sync Visualization ─── */
+
+/* Ghost traces from previous sessions */
+.ghost-traces {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+.ghost-path {
+  fill: none;
+  stroke: var(--magenta);
+  stroke-width: 0.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: ghost-draw 20s ease-out forwards;
+}
+
+@keyframes ghost-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Sync bridge between two fingerprints */
+.sync-visualizer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-md);
+}
+
+.sync-bridge {
+  width: calc(20px + var(--sync, 0) * 80px);
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--magenta),
+    transparent 20%,
+    transparent 80%,
+    var(--magenta)
+  );
+  opacity: var(--sync, 0);
+  transition: all 0.3s ease;
+}
+
+body.in-sync .sync-bridge {
+  background: var(--magenta);
+  box-shadow: 0 0 20px var(--magenta);
+}
+
+/* Partner invitation overlay */
+.portal-solo {
+  text-align: center;
+}
+
+.portal-paired {
+  text-align: center;
+}
+
+.invite-code {
+  font-family: var(--f-code);
+  font-size: var(--t-lg);
+  color: var(--glow);
+  letter-spacing: 0.1em;
+  margin-top: var(--s-md);
+  padding: var(--s-sm) var(--s-md);
+  background: var(--smoke);
+  border: 1px solid var(--ghost);
+  border-radius: var(--radius);
+}
+
+.partner-code {
+  font-family: var(--f-code);
+  font-size: var(--t-base);
+  color: var(--glow);
+  background: var(--smoke);
+  border: 1px solid var(--ghost);
+  border-radius: var(--radius);
+  padding: var(--s-sm) var(--s-md);
+  margin-top: var(--s-sm);
+  text-align: center;
+  width: 200px;
+}
+
+.partner-code:focus {
+  border-color: var(--magenta);
+  outline: none;
+}
+
+.sync-status {
+  font-family: var(--f-ko);
+  font-size: var(--t-sm);
+  color: var(--dim);
+  margin-top: var(--s-sm);
+}
+
+body.in-sync .sync-status {
+  color: var(--magenta);
+}
+
+/* ─── IX-D. Ritual Extension ─── */
+
+/* Motion permission button (iOS) */
+.ritual-motion-btn {
+  font-family: var(--f-ko);
+  font-size: var(--t-base);
+  color: var(--glow);
+  background: transparent;
+  border: 1px solid rgba(233, 30, 99, 0.3);
+  border-radius: var(--radius);
+  padding: var(--s-sm) var(--s-lg);
+  margin-top: var(--s-xl);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.5s ease, border-color 0.3s ease;
+}
+
+.ritual-motion-btn:active {
+  border-color: var(--magenta);
+  background: rgba(233, 30, 99, 0.1);
+}
+
+/* Ritual instruction text */
+.ritual-instruction {
+  font-family: var(--f-ko);
+  font-size: var(--t-sm);
+  color: var(--dim);
+  margin-top: var(--s-md);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
 /* ─── X. Utilities & Queries ─── */
 
 /* Footer */
@@ -1238,9 +1698,15 @@ body.con-reproductor .pie {
 .pie-marca {
   font-family: var(--f-monument);
   font-size: var(--t-lg);
-  color: var(--magenta);
+  color: var(--silver);
   margin-bottom: var(--s-xs);
   letter-spacing: -0.02em;
+  transition: color var(--beat) var(--approach);
+}
+
+/* Paired: footer glows magenta */
+body.paired .pie-marca {
+  color: var(--magenta);
 }
 
 .pie-copy {

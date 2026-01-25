@@ -499,7 +499,8 @@ body.drifting .tarjeta {
   padding: var(--s-sm);
 }
 
-.cad-plano::before { display: none; }
+/* Disable default tarjeta touch effect for cad-plano */
+.cad-plano:not(.film-frame)::before { display: none; }
 
 .cad-svg {
   width: 100%;
@@ -510,23 +511,26 @@ body.drifting .tarjeta {
 /* Film Frame Effect — 1F Academia Cinematic */
 .film-frame {
   position: relative;
-  background: #050805;
-  border: 3px solid #1a1a1a;
+  background: #050805 !important;
+  border: 3px solid #1a1a1a !important;
   border-radius: 4px;
-  padding: var(--s-md) var(--s-xl);
+  padding: var(--s-md) var(--s-xl) !important;
   overflow: hidden;
 }
 
 /* Cinematic letterbox bars */
 .film-frame::before,
 .film-frame::after {
-  content: '';
+  content: '' !important;
+  display: block !important;
   position: absolute;
   left: 0;
   right: 0;
   height: 8px;
   background: #000;
   z-index: 5;
+  opacity: 1 !important;
+  pointer-events: none;
 }
 
 .film-frame::before { top: 0; }
@@ -538,11 +542,12 @@ body.drifting .tarjeta {
   top: 0;
   bottom: 0;
   width: 16px;
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   justify-content: space-evenly;
   padding: 12px 0;
   z-index: 2;
+  pointer-events: none;
 }
 
 .film-sprockets--left { left: 0; }
@@ -566,6 +571,7 @@ body.drifting .tarjeta {
   text-align: right;
   z-index: 6;
   opacity: 0.4;
+  pointer-events: none;
 }
 
 .film-code-num {
@@ -593,18 +599,21 @@ body.drifting .tarjeta {
 }
 
 /* Corner crop marks — film registration */
+.film-frame .susurro {
+  position: relative;
+  z-index: 4;
+}
+
 .film-frame .susurro::before,
 .film-frame .susurro::after {
   content: '';
+  display: block;
   position: absolute;
   width: 12px;
   height: 12px;
   border: 1px solid rgba(200, 225, 210, 0.2);
   z-index: 4;
-}
-
-.film-frame .susurro {
-  position: relative;
+  pointer-events: none;
 }
 
 .film-frame .susurro::before {
@@ -619,18 +628,6 @@ body.drifting .tarjeta {
   right: -8px;
   border-left: none;
   border-bottom: none;
-}
-
-/* Film grain overlay — enhanced for this section */
-.film-frame > .cad-svg::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 10;
-  opacity: 0.8;
-  mix-blend-mode: overlay;
 }
 
 /* Zoom-in animation on scroll reveal */

@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "description": "ESPÍRITU TANGO Node Registry — 확장 가능한 Performance Studio OS",
+
+  "protocol": {
+    "id": "espiritu-tango",
+    "name": "ESPÍRITU TANGO",
+    "type": "performance-studio-os",
+    "architect": "dtslib1979"
+  },
+
+  "nodes": [
+    {
+      "id": "magenta",
+      "name": "Tango Magenta",
+      "protocol": "tango",
+      "type": "offline-studio",
+      "status": "ready",
+      "path": "nodes/magenta/node.json",
+      "description": "First Body Protocol node. Tango as the primitive interface."
+    }
+  ],
+
+  "slots": [
+    {
+      "id": "panaderia",
+      "protocol": "food",
+      "status": "reserved",
+      "description": "Bakery/Food Protocol — 빵집, 음식 스튜디오"
+    },
+    {
+      "id": "sonido",
+      "protocol": "sound",
+      "status": "reserved",
+      "description": "Sound Protocol — 음악, 사운드 스튜디오"
+    },
+    {
+      "id": "dibujo",
+      "protocol": "visual",
+      "status": "reserved",
+      "description": "Drawing/Visual Protocol — 드로잉, 비주얼 스튜디오"
+    },
+    {
+      "id": "aula",
+      "protocol": "lecture",
+      "status": "reserved",
+      "description": "Lecture Protocol — 강의, 교육 스튜디오"
+    },
+    {
+      "id": "broadcast",
+      "protocol": "media",
+      "status": "reserved",
+      "description": "Broadcast Protocol — 방송, 미디어 스튜디오"
+    }
+  ],
+
+  "howToFork": {
+    "steps": [
+      "1. Fork this repository",
+      "2. Create nodes/{your-node}/node.json",
+      "3. Copy and customize identity, theme, content",
+      "4. Register in nodes/registry.json",
+      "5. Skin the UI with your theme"
+    ],
+    "template": "nodes/magenta/node.json"
+  }
+}

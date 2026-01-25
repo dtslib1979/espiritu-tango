@@ -1,0 +1,93 @@
+{
+  "$schema": "../node.schema.json",
+  "id": "magenta",
+  "version": "1.0.0",
+  "status": "ready",
+
+  "identity": {
+    "name": "Tango Magenta",
+    "nameKo": "탱고 마젠타",
+    "tagline": "Body Protocol Studio",
+    "taglineKo": "몸으로 장면을 만드는 스튜디오",
+    "type": "offline-studio",
+    "protocol": "tango",
+    "location": {
+      "city": "Seoul",
+      "district": "Gangnam",
+      "address": "선릉로 709 B1",
+      "station": "강남구청역 3-1번 출구"
+    }
+  },
+
+  "theme": {
+    "primary": "#E91E63",
+    "accent": "#FFD54F",
+    "bg": "#0a0008",
+    "text": "#f0e8ec",
+    "glow": "#f0e8ec"
+  },
+
+  "contact": {
+    "phone": "+82-507-1402-3774",
+    "cafe": "http://cafe.naver.com/thestep2011"
+  },
+
+  "content": {
+    "owns": [
+      "emisión/",
+      "emisión/l1/",
+      "emisión/l2/",
+      "emisión/l3/",
+      "emisión/l4/",
+      "emisión/club/",
+      "emisión/oneday/"
+    ],
+    "assets": [
+      "magenta.mp4",
+      "shoes.png",
+      "danza-poster.jpg",
+      "danza-mobile.mp4"
+    ]
+  },
+
+  "programs": {
+    "l1": {
+      "name": "Signature Step",
+      "nameKo": "시그니처 스텝",
+      "price": 29000,
+      "currency": "KRW"
+    },
+    "l2": {
+      "name": "Partner Mastery",
+      "nameKo": "파트너 마스터리"
+    },
+    "l3": {
+      "name": "Film",
+      "nameKo": "필름"
+    },
+    "l4": {
+      "name": "Buenos Aires",
+      "nameKo": "부에노스 아이레스"
+    },
+    "club": {
+      "name": "Practice Club",
+      "nameKo": "프랙티스 클럽"
+    },
+    "oneday": {
+      "name": "One Day",
+      "nameKo": "원데이",
+      "price": 10000,
+      "currency": "KRW"
+    }
+  },
+
+  "operator": {
+    "name": "연화",
+    "role": "Studio Director",
+    "status": "pending"
+  },
+
+  "created": "2026-01-26",
+  "forkedFrom": null,
+  "upstream": "espiritu-tango"
+}

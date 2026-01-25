@@ -16,15 +16,13 @@
   "meta": {
     "layer": "protocol",
     "description": "상위 메타 레이어. 실제 스튜디오는 Node로 연결됨.",
-    "nodes": [
-      {
-        "id": "magenta",
-        "name": "Tango Magenta",
-        "type": "offline-studio",
-        "location": "Seoul Gangnam",
-        "status": "flagship"
-      }
-    ]
+    "registry": "nodes/registry.json",
+    "activeNode": "magenta",
+    "nodeSystem": {
+      "version": "1.0",
+      "configPath": "nodes/{nodeId}/node.json",
+      "forkable": true
+    }
   },
 
   "philosophy": {

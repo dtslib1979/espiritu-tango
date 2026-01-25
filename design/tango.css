@@ -1456,6 +1456,7 @@ body.in-sync .ticker-badge::after {
   color: var(--silver);
   cursor: pointer;
   flex-shrink: 0;
+  font-size: 0.7rem;
   transition: background var(--half) var(--approach),
               color var(--half) var(--approach);
 }
@@ -1467,20 +1468,6 @@ body.in-sync .ticker-badge::after {
 
 .ticker-play.playing {
   color: var(--magenta);
-}
-
-.ticker-play-icon,
-.ticker-pause-icon {
-  width: 16px;
-  height: 16px;
-}
-
-.ticker-play.playing .ticker-play-icon {
-  display: none;
-}
-
-.ticker-play.playing .ticker-pause-icon {
-  display: block;
 }
 
 /* Solo mode: ticker is distant/gray */

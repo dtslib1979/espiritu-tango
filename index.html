@@ -564,8 +564,8 @@
     <p class="pie-copy">&copy; 2026 Buenos Aires / Seoul</p>
   </footer>
 
-  <!-- ═══ Audio Layer (CNN Breaking Ticker) ═══ -->
-  <div class="reproductor" id="reproductor" aria-label="Live Ticker">
+  <!-- ═══ Audio Layer (CNN Breaking Ticker + YouTube) ═══ -->
+  <div class="reproductor" id="reproductor" aria-label="Audio">
     <div class="ticker" id="ticker">
       <div class="ticker-badge">
         <span class="ticker-dot"></span>
@@ -576,74 +576,62 @@
       </div>
       <div class="ticker-play" id="ticker-play">▶</div>
     </div>
-    <!-- Hidden YouTube Player -->
-    <div id="yt-player" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden;"></div>
+    <div id="yt-player" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;overflow:hidden;"></div>
   </div>
 
   <script>
-  // YouTube Audio — Tap to Play
-  (function() {
-    'use strict';
-    var VIDEO_ID = 'gt8-DAi9Jmg';
-    var playBtn = document.getElementById('ticker-play');
-    var player;
-    var started = false;
+    // YouTube Audio — Play on First Touch (mobile-compatible)
+    (function() {
+      'use strict';
+      var VIDEO_ID = 'gt8-DAi9Jmg';
+      var playBtn = document.getElementById('ticker-play');
+      var player;
+      var started = false;
 
-    var tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    document.head.appendChild(tag);
+      var tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
 
-    window.onYouTubeIframeAPIReady = function() {
-      player = new YT.Player('yt-player', {
-        videoId: VIDEO_ID,
-        playerVars: {
-          loop: 1,
-          playlist: VIDEO_ID,
-          controls: 0,
-          disablekb: 1,
-          fs: 0,
-          modestbranding: 1,
-          playsinline: 1,
-          rel: 0
-        },
-        events: {
-          onStateChange: function(e) {
-            if (e.data === YT.PlayerState.PLAYING) {
-              playBtn.textContent = '♪';
-              playBtn.classList.add('playing');
-            } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
-              playBtn.textContent = '▶';
-              playBtn.classList.remove('playing');
+      window.onYouTubeIframeAPIReady = function() {
+        player = new YT.Player('yt-player', {
+          videoId: VIDEO_ID,
+          playerVars: {
+            loop: 1,
+            playlist: VIDEO_ID,
+            controls: 0,
+            disablekb: 1,
+            fs: 0,
+            modestbranding: 1,
+            playsinline: 1,
+            rel: 0
+          },
+          events: {
+            onStateChange: function(e) {
+              if (e.data === YT.PlayerState.PLAYING) {
+                playBtn.textContent = '♪';
+                playBtn.classList.add('playing');
+              } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
+                playBtn.textContent = '▶';
+                playBtn.classList.remove('playing');
+              }
             }
           }
-        }
-      });
-    };
+        });
+      };
 
-    function startAudio() {
-      if (started || !player) return;
-      started = true;
-      player.setVolume(80);
-      player.unMute();
-      player.playVideo();
-    }
-
-    // Double tap to play
-    var tapCount = 0;
-    var tapTimer;
-    document.addEventListener('touchend', function() {
-      tapCount++;
-      if (tapCount === 1) {
-        tapTimer = setTimeout(function() { tapCount = 0; }, 400);
-      } else if (tapCount === 2) {
-        clearTimeout(tapTimer);
-        tapCount = 0;
-        startAudio();
+      function startAudio() {
+        if (started || !player) return;
+        started = true;
+        player.setVolume(80);
+        player.unMute();
+        player.playVideo();
+        document.removeEventListener('click', startAudio, true);
+        document.removeEventListener('touchend', startAudio, true);
       }
-    }, { passive: true });
 
-    // Play button click
-    if (playBtn) {
+      document.addEventListener('click', startAudio, { capture: true, once: true });
+      document.addEventListener('touchend', startAudio, { capture: true, once: true });
+
       playBtn.addEventListener('click', function(e) {
         e.stopPropagation();
         if (!player) return;
@@ -655,8 +643,7 @@
           player.playVideo();
         }
       });
-    }
-  })();
+    })();
   </script>
 
   <!-- Scripts -->

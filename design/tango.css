@@ -509,21 +509,18 @@ body.drifting .tarjeta {
   display: block;
 }
 
-/* Film Frame Effect — 1F Academia Cinematic */
+/* Film Frame Effect — KODAK Dark Green Style */
 .film-frame {
   position: relative;
   background: #0a0a0a !important;
-  border: 3px solid rgba(255, 255, 255, 0.8) !important;
-  border-radius: 4px;
-  padding: var(--s-lg) var(--s-xxl) !important;
+  border: none !important;
+  border-radius: 0;
+  padding: 28px var(--s-md) !important;
   margin: var(--s-md) calc(-1 * var(--s-md)) !important;
-  overflow: hidden;
-  box-shadow:
-    0 0 20px rgba(255, 255, 255, 0.15),
-    inset 0 0 60px rgba(0, 0, 0, 0.5);
+  overflow: visible;
 }
 
-/* Cinematic letterbox bars — WHITE for visibility */
+/* Kodak film strip bars — TOP & BOTTOM with sprocket holes */
 .film-frame::before,
 .film-frame::after {
   content: '' !important;
@@ -531,8 +528,17 @@ body.drifting .tarjeta {
   position: absolute;
   left: 0;
   right: 0;
-  height: 10px;
-  background: rgba(255, 255, 255, 0.9);
+  height: 24px;
+  background: #1a2e1a;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 20px,
+    #0a0a0a 20px,
+    #0a0a0a 32px,
+    transparent 32px,
+    transparent 52px
+  );
   z-index: 5;
   opacity: 1 !important;
   pointer-events: none;
@@ -541,38 +547,14 @@ body.drifting .tarjeta {
 .film-frame::before { top: 0; bottom: auto !important; }
 .film-frame::after { bottom: 0; top: auto !important; }
 
-/* Film sprocket holes — WHITE */
-.film-sprockets {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 20px;
-  display: flex !important;
-  flex-direction: column;
-  justify-content: space-evenly;
-  padding: 16px 0;
-  z-index: 6;
-  pointer-events: none;
-  background: rgba(255, 255, 255, 0.9);
-}
+/* Hide old side sprockets */
+.film-sprockets { display: none !important; }
 
-.film-sprockets--left { left: 0; }
-.film-sprockets--right { right: 0; }
-
-.film-sprockets span {
-  display: block;
-  width: 10px;
-  height: 14px;
-  margin: 0 auto;
-  background: #0a0a0a;
-  border-radius: 2px;
-}
-
-/* Film code (frame number) — BRIGHT */
+/* Film code (frame number) */
 .film-code {
   position: absolute;
-  top: 16px;
-  right: 28px;
+  top: 4px;
+  right: 12px;
   text-align: right;
   z-index: 7;
   opacity: 1;
@@ -582,19 +564,18 @@ body.drifting .tarjeta {
 .film-code-num {
   display: block;
   font-family: var(--f-code);
-  font-size: 1.8rem;
-  color: #fff;
+  font-size: 1rem;
+  color: #3d5c3d;
   line-height: 1;
-  letter-spacing: -0.05em;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  letter-spacing: -0.02em;
 }
 
 .film-code-label {
   display: block;
   font-family: var(--f-code);
-  font-size: 0.6rem;
-  color: rgba(255, 255, 255, 0.7);
-  letter-spacing: 0.15em;
+  font-size: 0.5rem;
+  color: #3d5c3d;
+  letter-spacing: 0.1em;
 }
 
 /* Vignette for cinema feel */
@@ -1235,9 +1216,9 @@ body.drifting .ribbon-path {
   aspect-ratio: 3 / 4;
   max-height: 40vh;
   overflow: hidden;
-  border-radius: 4px;
-  border: 3px solid rgba(255, 255, 255, 0.8);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+  border-radius: 0;
+  border: none;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
 
 .danza-video {
@@ -1248,15 +1229,24 @@ body.drifting .ribbon-path {
   display: block;
 }
 
-/* Film letterbox bars — WHITE for visibility */
+/* KODAK film strip — Dark Green with sprocket holes */
 .danza-video-wrap::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 12px;
-  background: rgba(255, 255, 255, 0.9);
+  height: 20px;
+  background: #1a2e1a;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 16px,
+    #0a0a0a 16px,
+    #0a0a0a 26px,
+    transparent 26px,
+    transparent 42px
+  );
   z-index: 3;
   pointer-events: none;
 }
@@ -1267,8 +1257,17 @@ body.drifting .ribbon-path {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 12px;
-  background: rgba(255, 255, 255, 0.9);
+  height: 20px;
+  background: #1a2e1a;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 16px,
+    #0a0a0a 16px,
+    #0a0a0a 26px,
+    transparent 26px,
+    transparent 42px
+  );
   z-index: 3;
   pointer-events: none;
 }
@@ -1276,7 +1275,7 @@ body.drifting .ribbon-path {
 /* Caption overlay */
 .danza-caption {
   position: absolute;
-  bottom: 14px;
+  bottom: 28px;
   left: 0;
   right: 0;
   text-align: center;

@@ -334,7 +334,8 @@
   <section class="espacio--compact revelar" aria-label="Partner Guide" id="partner-guide">
     <div class="guide-container">
       <p class="susurro" style="text-align:center;">CÓMO BAILAR JUNTOS</p>
-      <h2 class="guide-titulo" lang="ko">탱고는 혼자 추는 춤이 아닙니다</h2>
+      <h2 class="guide-titulo">El tango no se baila solo.</h2>
+      <span lang="ko" class="ko" style="display:block;text-align:center;margin-top:calc(-1 * var(--s-md));margin-bottom:var(--s-xl);">탱고는 혼자 추는 춤이 아닙니다.</span>
 
       <div class="guide-steps">
         <!-- Step 1 -->
@@ -344,8 +345,9 @@
               <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
             </svg>
           </div>
-          <p class="guide-step-title">1. 코드 공유</p>
-          <p class="guide-step-desc" lang="ko">아래 초대 코드를 파트너에게 보내세요</p>
+          <p class="guide-step-title">1. Compartí</p>
+          <p class="guide-step-desc">Enviá tu código a tu pareja.</p>
+          <span lang="ko" class="ko guide-step-ko">코드를 파트너에게 보내세요</span>
         </div>
 
         <!-- Step 2 -->
@@ -355,11 +357,12 @@
               <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
               <circle cx="9" cy="7" r="4"/>
               <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              <path d="M16 3.13a 4 4 0 0 1 0 7.75"/>
             </svg>
           </div>
-          <p class="guide-step-title">2. 연결</p>
-          <p class="guide-step-desc" lang="ko">파트너가 코드를 입력하면 자동 연결</p>
+          <p class="guide-step-title">2. Conectá</p>
+          <p class="guide-step-desc">Tu pareja ingresa el código.</p>
+          <span lang="ko" class="ko guide-step-ko">파트너가 코드 입력</span>
         </div>
 
         <!-- Step 3 -->
@@ -369,38 +372,40 @@
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
             </svg>
           </div>
-          <p class="guide-step-title">3. 잠금 해제</p>
-          <p class="guide-step-desc" lang="ko">블러 처리된 3-5층이 열립니다</p>
+          <p class="guide-step-title">3. Desbloqueá</p>
+          <p class="guide-step-desc">Pisos 3-5 se abren.</p>
+          <span lang="ko" class="ko guide-step-ko">3-5층 잠금 해제</span>
         </div>
       </div>
 
       <!-- Interactive Demo -->
       <div class="guide-demo">
-        <p class="susurro">DEMO</p>
+        <p class="susurro">DEMOSTRACIÓN</p>
         <div class="demo-phones">
           <div class="demo-phone demo-phone--lead" id="demoLead">
             <div class="demo-screen">
               <div class="demo-dot"></div>
-              <span>리드</span>
+              <span>Líder</span>
             </div>
           </div>
           <div class="demo-sync-line" id="demoSyncLine"></div>
           <div class="demo-phone demo-phone--follow" id="demoFollow">
             <div class="demo-screen">
               <div class="demo-dot"></div>
-              <span>팔로우</span>
+              <span>Seguidor</span>
             </div>
           </div>
         </div>
-        <p class="guide-demo-hint" lang="ko">폰을 기울이면 파트너도 함께 움직입니다</p>
-        <button class="puerta guide-demo-btn" id="demoBtn">체험하기</button>
+        <p class="guide-demo-hint">Incliná el teléfono, tu pareja se mueve con vos.</p>
+        <span lang="ko" class="ko" style="display:block;text-align:center;margin-top:var(--s-2xs);margin-bottom:var(--s-md);font-size:var(--t-xs);">폰을 기울이면 파트너도 함께 움직입니다</span>
+        <button class="puerta guide-demo-btn" id="demoBtn">Probalo</button>
       </div>
 
       <!-- Invite Code Box -->
       <div class="guide-invite" id="guideInvite">
-        <p class="susurro">내 초대 코드</p>
-        <div class="guide-invite-code" id="guideInviteCode">연결 중...</div>
-        <button class="guide-copy-btn" id="guideCopyBtn" aria-label="코드 복사">
+        <p class="susurro">MI CÓDIGO</p>
+        <div class="guide-invite-code" id="guideInviteCode">conectando...</div>
+        <button class="guide-copy-btn" id="guideCopyBtn" aria-label="Copiar código">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <rect x="9" y="9" width="13" height="13" rx="2"/>
             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
@@ -410,15 +415,15 @@
 
       <!-- Partner Input -->
       <div class="guide-join">
-        <p class="susurro">파트너 코드 입력</p>
-        <input type="text" class="partner-code guide-partner-input" id="guidePartnerInput" placeholder="abc123" lang="ko" aria-label="파트너 코드" maxlength="10">
-        <button class="puerta guide-join-btn" id="guideJoinBtn">연결</button>
+        <p class="susurro">CÓDIGO DE PAREJA</p>
+        <input type="text" class="partner-code guide-partner-input" id="guidePartnerInput" placeholder="abc123" aria-label="Código de pareja" maxlength="10">
+        <button class="puerta guide-join-btn" id="guideJoinBtn">Conectar</button>
       </div>
 
       <!-- Connection Status -->
       <div class="guide-status" id="guideStatus">
         <span class="guide-status-dot"></span>
-        <span class="guide-status-text" lang="ko">연결 대기 중</span>
+        <span class="guide-status-text">Esperando conexión<span lang="ko" class="ko--inline">연결 대기 중</span></span>
       </div>
     </div>
   </section>

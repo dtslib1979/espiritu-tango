@@ -1439,22 +1439,6 @@ body.in-sync .ticker-badge::after {
   100% { transform: translateX(-50%); }
 }
 
-/* Play indicator */
-.ticker-play {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  flex-shrink: 0;
-  background: #111;
-  border-left: 1px solid #222;
-  color: rgba(255,255,255,0.4);
-  font-size: 0.6rem;
-  transition: color 0.2s;
-}
-
-.ticker-play.playing { color: var(--magenta); }
-
 /* Solo mode: ticker is distant/gray */
 body:not(.paired) .ticker {
   opacity: 0.5;

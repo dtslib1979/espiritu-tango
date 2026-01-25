@@ -261,16 +261,6 @@
             window.tangoSync.onPartnerMotion(data);
           }
           break;
-        case 'music-ready':
-          if (window.tangoAudio) {
-            window.tangoAudio.onPartnerReady();
-          }
-          break;
-        case 'music-start':
-          if (window.tangoAudio) {
-            window.tangoAudio.syncStart(data.time);
-          }
-          break;
         case 'nav-intent':
           if (window.tangoNav) {
             window.tangoNav.onPartnerIntent(data);
@@ -407,168 +397,27 @@
   }
 
   // ═══════════════════════════════════════════════════════════
-  // V. TangoAudio — Music Integration
+  // V. TickerMessages — CNN Ticker state messages
   // ═══════════════════════════════════════════════════════════
 
-  class TangoAudio {
-    constructor(player) {
-      this.player = player;
-      this.myReady = false;
-      this.partnerReady = false;
-      this.isPlaying = false;
-      this.beatInterval = null;
+  class TickerMessages {
+    constructor() {
+      this.ticker = document.querySelector('.ticker-text');
     }
 
-    init() {
-      // Set initial volume based on connection state
-      this.updateVolume();
-
-      // Watch for pair state changes
-      const observer = new MutationObserver(() => this.updateVolume());
-      observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-    }
-
-    updateVolume() {
-      if (!this.player || typeof this.player.setVolume !== 'function') return;
-
-      const isPaired = document.body.classList.contains('paired');
-      const isInSync = document.body.classList.contains('in-sync');
-
-      if (isInSync) {
-        this.player.setVolume(90);
-      } else if (isPaired) {
-        const sync = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--sync')) || 0;
-        this.player.setVolume(40 + sync * 50);
-      } else {
-        this.player.setVolume(30);
-      }
-    }
-
-    signalReady() {
-      this.myReady = true;
-
-      if (window.tangoConnection && window.tangoConnection.isConnected()) {
-        window.tangoConnection.send({ type: 'music-ready' });
-        this.updateTickerMessage('waiting');
-        this.checkBothReady();
-      } else {
-        // Solo mode: just play
-        this.play();
-      }
-    }
-
-    onPartnerReady() {
-      this.partnerReady = true;
-      this.checkBothReady();
-    }
-
-    checkBothReady() {
-      if (this.myReady && this.partnerReady) {
-        this.countdown();
-      }
-    }
-
-    countdown() {
-      const ticker = document.querySelector('.ticker-text');
-      if (!ticker) return this.play();
-
-      let count = 3;
-      const interval = setInterval(() => {
-        ticker.innerHTML = `<b>${count}...</b>`;
-
-        if (navigator.vibrate) {
-          navigator.vibrate(100);
-        }
-
-        count--;
-        if (count < 0) {
-          clearInterval(interval);
-          this.startTogether();
-        }
-      }, 1000);
-    }
-
-    startTogether() {
-      const startTime = Date.now();
-
-      // Sync start with partner
-      if (window.tangoConnection && window.tangoConnection.isConnected()) {
-        window.tangoConnection.send({
-          type: 'music-start',
-          time: startTime
-        });
-      }
-
-      this.play();
-      this.startBeatGuide();
-    }
-
-    syncStart(partnerTime) {
-      // Adjust for network latency
-      const latency = Date.now() - partnerTime;
-      if (latency < 500) {
-        this.play();
-        this.startBeatGuide();
-      }
-    }
-
-    play() {
-      if (!this.player) return;
-
-      if (typeof this.player.playVideo === 'function') {
-        this.player.playVideo();
-      }
-      this.isPlaying = true;
-      document.body.classList.add('bailando');
-      this.updateTickerMessage('playing');
-    }
-
-    pause() {
-      if (!this.player) return;
-
-      if (typeof this.player.pauseVideo === 'function') {
-        this.player.pauseVideo();
-      }
-      this.isPlaying = false;
-      document.body.classList.remove('bailando');
-    }
-
-    startBeatGuide() {
-      if (this.beatInterval) return;
-
-      this.beatInterval = setInterval(() => {
-        this.onBeat();
-      }, BEAT);
-    }
-
-    onBeat() {
-      document.body.classList.add('beat');
-
-      setTimeout(() => {
-        document.body.classList.remove('beat');
-      }, 100);
-
-      // Create pulse element
-      const pulse = document.createElement('div');
-      pulse.className = 'beat-pulse';
-      document.body.appendChild(pulse);
-
-      setTimeout(() => pulse.remove(), BEAT);
-    }
-
-    updateTickerMessage(state) {
-      const ticker = document.querySelector('.ticker-text');
-      if (!ticker) return;
+    update(state) {
+      if (!this.ticker) return;
 
       const messages = {
-        solo: '<b>TANGO MAGENTA RADIO</b><span class="sep"></span>파트너를 초대하세요<span class="sep"></span>',
-        waiting: '<b>연결됨</b><span class="sep"></span>파트너를 기다리는 중...<span class="sep"></span>',
-        playing: '<b>Por una Cabeza</b> — Carlos Gardel<span class="sep"></span>CONNECTED<span class="sep"></span>',
-        inSync: '<b>Por una Cabeza</b> — Carlos Gardel<span class="sep"></span>★ PERFECT SYNC ★<span class="sep"></span>'
+        solo: '<b>TANGO MAGENTA RADIO</b><span class="sep"></span>파트너를 초대하세요<span class="sep"></span>Buenos Aires / Seoul<span class="sep"></span>',
+        waiting: '<b>연결 중...</b><span class="sep"></span>파트너를 기다리는 중<span class="sep"></span>',
+        paired: '<b>CONNECTED</b><span class="sep"></span>호흡을 맞춰보세요<span class="sep"></span>Buenos Aires / Seoul<span class="sep"></span>',
+        inSync: '<b>★ PERFECT SYNC ★</b><span class="sep"></span>아름다운 탱고입니다<span class="sep"></span>Buenos Aires / Seoul<span class="sep"></span>',
+        drifting: '<b>TANGO MAGENTA</b><span class="sep"></span>리듬을 느껴보세요...<span class="sep"></span>'
       };
 
       const msg = messages[state] || messages.solo;
-      ticker.innerHTML = msg + msg;  // Duplicate for scroll
+      this.ticker.innerHTML = msg + msg;  // Duplicate for scroll
     }
   }
 
@@ -816,6 +665,7 @@
     window.tangoAbraso = new Abrazo();
     window.tangoConnection = new TangoConnection();
     window.tangoMemory = new DanceMemory();
+    window.tangoTicker = new TickerMessages();
     new TouchTracker();
 
     // Initialize connection
@@ -827,13 +677,30 @@
     // Initialize navigation
     window.tangoNav = new FloorNavigation(window.tangoConnection);
 
-    // Connect audio when player is ready
+    // Update ticker on pair
     window.tangoConnection.on('onPaired', (isLead) => {
       console.log('Paired as:', isLead ? 'Lead' : 'Follow');
 
       // Start motion tracking
       window.tangoPartner.start();
+
+      // Update ticker message
+      window.tangoTicker.update('paired');
     });
+
+    // Watch for sync state changes
+    const syncObserver = new MutationObserver(() => {
+      if (document.body.classList.contains('in-sync')) {
+        window.tangoTicker.update('inSync');
+      } else if (document.body.classList.contains('drifting')) {
+        window.tangoTicker.update('drifting');
+      } else if (document.body.classList.contains('paired')) {
+        window.tangoTicker.update('paired');
+      } else {
+        window.tangoTicker.update('solo');
+      }
+    });
+    syncObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
 
     // Start ghost rendering
     window.tangoMemory.start();
@@ -850,20 +717,6 @@
         }
       });
     }
-
-    // Expose audio init for YouTube callback
-    window.initTangoAudio = function(player) {
-      window.tangoAudio = new TangoAudio(player);
-      window.tangoAudio.init();
-
-      // Update ticker click to signal ready
-      const ticker = document.querySelector('.ticker');
-      if (ticker) {
-        ticker.addEventListener('click', () => {
-          window.tangoAudio.signalReady();
-        });
-      }
-    };
 
     console.log('TANGO PARTNER SYSTEM initialized');
   }

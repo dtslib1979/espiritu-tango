@@ -539,12 +539,16 @@ body.drifting .tarjeta {
 
 .tablet-block {
   width: 100%;
-  max-width: 340px;
+  max-width: 380px;
+  min-height: 340px;
   background: url('../Stone.png') center 30% / cover no-repeat;
   border-radius: 8px;
-  padding: 48px 28px 40px;
+  padding: 60px 32px 55px;
   text-align: center;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   box-shadow:
     0 4px 24px rgba(0, 0, 0, 0.5),
     0 12px 48px rgba(0, 0, 0, 0.3);
@@ -1142,8 +1146,8 @@ body.drifting .ribbon-path {
 
 /* Fingerprint Portal — Grayscale by default, magenta on event */
 .huella-svg {
-  width: 140px;
-  height: 164px;
+  width: 100px;
+  height: 117px;
   filter: drop-shadow(0 0 20px rgba(192, 192, 192, 0.2))
           grayscale(1) contrast(1.1);
   transition: filter var(--beat) var(--approach);
@@ -1438,22 +1442,6 @@ body.in-sync .ticker-badge::after {
   0% { transform: translateX(0%); }
   100% { transform: translateX(-50%); }
 }
-
-/* Play indicator */
-.ticker-play {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  flex-shrink: 0;
-  background: #111;
-  border-left: 1px solid #222;
-  color: rgba(255,255,255,0.4);
-  font-size: 0.6rem;
-  transition: color 0.2s;
-}
-
-.ticker-play.playing { color: var(--magenta); }
 
 /* Solo mode: ticker is distant/gray */
 body:not(.paired) .ticker {

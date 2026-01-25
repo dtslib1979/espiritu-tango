@@ -1,16 +1,17 @@
 {
   "$schema": "../node.schema.json",
   "id": "magenta",
-  "version": "1.0.0",
-  "status": "ready",
+  "type": "studio",
+  "version": "2.0.0",
+  "status": "flagship",
 
   "identity": {
     "name": "Tango Magenta",
     "nameKo": "탱고 마젠타",
-    "tagline": "Body Protocol Studio",
-    "taglineKo": "몸으로 장면을 만드는 스튜디오",
-    "type": "offline-studio",
+    "tagline": "홈베이스. 모든 실험의 시작점.",
     "protocol": "tango",
+    "role": "flagship-studio",
+    "narrative": "내가 연화라면 — 박씨의 탱고 이야기",
     "location": {
       "city": "Seoul",
       "district": "Gangnam",
@@ -23,8 +24,7 @@
     "primary": "#E91E63",
     "accent": "#FFD54F",
     "bg": "#0a0008",
-    "text": "#f0e8ec",
-    "glow": "#f0e8ec"
+    "text": "#f0e8ec"
   },
 
   "contact": {
@@ -45,49 +45,63 @@
     "assets": [
       "magenta.mp4",
       "shoes.png",
-      "danza-poster.jpg",
-      "danza-mobile.mp4"
+      "danza-poster.jpg"
     ]
   },
 
   "programs": {
-    "l1": {
-      "name": "Signature Step",
-      "nameKo": "시그니처 스텝",
-      "price": 29000,
-      "currency": "KRW"
+    "season01": {
+      "name": "Tango Protocol",
+      "episodes": [
+        {
+          "id": "ep01",
+          "name": "First Gesture",
+          "nameKo": "첫 번째 몸짓",
+          "price": 29000
+        },
+        {
+          "id": "ep02",
+          "name": "Two Bodies",
+          "nameKo": "두 몸이 하나의 장면"
+        },
+        {
+          "id": "ep03",
+          "name": "Scene Making",
+          "nameKo": "당신의 장면 촬영"
+        },
+        {
+          "id": "ep04",
+          "name": "Origin Trip",
+          "nameKo": "프로토콜 원산지"
+        }
+      ]
     },
-    "l2": {
-      "name": "Partner Mastery",
-      "nameKo": "파트너 마스터리"
+    "pass": {
+      "name": "Studio Pass",
+      "nameKo": "스튜디오 패스",
+      "type": "unlimited-access"
     },
-    "l3": {
-      "name": "Film",
-      "nameKo": "필름"
-    },
-    "l4": {
-      "name": "Buenos Aires",
-      "nameKo": "부에노스 아이레스"
-    },
-    "club": {
-      "name": "Practice Club",
-      "nameKo": "프랙티스 클럽"
-    },
-    "oneday": {
-      "name": "One Day",
-      "nameKo": "원데이",
-      "price": 10000,
-      "currency": "KRW"
+    "single": {
+      "name": "Single Session",
+      "nameKo": "한 장면 체험",
+      "price": 10000
     }
   },
 
   "operator": {
-    "name": "연화",
-    "role": "Studio Director",
-    "status": "pending"
+    "id": "dtslib1979",
+    "role": "architect-operator",
+    "status": "active",
+    "note": "연화 없이 직접 운영. 내가 연화라면."
+  },
+
+  "networkRole": {
+    "canHostEvents": true,
+    "canApprovePersonNodes": true,
+    "isMatchingHub": true,
+    "description": "다른 노드들의 허브. 원포인트 레슨 제공자 승인권."
   },
 
   "created": "2026-01-26",
-  "forkedFrom": null,
   "upstream": "espiritu-tango"
 }

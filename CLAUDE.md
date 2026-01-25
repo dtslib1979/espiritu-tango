@@ -1,159 +1,149 @@
-# TANGO MAGENTA Agent Protocol v2.0
+# ESPÍRITU TANGO — Agent Protocol v3.0
 
-> Claude Code agent guide for the tango-magenta repository.
-> "El primer sistema que respira."
+> Performance Protocol for Body
+> "춤을 가르치지 않는다. 몸의 언어를 편집한다."
 
 ---
 
-## 1. Project Overview
+## 1. Identity
 
-### Purpose
-5-Layer Studio & Broadcast System (Body-as-Interface Architecture)
+### What This Is
+**Performance Studio OS** — 몸으로 장면을 만드는 퍼포먼스 프로토콜
 
-### Tech Stack
+### What This Is NOT
+- ❌ 탱고 학원 웹사이트
+- ❌ 댄스 스쿨
+- ❌ 레슨 플랫폼
+
+### Structure
+```
+ESPÍRITU TANGO (메타 레이어 — Protocol)
+    │
+    └── Node: Magenta (연화 오프라인 스튜디오)
+    └── Node: [Future] (확장 가능)
+```
+
+---
+
+## 2. Core Philosophy
+
+| 기존 사고 | Espíritu 사고 |
+|----------|--------------|
+| 춤을 배운다 | 장면을 만든다 |
+| 수강생 | 퍼포머 |
+| 수업 | 에피소드 |
+| 레벨 | 시즌 |
+| 연습 | 실험 |
+| 학원 | 스튜디오 |
+
+**핵심 메시지:**
+> "탱고는 장르가 아니다. 첫 번째 Body Protocol이다."
+
+---
+
+## 3. Tech Stack
+
 - Pure static site (HTML/CSS/JS)
 - GitHub Pages hosting
-- Tango UI Design System (BPM-based)
+- Performance Studio Design System (BPM-based)
 - Body Interaction Protocol v1.0
 - Mobile-Only (430px max-width)
 - No Service Worker
 - Bing Read-Aloud & Translation Compatible
 
-### Language
-- Base: Argentine Spanish (es-AR, porteño)
-- Vos form throughout
-- Buenos Aires street tone
-
-### Architecture
-5-Layer broadcasting system where the body is the interface and tango is the protocol.
-
 ---
 
-## 2. HQ Integration
-
-| Item | Value |
-|------|-------|
-| **HQ Repo** | dtslib1979/dtslib-branch |
-| **Branch ID** | tango-magenta |
-| **Status** | active |
-| **Visibility** | public |
-| **Tier** | premium |
-| **Established** | 2026.01.23 |
-
----
-
-## 3. Folder Structure
+## 4. Architecture: 5-Layer Performance OS
 
 ```
-tango-magenta/
-├── index.html              # Entrada (Ritual + 5-Layer Navigation)
-├── emisión/
-│   └── index.html          # L1: Broadcast (Spotify/YouTube)
-├── cuerpo/
-│   └── index.html          # L2: Body Grammar (Body API docs)
-├── laboratorio/
-│   └── index.html          # L3: Gesture Engine (Motion rendering)
-├── control/
-│   └── index.html          # L4: Control Room (System metrics)
-├── legado/
-│   └── index.html          # L5: Legacy (Constitution + Archive)
-├── inner/
-│   └── index.html          # Gate (password: 1126)
-│
+espiritu-tango/
+├── index.html              # Entry Portal
+├── emisión/                # L1: Emission (장면 송출)
+│   ├── index.html
+│   ├── l1~l4/              # Season 01 Episodes
+│   ├── club/               # Studio Pass
+│   └── oneday/             # Single Session
+├── cuerpo/                 # L2: Body Grammar (몸 언어 편집)
+├── laboratorio/            # L3: Gesture Lab (제스처 설계)
+├── control/                # L4: Control Room (시스템 관측)
+├── legado/                 # L5: Legacy (서사 축적)
+├── inner/                  # Hidden Gate (pw: 1126)
 ├── design/
-│   ├── tango.css           # Design System (BPM timing, dance curves)
-│   ├── body-protocol.js    # Body Interaction Protocol
-│   └── entrada.js          # Ritual entrance sequence
-│
+│   ├── tango.css           # Design System
+│   ├── body-protocol.js    # Interaction Protocol
+│   └── entrada.js          # Ritual entrance
 ├── api/
 │   ├── gestures.json       # Gesture database
-│   ├── legacy.json         # Legacy archive data
 │   └── content.json        # Content endpoint
-│
 ├── specs/
-│   ├── body-protocol.yaml  # Full protocol specification
-│   ├── constitution.md     # World constitution
-│   └── layers.yaml         # Architecture spec
-│
-├── .github/workflows/
-│   ├── deploy.yml          # GitHub Pages deployment
-│   ├── content-pipeline.yml # Content validation
-│   └── lighthouse.yml      # Performance audits
-│
-├── assets/
-│   ├── icons/
-│   ├── og/
-│   └── audio/
-│
-├── FACTORY.json            # Core system configuration v2.0
-├── branch.json             # Franchise OS identity
-├── manifest.webmanifest    # PWA manifest
-├── .lighthouserc.json      # Lighthouse CI config
-├── sitemap.xml
-├── robots.txt
-└── .nojekyll
+│   └── constitution.md     # World constitution
+├── docs/
+│   ├── ARCHITECTURE.md     # Technical docs
+│   └── REMODEL-PROPOSAL.md # Transformation plan
+├── FACTORY.json            # Core config v3.0
+├── branch.json             # HQ identity
+└── CLAUDE.md               # This file
 ```
 
 ---
 
-## 4. Body Protocol (UI Events = Body Actions)
+## 5. Layer Definitions
 
-| Event | Spanish | English | Implementation |
-|-------|---------|---------|----------------|
-| Scroll | Acercarse | Approach | IntersectionObserver |
-| Tap | Compromiso | Commit | click/touchend |
-| Hold | Esperar | Wait/Sense | touchstart + 857ms |
-| Swipe | Girar | Turn | touchstart/end diff |
-| Idle 3s | Respirar | Breathe | body.respirando |
-| Back | Soltar | Release | history.back() |
+| Layer | Name | Purpose | Verb |
+|-------|------|---------|------|
+| L1 | Emission | 장면을 송출한다 | Transmití |
+| L2 | Body Grammar | 몸의 언어를 편집한다 | Editá |
+| L3 | Gesture Lab | 제스처를 설계한다 | Diseñá |
+| L4 | Control Room | 시스템을 관측한다 | Observá |
+| L5 | Legacy | 서사를 축적한다 | Recordá |
 
 ---
 
-## 5. BPM Timing System (70 BPM Tango Lento)
+## 6. Body Protocol (Interaction Mapping)
+
+| Event | Spanish | Korean | Implementation |
+|-------|---------|--------|----------------|
+| Scroll | Acercarse | 다가가기 | IntersectionObserver |
+| Tap | Compromiso | 결정 | click/touchend |
+| Hold 857ms | Esperar | 기다리기 | touchstart + beat |
+| Swipe | Girar | 전환 | touchstart/end diff |
+| Idle 3s | Respirar | 숨쉬기 | body.respirando |
+| Back | Soltar | 놓기 | history.back() |
+
+---
+
+## 7. BPM Timing (70 BPM)
 
 | Token | Value | Use |
 |-------|-------|-----|
 | --beat | 857ms | Standard transition |
-| --half-beat | 428ms | Quick response |
-| --double-beat | 1714ms | Slow reveal |
-| --breath | 2571ms | Full breath cycle |
+| --half | 428ms | Quick response |
+| --double | 1714ms | Slow reveal |
+| --breath | 2571ms | Full breath |
 | --phrase | 3428ms | 4-bar phrase |
 
 ---
 
-## 6. Dance Motion Curves
+## 8. Forbidden Terms
 
-| Curve | Values | Use |
-|-------|--------|-----|
-| --ease-approach | cubic-bezier(0.16, 1, 0.3, 1) | Entrance |
-| --ease-retreat | cubic-bezier(0.7, 0, 0.84, 0) | Exit |
-| --ease-embrace | cubic-bezier(0.34, 1.56, 0.64, 1) | Overshoot |
-| --ease-release | cubic-bezier(0.25, 0, 0.5, 1) | Gentle end |
-
----
-
-## 7. Gate Code
-
-Inner Portal password: `1126`
-(inner/index.html data-gate-code attribute)
+시스템 내에서 사용 금지:
+- 학원, 레슨, 강습
+- 초급, 중급, 고급
+- 수강생, 회원
+- 정통, 본고장
 
 ---
 
-## 8. Entrada Ritual
+## 9. Replacement Terms
 
-1. 3s absolute darkness
-2. "Respirá despacio." appears (CSS animation-delay: 3s)
-3. After breath + beat: ritual fades, system appears
-4. sessionStorage skip on return visits
-
----
-
-## 9. Audio Layer
-
-- Spotify embed playlists (fixed bottom, 80px)
-- YouTube embed for video sessions
-- No service worker
-- body.con-reproductor adds padding-bottom
+| 금지 | 대체 |
+|------|------|
+| 학원 | 스튜디오 |
+| 수업 | 에피소드 / 세션 |
+| 수강생 | 퍼포머 |
+| 레벨 | 시즌 |
+| 연습 | 실험 |
+| 공연 | 장면 |
 
 ---
 
@@ -162,15 +152,35 @@ Inner Portal password: `1126`
 ```
 feat: New feature
 fix: Bug fix
-design: Tango UI changes
+design: Design system changes
 content: Content add/modify
 arch: Architecture changes
 body: Body Protocol changes
-audio: Audio layer changes
+identity: Identity/branding changes
 ```
 
 ---
 
-*Last updated: 2026-01-23*
-*Architecture: 5-Layer Studio & Broadcast*
+## 11. Gate Code
+
+Inner Portal password: `1126`
+
+---
+
+## 12. Node System
+
+Espíritu Tango는 메타 레이어.
+실제 오프라인 스튜디오는 "Node"로 연결됨.
+
+**Current Nodes:**
+- `magenta` — Tango Magenta (Seoul Gangnam) [flagship]
+
+**Future Nodes:**
+- `espiritu-food` — Food Protocol
+- `espiritu-sound` — Sound Protocol
+
+---
+
+*Last updated: 2026-01-26*
+*Version: 3.0 (Performance Studio OS)*
 *Affiliation: DTSLIB HQ*

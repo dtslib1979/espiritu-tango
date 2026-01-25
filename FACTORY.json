@@ -1,33 +1,60 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "id": "tango-magenta-core",
-  "version": "2.0.0",
+  "id": "espiritu-tango",
+  "version": "3.0.0",
 
   "identity": {
-    "name": "TANGO MAGENTA",
-    "tagline": "El primer sistema que respira",
-    "type": "studio-broadcast-system",
-    "domain": "dtslib1979.github.io/tango-magenta",
+    "name": "ESPÍRITU TANGO",
+    "tagline": "Performance Protocol for Body",
+    "subtitle": "몸으로 장면을 만드는 퍼포먼스 프로토콜",
+    "type": "performance-studio-os",
+    "domain": "dtslib1979.github.io/espiritu-tango",
     "language": "es-AR",
-    "NOT": "website"
+    "NOT": ["website", "academy", "dance-school", "학원", "레슨"]
+  },
+
+  "meta": {
+    "layer": "protocol",
+    "description": "상위 메타 레이어. 실제 스튜디오는 Node로 연결됨.",
+    "nodes": [
+      {
+        "id": "magenta",
+        "name": "Tango Magenta",
+        "type": "offline-studio",
+        "location": "Seoul Gangnam",
+        "status": "flagship"
+      }
+    ]
   },
 
   "philosophy": {
-    "core": "El cuerpo es la interfaz. El tango es el protocolo.",
-    "humanRole": "El bailarín que navega",
-    "systemRole": "Acompañar, no responder",
-    "result": "Un legado que respira"
+    "core": "춤을 가르치지 않는다. 몸의 언어를 편집한다.",
+    "coreEs": "No enseñamos baile. Editamos el lenguaje del cuerpo.",
+    "medium": "Body",
+    "output": "Scene",
+    "method": "Protocol",
+    "humanRole": "퍼포머",
+    "systemRole": "장면을 만드는 도구",
+    "result": "일상이 무대가 된다"
   },
 
   "architecture": {
-    "name": "5-Layer Studio & Broadcast System",
+    "name": "5-Layer Performance Studio OS",
     "layers": [
-      { "level": 1, "id": "emisión", "name": "Emisión", "purpose": "La señal que sale al mundo", "verb": "Sintonizá" },
-      { "level": 2, "id": "cuerpo", "name": "Cuerpo", "purpose": "La gramática del movimiento", "verb": "Sentí" },
-      { "level": 3, "id": "laboratorio", "name": "Laboratorio", "purpose": "El motor de gestos", "verb": "Experimentá" },
-      { "level": 4, "id": "control", "name": "Control", "purpose": "La cabina del sistema", "verb": "Observá" },
-      { "level": 5, "id": "legado", "name": "Legado", "purpose": "Donde la vida se vuelve mundo", "verb": "Recordá" }
+      { "level": 1, "id": "emisión", "name": "Emission", "purpose": "장면을 송출한다", "verb": "Transmití" },
+      { "level": 2, "id": "cuerpo", "name": "Body Grammar", "purpose": "몸의 언어를 편집한다", "verb": "Editá" },
+      { "level": 3, "id": "laboratorio", "name": "Gesture Lab", "purpose": "제스처를 설계한다", "verb": "Diseñá" },
+      { "level": 4, "id": "control", "name": "Control Room", "purpose": "시스템을 관측한다", "verb": "Observá" },
+      { "level": 5, "id": "legado", "name": "Legacy", "purpose": "서사를 축적한다", "verb": "Recordá" }
     ]
+  },
+
+  "protocol": {
+    "current": "tango",
+    "version": "1.0",
+    "description": "첫 번째 Body Protocol",
+    "expandable": true,
+    "future": ["food", "sound", "space", "craft"]
   },
 
   "bodyProtocol": {

@@ -499,8 +499,9 @@ body.drifting .tarjeta {
   padding: var(--s-sm);
 }
 
-/* Disable default tarjeta touch effect for cad-plano */
+/* Disable default tarjeta touch effect for cad-plano and film-frame */
 .cad-plano:not(.film-frame)::before { display: none; }
+.tarjeta.film-frame::before { inset: auto !important; background: #000 !important; }
 
 .cad-svg {
   width: 100%;
@@ -514,8 +515,12 @@ body.drifting .tarjeta {
   background: #050805 !important;
   border: 3px solid #1a1a1a !important;
   border-radius: 4px;
-  padding: var(--s-md) var(--s-xl) !important;
+  padding: var(--s-lg) var(--s-xxl) !important;
+  margin: var(--s-md) calc(-1 * var(--s-md)) !important;
   overflow: hidden;
+  box-shadow:
+    0 0 60px rgba(0, 0, 0, 0.8),
+    inset 0 0 80px rgba(0, 0, 0, 0.4);
 }
 
 /* Cinematic letterbox bars */
@@ -533,8 +538,8 @@ body.drifting .tarjeta {
   pointer-events: none;
 }
 
-.film-frame::before { top: 0; }
-.film-frame::after { bottom: 0; }
+.film-frame::before { top: 0; bottom: auto !important; }
+.film-frame::after { bottom: 0; top: auto !important; }
 
 /* Film sprocket holes */
 .film-sprockets {
@@ -595,7 +600,9 @@ body.drifting .tarjeta {
 .film-frame .cad-svg {
   position: relative;
   z-index: 3;
-  filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.5));
+  width: 110%;
+  margin-left: -5%;
+  filter: drop-shadow(0 0 40px rgba(0, 0, 0, 0.6));
 }
 
 /* Corner crop marks — film registration */
@@ -631,18 +638,30 @@ body.drifting .tarjeta {
 }
 
 /* Zoom-in animation on scroll reveal */
-.film-frame.visible {
-  animation: film-zoom-in 1.2s var(--approach) forwards;
+/* Override .revelar transition to prevent conflict */
+.film-frame.revelar {
+  opacity: 0;
+  transform: scale(0.75);
+  transition: none;
+}
+
+.film-frame.revelar.visible {
+  animation: film-zoom-in 1.8s var(--approach) forwards;
 }
 
 @keyframes film-zoom-in {
-  from {
-    transform: scale(0.92);
+  0% {
+    transform: scale(0.75);
     opacity: 0;
-    filter: blur(2px);
+    filter: blur(4px);
   }
-  to {
-    transform: scale(1);
+  60% {
+    transform: scale(1.08);
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    transform: scale(1.05);
     opacity: 1;
     filter: blur(0);
   }

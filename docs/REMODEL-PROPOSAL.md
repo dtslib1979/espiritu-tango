@@ -1,346 +1,253 @@
-# TANGO MAGENTA → Performance Studio OS
+# ESPÍRITU TANGO — Performance Studio OS
 
-## System Architect Remodeling Proposal v1.0
+## System Architecture Report v3.0
 
-> "탱고를 목적에서 프로토콜로 격하시켜라."
+> "탱고는 목적이 아니다. 첫 번째 프로토콜이다."
 
 **Author**: System Architect
 **Date**: 2026-01-26
-**Status**: PROPOSAL
-**Confidence**: 94%
+**Status**: ✅ IMPLEMENTED
+**Version**: 3.0.0
 
 ---
 
 ## Executive Summary
 
-현재 tango-magenta 레포지토리는 **"탱고 학원 웹사이트"**로 포지셔닝되어 있으나,
-실제 아키텍처는 이미 **"퍼포먼스 스튜디오 OS"** 수준으로 설계되어 있음.
+tango-magenta 레포지토리가 **espiritu-tango**로 전환됨.
 
-**문제**: 구조 ≠ 정체성 (Structure-Identity Mismatch)
+**Before**: 탱고 마젠타 (연화의 학원 웹사이트)
+**After**: ESPÍRITU TANGO (Performance Studio OS + Node System)
 
-**해결**: 언어/정체성 리모델링 (구조 유지, 의미 전환)
-
-**결과**: 탱고 → 첫 번째 Protocol, 시스템 → 복제 가능한 OS
-
----
-
-## Part 1: Current State Analysis
-
-### 1.1 Architecture Assessment
-
+**핵심 전환**:
 ```
-현재 5-Layer 시스템:
-
-┌─────────────────────────────────────────────────────────┐
-│  L1: emisión (Broadcast)     ← 이미 "방송" 개념        │
-│  L2: cuerpo (Body Grammar)   ← 이미 "몸 문법" 개념     │
-│  L3: laboratorio (Gesture)   ← 이미 "실험실" 개념      │
-│  L4: control (Console)       ← 이미 "콘솔" 개념        │
-│  L5: legado (Legacy)         ← 이미 "아카이브" 개념    │
-└─────────────────────────────────────────────────────────┘
-
-이건 학원 구조가 아니다.
-이건 미디어 프로덕션 시스템이다.
-```
-
-### 1.2 Identity-Structure Gap
-
-| Layer | 구조 (현재) | 언어 (현재) | Gap |
-|-------|------------|------------|-----|
-| L1 | Broadcast System | "수업 프로그램" | HIGH |
-| L2 | Body Grammar Engine | "탱고 테크닉" | HIGH |
-| L3 | Gesture Lab | "연습실" | MEDIUM |
-| L4 | Control Console | "관리자" | LOW |
-| L5 | Legacy Archive | "아카이브" | LOW |
-
-**결론**: 구조는 95% 완성. 언어가 40% 뒤처짐.
-
-### 1.3 Current Files Inventory
-
-```
-변경 필요한 파일:
-
-HIGH PRIORITY (정체성 핵심)
-├── index.html              ← 메인 카피 전면 교체
-├── FACTORY.json            ← identity 섹션 재정의
-├── branch.json             ← tagline 변경
-├── CLAUDE.md               ← 에이전트 프로토콜 갱신
-└── specs/constitution.md   ← 세계관 선언문 추가
-
-MEDIUM PRIORITY (콘텐츠 언어)
-├── emisión/index.html      ← "수업" → "에피소드"
-├── emisión/l1~l4/          ← 프로그램명 변경
-├── cuerpo/index.html       ← "테크닉" → "문법"
-└── laboratorio/index.html  ← "연습" → "실험"
-
-LOW PRIORITY (메타데이터)
-├── manifest.webmanifest    ← description 갱신
-├── sitemap.xml             ← 변경 없음
-└── api/*.json              ← 용어 통일
+연화의 학원 → 박씨의 Performance OS 원형
+탱고 = 목적 → 탱고 = 첫 번째 Protocol
+마젠타 = 정체성 → 마젠타 = 첫 번째 Node
 ```
 
 ---
 
-## Part 2: Target State Design
+## Part 1: New Architecture
 
-### 2.1 New Identity Definition
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                                                         │
-│   TANGO MAGENTA                                         │
-│   Performance Studio OS v1.0                            │
-│                                                         │
-│   "몸으로 서사를 찍는 퍼포먼스 스튜디오.                │
-│    탱고는 첫 번째 프로토콜이다."                        │
-│                                                         │
-│   Type: Studio OS (not Dance School)                    │
-│   Medium: Body (not Dance)                              │
-│   Protocol[0]: Tango (expandable)                       │
-│                                                         │
-└─────────────────────────────────────────────────────────┘
-```
-
-### 2.2 Terminology Mapping
-
-| 기존 용어 | 새 용어 | 근거 |
-|----------|--------|------|
-| 학원 | 스튜디오 | 장소 → 시스템 |
-| 수업 | 에피소드 | 배움 → 제작 |
-| 강습 | 세션 | 가르침 → 경험 |
-| 수강생 | 퍼포머 | 학생 → 참여자 |
-| 레벨 | 시즌 | 단계 → 시리즈 |
-| 테크닉 | 문법 | 기술 → 언어 |
-| 연습 | 실험 | 반복 → 탐구 |
-| 공연 | 장면 | 무대 → 일상 |
-
-### 2.3 Layer Redefinition
+### 1.1 Meta-Layer Structure
 
 ```
-Performance Studio OS — 5-Layer Architecture
-
-┌─────────────────────────────────────────────────────────┐
-│  L1: EMISSION                                           │
-│      "장면을 송출한다"                                  │
-│      - Season 01: Tango Protocol                        │
-│      - Episode 01~04 + Studio Pass                      │
-│      - 수업이 아니라 "당신의 장면을 만드는 공정"        │
-├─────────────────────────────────────────────────────────┤
-│  L2: BODY GRAMMAR                                       │
-│      "몸의 언어를 편집한다"                             │
-│      - 걸음, 멈춤, 거리, 시선, 호흡                     │
-│      - 춤을 가르치지 않는다. 몸의 언어를 편집한다.      │
-├─────────────────────────────────────────────────────────┤
-│  L3: GESTURE LAB                                        │
-│      "제스처를 설계한다"                                │
-│      - Body Protocol Engine                             │
-│      - 퍼포먼스 제스처 DB                               │
-│      - 장면 설계 도구                                   │
-├─────────────────────────────────────────────────────────┤
-│  L4: CONTROL ROOM                                       │
-│      "시스템을 관측한다"                                │
-│      - 메트릭스, 자동화, 콘솔                           │
-│      - 스튜디오 운영 대시보드                           │
-├─────────────────────────────────────────────────────────┤
-│  L5: LEGACY                                             │
-│      "서사를 축적한다"                                  │
-│      - Constitution (세계관 헌법)                       │
-│      - Archive (퍼포먼스 기록)                          │
-│      - Plan (확장 로드맵)                               │
-└─────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                                                             │
+│   ESPÍRITU TANGO                                            │
+│   Performance Protocol for Body                             │
+│                                                             │
+│   Type: Protocol Layer (Meta)                               │
+│   Role: Platform Architect                                  │
+│   Owner: dtslib1979                                         │
+│                                                             │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│   nodes/                                                    │
+│   ├── magenta/     ← First Node (Tango Protocol)           │
+│   │   └── Operator: 연화 (status: pending)                 │
+│   │                                                         │
+│   ├── [panaderia]  ← Reserved (Food Protocol)              │
+│   ├── [sonido]     ← Reserved (Sound Protocol)             │
+│   ├── [dibujo]     ← Reserved (Visual Protocol)            │
+│   ├── [aula]       ← Reserved (Lecture Protocol)           │
+│   └── [broadcast]  ← Reserved (Media Protocol)             │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-### 2.4 Program Restructure (L1 emisión)
+### 1.2 Hierarchy Clarification
+
+| Role | Entity | 권한 |
+|------|--------|------|
+| Protocol Architect | dtslib1979 | OS 설계, 노드 승인, 확장 결정 |
+| Node Operator | 연화 (pending) | 콘텐츠 운영, 로컬 커스텀 |
+
+**핵심**: 연화가 "안 해도" OS는 굴러감. 연화는 "가능한 첫 번째 노드"일 뿐.
+
+### 1.3 5-Layer Performance OS
 
 ```
-현재 (학원 모델)              →    새 구조 (스튜디오 모델)
-─────────────────────────────────────────────────────────
-L1: Signature Step           →    Ep.01: First Gesture
-    "입문 정규반"                  "첫 번째 몸짓을 만든다"
+ESPÍRITU TANGO — 5-Layer Architecture
 
-L2: Partner Mastery          →    Ep.02: Two Bodies
-    "파트너 심화반"                "두 몸이 하나의 장면이 된다"
-
-L3: Film                     →    Ep.03: Scene Making
-    "영상 프로젝트"                "당신의 장면을 촬영한다"
-
-L4: Buenos Aires             →    Ep.04: Origin Trip
-    "B.A. 투어"                    "프로토콜의 원산지로 간다"
-
-Club                         →    Studio Pass
-    "프랙티스 클럽"                "스튜디오 자유 이용권"
-
-1-Day                        →    Single Session
-    "원데이 클래스"                "한 장면 체험"
+┌─────────────────────────────────────────────────────────────┐
+│  L1: EMISSION          "장면을 송출한다"        Transmití   │
+│      → Node-specific content (각 노드별 프로그램)          │
+├─────────────────────────────────────────────────────────────┤
+│  L2: BODY GRAMMAR      "몸의 언어를 편집한다"   Editá       │
+│      → Protocol-level (OS 공통)                            │
+├─────────────────────────────────────────────────────────────┤
+│  L3: GESTURE LAB       "제스처를 설계한다"      Diseñá      │
+│      → Protocol-level (OS 공통)                            │
+├─────────────────────────────────────────────────────────────┤
+│  L4: CONTROL ROOM      "시스템을 관측한다"      Observá     │
+│      → Protocol-level (OS 공통)                            │
+├─────────────────────────────────────────────────────────────┤
+│  L5: LEGACY            "서사를 축적한다"        Recordá     │
+│      → Mixed (OS 기록 + Node 아카이브)                     │
+└─────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Part 3: Implementation Specification
+## Part 2: Node Registry System
 
-### 3.1 index.html — Landing Page Rewrite
+### 2.1 Registry Structure
 
-#### Before (현재 Hero)
-```html
-<p class="susurro latido">EL PRIMER SISTEMA QUE RESPIRA</p>
-<h1 class="monumento">TANGO<br>MAGENTA</h1>
-<p class="voz">
-  Donde el <span class="magenta">cuerpo</span> es la interfaz
-  y el tango es el <span class="magenta">protocolo</span>.
-</p>
-<span lang="ko" class="ko">몸이 인터페이스이고, 탱고가 프로토콜인 곳.</span>
+```
+nodes/
+├── registry.json          # 전체 노드 레지스트리
+│   ├── protocol           # OS 메타정보
+│   ├── nodes[]            # 활성 노드 목록
+│   ├── slots[]            # 예약된 확장 슬롯
+│   └── howToFork          # 포크 가이드
+│
+└── magenta/
+    └── node.json          # 마젠타 노드 설정
+        ├── identity       # 이름, 위치, 연락처
+        ├── theme          # 컬러 스킨
+        ├── content.owns   # 소유 콘텐츠 경로
+        ├── programs       # L1 프로그램 정의
+        └── operator       # 운영자 정보
 ```
 
-#### After (새 Hero)
-```html
-<p class="susurro latido">PERFORMANCE STUDIO OS</p>
-<h1 class="monumento">TANGO<br>MAGENTA</h1>
-<p class="voz">
-  No es una academia.<br>
-  Es un <span class="magenta">estudio</span> donde el cuerpo hace <span class="magenta">escenas</span>.
-</p>
-<span lang="ko" class="ko">
-  학원이 아니다.<br>
-  몸으로 장면을 만드는 스튜디오다.
-</span>
+### 2.2 Node: Magenta Specification
 
-<p class="voz mt-md" style="font-size: var(--t-base); opacity: 0.6;">
-  El tango es nuestro primer <span class="magenta">protocolo</span>.
-</p>
-<span lang="ko" class="ko">탱고는 첫 번째 프로토콜이다.</span>
-```
-
-### 3.2 FACTORY.json — Identity Section
-
-#### Before
 ```json
 {
+  "id": "magenta",
   "identity": {
-    "name": "TANGO MAGENTA",
-    "tagline": "El primer sistema que respira",
-    "type": "studio-broadcast-system"
-  }
-}
-```
-
-#### After
-```json
-{
-  "identity": {
-    "name": "TANGO MAGENTA",
-    "tagline": "Performance Studio OS",
-    "subtitle": "몸으로 장면을 만드는 스튜디오",
-    "type": "performance-studio-os",
-    "version": "1.0",
-    "protocol": {
-      "current": "tango",
-      "description": "첫 번째 Body Protocol",
-      "expandable": true
-    },
-    "NOT": ["academy", "dance-school", "학원", "레슨"]
+    "name": "Tango Magenta",
+    "protocol": "tango",
+    "location": "Seoul Gangnam"
   },
-  "philosophy": {
-    "core": "춤을 가르치지 않는다. 몸의 언어를 편집한다.",
-    "coreEs": "No enseñamos baile. Editamos el lenguaje del cuerpo.",
-    "medium": "Body",
-    "output": "Scene",
-    "method": "Protocol"
+  "content": {
+    "owns": ["emisión/", "magenta.mp4", "shoes.png"]
+  },
+  "operator": {
+    "name": "연화",
+    "status": "pending"
   }
 }
 ```
 
-### 3.3 Layer Cards (index.html #pisos)
+### 2.3 Reserved Expansion Slots
 
-#### L1 Card — Before
-```html
-<article class="tarjeta revelar">
-  <p class="susurro">1F — ACADEMIA</p>
-  <!-- CAD Floor Plan SVG -->
-</article>
+| Slot ID | Protocol | 용도 | Status |
+|---------|----------|------|--------|
+| panaderia | food | 빵집/음식 스튜디오 | reserved |
+| sonido | sound | 음악/사운드 스튜디오 | reserved |
+| dibujo | visual | 드로잉/비주얼 스튜디오 | reserved |
+| aula | lecture | 강의/교육 스튜디오 | reserved |
+| broadcast | media | 방송/미디어 스튜디오 | reserved |
+
+---
+
+## Part 3: Implementation Changelog
+
+### 3.1 Repository Transformation
+
+| Before | After |
+|--------|-------|
+| Repo: `tango-magenta` | Repo: `espiritu-tango` |
+| Identity: 탱고 마젠타 | Identity: ESPÍRITU TANGO |
+| Type: 학원 웹사이트 | Type: Performance Studio OS |
+| Tagline: El primer sistema que respira | Tagline: Performance Protocol for Body |
+
+### 3.2 Files Changed
+
+**Core Identity (P0)**
+- [x] `FACTORY.json` — v3.0, meta.registry 추가
+- [x] `branch.json` — 새 정체성
+- [x] `CLAUDE.md` — Agent Protocol v3.0
+- [x] `index.html` — Hero, Layer cards, Footer 전면 교체
+- [x] `manifest.webmanifest` — 새 정체성
+
+**Node System (P0)**
+- [x] `nodes/registry.json` — 노드 레지스트리 생성
+- [x] `nodes/magenta/node.json` — 마젠타 노드 설정
+
+**Documentation (P1)**
+- [x] `docs/ARCHITECTURE.md` — 기술 문서
+- [x] `docs/REMODEL-PROPOSAL.md` — 이 문서
+
+### 3.3 index.html Transformation
+
+**Hero Section**
+```
+Before: "TANGO MAGENTA — El primer sistema que respira"
+After:  "ESPÍRITU TANGO — Performance Protocol for Body"
+        "춤을 가르치지 않습니다. 몸의 언어를 편집합니다."
 ```
 
-#### L1 Card — After
-```html
-<article class="tarjeta revelar">
-  <p class="susurro">L1 — EMISSION</p>
-  <h2 class="tarjeta-titulo">Season 01: Tango</h2>
-  <p class="tarjeta-texto">
-    Cada episodio no es una clase.<br>
-    Es el proceso de hacer <span class="magenta">tu escena</span>.
-  </p>
-  <span lang="ko" class="ko">
-    수업이 아니다. 당신의 장면을 만드는 공정이다.
-  </span>
-  <a href="emisión/" class="puerta mt-md">Ver Episodios</a>
-</article>
+**Layer Cards**
+| Before | After |
+|--------|-------|
+| 1F — ACADEMIA | L1 — EMISSION |
+| 2F — TUTORIAL | L2 — BODY GRAMMAR |
+| 3F — GESTURE LAB | L3 — GESTURE LAB |
+| 4F — CONTROL | L4 — CONTROL ROOM |
+| 5F — STRATEGY | L5 — LEGACY |
+
+**Footer**
+```
+Before: "TANGO MAGENTA © 2026"
+After:  "ESPÍRITU TANGO © 2026 Performance Protocol · Node: Magenta"
 ```
 
-#### L2 Card — Before
-```html
-<p class="susurro">2F — TUTORIAL</p>
-<h2 class="tarjeta-titulo">Body Grammar</h2>
-<p class="tarjeta-texto">
-  Manos, pies, peso, ritmo. Zoom-in al detalle.
-</p>
+---
+
+## Part 4: Strategic Framework
+
+### 4.1 Position Clarification
+
+```
+Before (문제):
+┌──────────────────────────────┐
+│  연화 학원 → 박씨가 만듦     │
+│  "네가 나 따라와"            │
+│  감정 싸움, 주도권 문제      │
+└──────────────────────────────┘
+
+After (해결):
+┌──────────────────────────────┐
+│  박씨 OS → 연화가 합류 가능  │
+│  "이미 있는 시스템에 합류"   │
+│  자연스러운 위계             │
+└──────────────────────────────┘
 ```
 
-#### L2 Card — After
-```html
-<p class="susurro">L2 — BODY GRAMMAR</p>
-<h2 class="tarjeta-titulo">El lenguaje del cuerpo</h2>
-<p class="tarjeta-texto">
-  No enseñamos <span class="magenta">baile</span>.<br>
-  Editamos el <span class="magenta">lenguaje</span> del cuerpo.
-</p>
-<span lang="ko" class="ko">
-  춤을 가르치지 않는다. 몸의 언어를 편집한다.
-</span>
+### 4.2 Independence Guarantee
+
+```
+연화가 "해볼래" → Node: Magenta 활성화
+연화가 "싫어"   → OS는 그대로 동작, 다른 노드로 확장
+
+시스템은 특정 인물에 의존하지 않는다.
 ```
 
-### 3.4 constitution.md — 세계관 선언문
+### 4.3 Fork Protocol
 
-```markdown
-# TANGO MAGENTA CONSTITUTION
+연화가 참여 결정 시:
+```bash
+1. nodes/magenta/node.json → operator.status: "active"
+2. 스킨 커스텀 (색상, 카피, 레퍼런스)
+3. 끝.
+```
 
-## Article 0: 정체성 선언
+---
 
-Tango Magenta는 학원이 아니다.
+## Part 5: Terminology Standards
 
-이곳은:
-- 사람을 장면으로 만들고
-- 몸을 매체로 만들며
-- 일상을 무대로 편집하는
-- **퍼포먼스 스튜디오 시스템**이다.
+### 5.1 Forbidden Terms
 
-## Article 1: 프로토콜 정의
-
-탱고는 **장르**가 아니다.
-탱고는 **첫 번째 Body Protocol**이다.
-
-Protocol이란:
-- 몸이 서사를 만드는 방식
-- 두 사람이 장면을 만드는 규칙
-- 물성화된 커뮤니케이션 시스템
-
-## Article 2: 확장 선언
-
-이 구조는 탱고에 종속되지 않는다.
-
-동일한 OS로 복제 가능한 프로토콜:
-- Food Protocol (음식 퍼포먼스)
-- Sound Protocol (음악 퍼포먼스)
-- Space Protocol (공간 퍼포먼스)
-- Craft Protocol (제작 퍼포먼스)
-
-## Article 3: 금지 용어
-
-다음 단어는 시스템 내에서 사용하지 않는다:
+시스템 내 사용 금지:
 - 학원, 레슨, 강습
 - 초급, 중급, 고급
 - 수강생, 회원
-- 정통, 본고장, 계급
+- 정통, 본고장
 
-## Article 4: 대체 용어
+### 5.2 Replacement Terms
 
 | 금지 | 대체 |
 |------|------|
@@ -351,125 +258,33 @@ Protocol이란:
 | 연습 | 실험 |
 | 공연 | 장면 |
 
-## Article 5: 핵심 메시지
+### 5.3 Core Message
 
-> "우리는 춤을 가르치지 않는다.
-> 우리는 몸의 언어를 편집한다.
-> 당신이 만드는 건 춤이 아니라 장면이다."
-```
-
-### 3.5 SEO Preservation Strategy
-
-```html
-<!-- Hidden SEO Layer (검색 유지, 정체성 분리) -->
-<meta name="keywords" content="탱고, 강남 탱고, tango academy, 탱고 학원, 강남구청역">
-
-<!-- Visible Identity Layer -->
-<meta name="description" content="Performance Studio OS. 몸으로 장면을 만드는 스튜디오.">
-
-<!-- Schema.org는 유지 (LocalBusiness/DanceSchool) -->
-<!-- 검색은 "학원"으로, 경험은 "스튜디오"로 -->
-```
+> "춤을 가르치지 않는다. 몸의 언어를 편집한다."
+> "No enseñamos baile. Editamos el lenguaje del cuerpo."
 
 ---
 
-## Part 4: File Change Matrix
+## Part 6: Validation
 
-### 4.1 Priority Matrix
+### 6.1 Identity Test
 
-| File | Change Type | Priority | Effort |
-|------|-------------|----------|--------|
-| `index.html` | Hero rewrite | P0 | Medium |
-| `FACTORY.json` | Identity section | P0 | Low |
-| `specs/constitution.md` | New file | P0 | Medium |
-| `CLAUDE.md` | Protocol update | P0 | Low |
-| `branch.json` | Tagline | P1 | Low |
-| `emisión/index.html` | Season structure | P1 | Medium |
-| `emisión/l1~l4/*.html` | Episode naming | P1 | Medium |
-| `cuerpo/index.html` | Grammar language | P2 | Low |
-| `laboratorio/index.html` | Lab language | P2 | Low |
-| `legado/index.html` | Archive framing | P2 | Low |
-| `api/gestures.json` | Terminology | P3 | Low |
-| `manifest.webmanifest` | Description | P3 | Low |
+| Question | Expected |
+|----------|----------|
+| 이 사이트는 탱고 학원인가? | **No** |
+| 연화의 사업체인가? | **No** (Node일 뿐) |
+| 이 구조를 다른 도메인에 복제할 수 있나? | **Yes** |
+| 연화 없이 동작하나? | **Yes** |
+| 이건 OS인가? | **Yes** |
 
-### 4.2 Effort Estimation
-
-| Phase | Files | Changes | Time |
-|-------|-------|---------|------|
-| Day 1 | 4 | Identity core | 3-4h |
-| Day 2 | 6 | L1 restructure | 4-5h |
-| Day 3 | 5 | L2-L5 language | 2-3h |
-| **Total** | **15** | **~25 edits** | **~12h** |
-
----
-
-## Part 5: Validation Criteria
-
-### 5.1 Identity Validation
-
-After 리모델링, 다음 질문에 "No"가 나와야 함:
-
-- [ ] 이 사이트는 탱고 학원인가? → **No**
-- [ ] 여기서 춤을 배우나? → **No** (장면을 만든다)
-- [ ] 초급반이 있나? → **No** (시즌/에피소드가 있다)
-
-다음 질문에 "Yes"가 나와야 함:
-
-- [ ] 이 구조를 다른 도메인에 복제할 수 있나? → **Yes**
-- [ ] 탱고가 아닌 다른 프로토콜을 넣을 수 있나? → **Yes**
-- [ ] 이건 OS인가? → **Yes**
-
-### 5.2 Technical Validation
-
-```bash
-# 금지 용어 검사
-grep -r "학원\|레슨\|강습\|초급\|중급\|고급" --include="*.html" .
-# Expected: 0 matches (SEO meta 제외)
-
-# 필수 용어 검사
-grep -r "스튜디오\|에피소드\|프로토콜\|장면" --include="*.html" .
-# Expected: 10+ matches
-```
-
-### 5.3 User Experience Validation
-
-| Touchpoint | Before | After |
-|------------|--------|-------|
-| 첫 방문 3초 | "탱고 학원이구나" | "뭔가 다른 스튜디오구나" |
-| 프로그램 클릭 | "수업 신청해야지" | "어떤 장면을 만들까" |
-| 가격 확인 | "수강료가 얼마지" | "이 경험의 가치가 얼마지" |
-
----
-
-## Part 6: Risk Assessment
-
-| Risk | Probability | Impact | Mitigation |
-|------|-------------|--------|------------|
-| 기존 고객 혼란 | Medium | Medium | 점진적 전환, 공지 |
-| SEO 순위 하락 | Low | Medium | Hidden meta 유지 |
-| 연화 반대 | Low | High | 사전 협의 필수 |
-| 구현 불일치 | Low | Low | 체크리스트 검증 |
-
----
-
-## Part 7: Replication Potential
-
-리모델링 완료 후, 다음 스튜디오가 동일 OS로 복제 가능:
+### 6.2 Architecture Test
 
 ```
-Performance Studio OS
-├── tango-magenta      (Body Protocol: Tango)
-├── bread-studio       (Body Protocol: Baking)   ← 연화 빵집
-├── sound-studio       (Body Protocol: Music)
-├── space-studio       (Body Protocol: Venue)
-└── craft-studio       (Body Protocol: Making)
-
-공통 구조:
-├── L1: Emission (프로그램/에피소드)
-├── L2: [Domain] Grammar (해당 분야 문법)
-├── L3: Gesture Lab (제스처/동작 엔진)
-├── L4: Control Room (운영 콘솔)
-└── L5: Legacy (아카이브)
+✅ Protocol Layer와 Node Layer 분리됨
+✅ 노드 레지스트리 시스템 구축됨
+✅ 확장 슬롯 5개 예약됨
+✅ 마젠타 콘텐츠 분리 완료
+✅ Fork 프로토콜 정의됨
 ```
 
 ---
@@ -478,25 +293,26 @@ Performance Studio OS
 
 ### 한 문장 요약
 
-> "이 레포는 이미 OS다. 지금 해야 할 건 그걸 선언하는 것뿐이다."
+> "이 레포는 이제 누구든 올라탈 수 있는 판이다."
 
-### 실행 권고
+### 구현 결과
 
-1. **즉시 실행 가능** — 구조 변경 없음, 언어만 교체
-2. **3일 내 완료 가능** — 약 15개 파일, 25개 수정
-3. **복제 즉시 가능** — OS 선언 후 다른 도메인에 적용
-
-### 최종 판단
-
-| 항목 | 점수 |
+| 항목 | 상태 |
 |------|------|
-| 아이디어 품질 | 9.4/10 |
-| 실행 가능성 | 9.5/10 |
-| 임팩트 | 9.0/10 |
-| 리스크 | Low |
-| **종합** | **실행 권고** |
+| Repository Rename | ✅ espiritu-tango |
+| Identity Transform | ✅ Performance Protocol |
+| Node System | ✅ registry.json + magenta/node.json |
+| index.html | ✅ 전면 교체 |
+| Documentation | ✅ 완료 |
+
+### 다음 단계
+
+1. **L1 emisión 내부 페이지** — 에피소드 언어로 전환
+2. **L2-L5 페이지** — Protocol 언어 통일
+3. **Node 운영자 대기** — 연화 결정 시 활성화
 
 ---
 
-*Proposal by System Architect*
+*Implemented by System Architect*
 *2026-01-26*
+*ESPÍRITU TANGO v3.0*

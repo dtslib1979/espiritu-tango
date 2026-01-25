@@ -512,18 +512,18 @@ body.drifting .tarjeta {
 /* Film Frame Effect — 1F Academia Cinematic */
 .film-frame {
   position: relative;
-  background: #050805 !important;
-  border: 3px solid #1a1a1a !important;
+  background: #0a0a0a !important;
+  border: 3px solid rgba(255, 255, 255, 0.8) !important;
   border-radius: 4px;
   padding: var(--s-lg) var(--s-xxl) !important;
   margin: var(--s-md) calc(-1 * var(--s-md)) !important;
   overflow: hidden;
   box-shadow:
-    0 0 60px rgba(0, 0, 0, 0.8),
-    inset 0 0 80px rgba(0, 0, 0, 0.4);
+    0 0 20px rgba(255, 255, 255, 0.15),
+    inset 0 0 60px rgba(0, 0, 0, 0.5);
 }
 
-/* Cinematic letterbox bars */
+/* Cinematic letterbox bars — WHITE for visibility */
 .film-frame::before,
 .film-frame::after {
   content: '' !important;
@@ -531,8 +531,8 @@ body.drifting .tarjeta {
   position: absolute;
   left: 0;
   right: 0;
-  height: 8px;
-  background: #000;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.9);
   z-index: 5;
   opacity: 1 !important;
   pointer-events: none;
@@ -541,18 +541,19 @@ body.drifting .tarjeta {
 .film-frame::before { top: 0; bottom: auto !important; }
 .film-frame::after { bottom: 0; top: auto !important; }
 
-/* Film sprocket holes */
+/* Film sprocket holes — WHITE */
 .film-sprockets {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 16px;
+  width: 20px;
   display: flex !important;
   flex-direction: column;
   justify-content: space-evenly;
-  padding: 12px 0;
-  z-index: 2;
+  padding: 16px 0;
+  z-index: 6;
   pointer-events: none;
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .film-sprockets--left { left: 0; }
@@ -560,39 +561,39 @@ body.drifting .tarjeta {
 
 .film-sprockets span {
   display: block;
-  width: 8px;
-  height: 12px;
+  width: 10px;
+  height: 14px;
   margin: 0 auto;
-  background: #000;
-  border: 1px solid rgba(200, 225, 210, 0.15);
-  border-radius: 1px;
+  background: #0a0a0a;
+  border-radius: 2px;
 }
 
-/* Film code (frame number) */
+/* Film code (frame number) — BRIGHT */
 .film-code {
   position: absolute;
-  top: 12px;
-  right: 24px;
+  top: 16px;
+  right: 28px;
   text-align: right;
-  z-index: 6;
-  opacity: 0.4;
+  z-index: 7;
+  opacity: 1;
   pointer-events: none;
 }
 
 .film-code-num {
   display: block;
   font-family: var(--f-code);
-  font-size: 1.5rem;
-  color: rgba(255, 180, 60, 0.6);
+  font-size: 1.8rem;
+  color: #fff;
   line-height: 1;
   letter-spacing: -0.05em;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 .film-code-label {
   display: block;
   font-family: var(--f-code);
-  font-size: 0.5rem;
-  color: rgba(255, 180, 60, 0.4);
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.7);
   letter-spacing: 0.15em;
 }
 
@@ -1234,7 +1235,9 @@ body.drifting .ribbon-path {
   aspect-ratio: 3 / 4;
   max-height: 40vh;
   overflow: hidden;
-  border-radius: var(--radius-lg);
+  border-radius: 4px;
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
 }
 
 .danza-video {
@@ -1245,18 +1248,17 @@ body.drifting .ribbon-path {
   display: block;
 }
 
-/* Top/bottom gradient bleed into void */
+/* Film letterbox bars — WHITE for visibility */
 .danza-video-wrap::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 40px;
-  background: linear-gradient(to bottom, rgba(10, 0, 8, 0.6), transparent);
-  z-index: 2;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 3;
   pointer-events: none;
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
 .danza-video-wrap::after {
@@ -1265,11 +1267,10 @@ body.drifting .ribbon-path {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 60px;
-  background: linear-gradient(to top, rgba(10, 0, 8, 0.7), transparent);
-  z-index: 2;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 3;
   pointer-events: none;
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
 }
 
 /* Caption overlay */

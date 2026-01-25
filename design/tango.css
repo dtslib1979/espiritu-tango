@@ -499,8 +499,9 @@ body.drifting .tarjeta {
   padding: var(--s-sm);
 }
 
-/* Disable default tarjeta touch effect for cad-plano */
+/* Disable default tarjeta touch effect for cad-plano and film-frame */
 .cad-plano:not(.film-frame)::before { display: none; }
+.tarjeta.film-frame::before { inset: auto !important; background: #000 !important; }
 
 .cad-svg {
   width: 100%;
@@ -533,8 +534,8 @@ body.drifting .tarjeta {
   pointer-events: none;
 }
 
-.film-frame::before { top: 0; }
-.film-frame::after { bottom: 0; }
+.film-frame::before { top: 0; bottom: auto !important; }
+.film-frame::after { bottom: 0; top: auto !important; }
 
 /* Film sprocket holes */
 .film-sprockets {

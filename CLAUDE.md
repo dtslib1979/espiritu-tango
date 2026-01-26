@@ -1,186 +1,147 @@
-# ESPÍRITU TANGO — Agent Protocol v3.0
+# ESPÍRITU TANGO — Agent Protocol v1.0
 
-> Performance Protocol for Body
-> "춤을 가르치지 않는다. 몸의 언어를 편집한다."
+> Physical Studio Protocol HQ
+> 물성화된 공간의 프로토콜 본사
 
 ---
 
 ## 1. Identity
 
+| 항목 | 값 |
+|------|-----|
+| **Tier** | 2 (Protocol HQ) |
+| **Parent** | dtslib-papyrus (그룹 HQ) |
+| **Type** | Studio Protocol HQ |
+| **Domain** | dtslib1979.github.io/espiritu-tango |
+
+### Purpose
+물성화된 피지컬 스튜디오의 프로토콜 본사. 빵집이든, 방송국이든, 탱고 스튜디오든 — 물리적 공간이 있는 모든 브랜치의 보일러플레이트.
+
 ### What This Is
-**Performance Studio OS** — 몸으로 장면을 만드는 퍼포먼스 프로토콜
+- ✅ Physical Studio Protocol (물성 스튜디오 프로토콜)
+- ✅ Boilerplate for Tier 3 branches
+- ✅ Design System 원본
+- ✅ Body Protocol 정의
 
 ### What This Is NOT
-- ❌ 탱고 학원 웹사이트
-- ❌ 댄스 스쿨
-- ❌ 레슨 플랫폼
+- ❌ 실제 사업장 (Tier 3가 실사업)
+- ❌ 콘텐츠 플랫폼
+- ❌ 단순 웹사이트
 
-### Structure
+---
+
+## 2. Hierarchy
+
 ```
-ESPÍRITU TANGO (메타 레이어 — Protocol)
+dtslib-papyrus (Tier 1 - 그룹 HQ)
     │
-    └── Node: Magenta (연화 오프라인 스튜디오)
-    └── Node: [Future] (확장 가능)
+    ├── dtslib-branch (Tier 2 - 프랜차이즈 OS)
+    │       └── koosy, gohsy, artrew, papafly, lotus
+    │
+    └── espiritu-tango (Tier 2 - Studio Protocol HQ) ← 현재 위치
+            │
+            ├── hoyadang.com (Tier 3 - 빵집)
+            └── gohsy-production (Tier 3 - 방송 스튜디오)
 ```
 
 ---
 
-## 2. Core Philosophy
+## 3. Tier 3 Branches (하위 지점)
 
-| 기존 사고 | Espíritu 사고 |
-|----------|--------------|
-| 춤을 배운다 | 장면을 만든다 |
-| 수강생 | 퍼포머 |
-| 수업 | 에피소드 |
-| 레벨 | 시즌 |
-| 연습 | 실험 |
-| 학원 | 스튜디오 |
-
-**핵심 메시지:**
-> "탱고는 장르가 아니다. 첫 번째 Body Protocol이다."
+| Branch | Type | Domain | Status |
+|--------|------|--------|--------|
+| hoyadang.com | Restaurant | hoyadang.com | Active |
+| gohsy-production | Broadcast | gohsy-production.com | Active |
+| [Future] | ... | ... | Planned |
 
 ---
 
-## 3. Tech Stack
+## 4. Core Files
 
-- Pure static site (HTML/CSS/JS)
-- GitHub Pages hosting
-- Performance Studio Design System (BPM-based)
-- Body Interaction Protocol v1.0
-- Mobile-Only (430px max-width)
-- No Service Worker
-- Bing Read-Aloud & Translation Compatible
-
----
-
-## 4. Architecture: 5-Layer Performance OS
-
-```
-espiritu-tango/
-├── index.html              # Entry Portal
-├── emisión/                # L1: Emission (장면 송출)
-│   ├── index.html
-│   ├── l1~l4/              # Season 01 Episodes
-│   ├── club/               # Studio Pass
-│   └── oneday/             # Single Session
-├── cuerpo/                 # L2: Body Grammar (몸 언어 편집)
-├── laboratorio/            # L3: Gesture Lab (제스처 설계)
-├── control/                # L4: Control Room (시스템 관측)
-├── legado/                 # L5: Legacy (서사 축적)
-├── inner/                  # Hidden Gate (pw: 1126)
-├── design/
-│   ├── tango.css           # Design System
-│   ├── body-protocol.js    # Interaction Protocol
-│   └── entrada.js          # Ritual entrance
-├── api/
-│   ├── gestures.json       # Gesture database
-│   └── content.json        # Content endpoint
-├── specs/
-│   └── constitution.md     # World constitution
-├── docs/
-│   ├── ARCHITECTURE.md     # Technical docs
-│   └── REMODEL-PROPOSAL.md # Transformation plan
-├── FACTORY.json            # Core config v3.0
-├── branch.json             # HQ identity
-└── CLAUDE.md               # This file
-```
+| 파일 | 용도 |
+|------|------|
+| `index.html` | 프로토콜 쇼케이스 |
+| `CLAUDE.md` | 에이전트 프로토콜 (이 파일) |
+| `FACTORY.json` | 설정 메타데이터 |
+| `design/tango.css` | 디자인 시스템 원본 |
+| `design/body-protocol.js` | 인터랙션 프로토콜 |
+| `specs/` | 프로토콜 명세 |
 
 ---
 
-## 5. Layer Definitions
+## 5. Design System (하위 브랜치 상속)
 
-| Layer | Name | Purpose | Verb |
-|-------|------|---------|------|
-| L1 | Emission | 장면을 송출한다 | Transmití |
-| L2 | Body Grammar | 몸의 언어를 편집한다 | Editá |
-| L3 | Gesture Lab | 제스처를 설계한다 | Diseñá |
-| L4 | Control Room | 시스템을 관측한다 | Observá |
-| L5 | Legacy | 서사를 축적한다 | Recordá |
-
----
-
-## 6. Body Protocol (Interaction Mapping)
-
-| Event | Spanish | Korean | Implementation |
-|-------|---------|--------|----------------|
-| Scroll | Acercarse | 다가가기 | IntersectionObserver |
-| Tap | Compromiso | 결정 | click/touchend |
-| Hold 857ms | Esperar | 기다리기 | touchstart + beat |
-| Swipe | Girar | 전환 | touchstart/end diff |
-| Idle 3s | Respirar | 숨쉬기 | body.respirando |
-| Back | Soltar | 놓기 | history.back() |
-
----
-
-## 7. BPM Timing (70 BPM)
-
+### BPM Timing (70 BPM)
 | Token | Value | Use |
 |-------|-------|-----|
 | --beat | 857ms | Standard transition |
 | --half | 428ms | Quick response |
 | --double | 1714ms | Slow reveal |
-| --breath | 2571ms | Full breath |
-| --phrase | 3428ms | 4-bar phrase |
+
+### Body Protocol
+| Event | Action |
+|-------|--------|
+| Scroll | Reveal animation |
+| Tap | Commit/Navigate |
+| Hold 857ms | Special action |
+| Idle 3s | Breathing state |
 
 ---
 
-## 8. Forbidden Terms
-
-시스템 내에서 사용 금지:
-- 학원, 레슨, 강습
-- 초급, 중급, 고급
-- 수강생, 회원
-- 정통, 본고장
-
----
-
-## 9. Replacement Terms
-
-| 금지 | 대체 |
-|------|------|
-| 학원 | 스튜디오 |
-| 수업 | 에피소드 / 세션 |
-| 수강생 | 퍼포머 |
-| 레벨 | 시즌 |
-| 연습 | 실험 |
-| 공연 | 장면 |
-
----
-
-## 10. Commit Convention
+## 6. Commit Convention
 
 ```
-feat: New feature
-fix: Bug fix
-design: Design system changes
-content: Content add/modify
-arch: Architecture changes
-body: Body Protocol changes
-identity: Identity/branding changes
+feat: 새 기능
+fix: 버그 수정
+design: 디자인 시스템 변경
+protocol: 프로토콜 변경
+branch: 하위 브랜치 관련
+docs: 문서 변경
+```
+
+커밋 메시지 끝:
+```
+Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
 ```
 
 ---
 
-## 11. Gate Code
+## 7. Branch Creation Guide
 
-Inner Portal password: `1126`
+새 Tier 3 브랜치 생성 시:
+
+```bash
+# 1. 레포 생성
+gh repo create {name} --public
+
+# 2. espiritu-tango 복사
+cp -r ~/espiritu-tango/* ~/{name}/
+
+# 3. 브랜딩 교체
+find . -name "*.html" -exec sed -i 's/ESPÍRITU TANGO/{NAME}/g' {} \;
+
+# 4. CLAUDE.md 수정 (Tier 3 템플릿 적용)
+
+# 5. 커밋 & 푸시
+git add -A && git commit -m "init: {name} branch" && git push
+```
 
 ---
 
-## 12. Node System
+## 8. LLM Control Interface
 
-Espíritu Tango는 메타 레이어.
-실제 오프라인 스튜디오는 "Node"로 연결됨.
+이 레포는 GitHub 폐쇄 생태계 내에서 LLM으로 제어됨.
 
-**Current Nodes:**
-- `magenta` — Tango Magenta (Seoul Gangnam) [flagship]
-
-**Future Nodes:**
-- `espiritu-food` — Food Protocol
-- `espiritu-sound` — Sound Protocol
+| Action | Method |
+|--------|--------|
+| READ | `git clone` / file read |
+| WRITE | file write / `git commit` |
+| EXECUTE | GitHub Actions |
+| STATE | `git log` / file content |
+| BRANCH | 하위 브랜치 생성/관리 |
 
 ---
 
 *Last updated: 2026-01-26*
-*Version: 3.0 (Performance Studio OS)*
-*Affiliation: DTSLIB HQ*
+*Version: 1.0*
+*Affiliation: DTSLIB HQ (Tier 2)*

@@ -243,3 +243,15 @@ git add -A && git commit -m "init: {name} branch" && git push
 *Last updated: 2026-01-26*
 *Version: 1.0*
 *Affiliation: DTSLIB HQ (Tier 2)*
+---
+
+## Browser Runtime
+
+> Parksy OS 2+2 매트릭스 — 이 레포 전담 브라우저
+
+| 항목 | 값 |
+|------|-----|
+| **브라우저** | Naver Whale |
+| **이유** | 방송 아키텍처 비교분석 — 듀얼탭 원문↔해설 |
+| **URL** | https://github.com/dtslib1979/espiritu-tango |
+
